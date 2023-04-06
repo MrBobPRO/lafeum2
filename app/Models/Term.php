@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Term extends Model
+{
+    use HasFactory;
+    use SoftDeletes;
+
+    public function categories()
+    {
+        return $this->morphToMany(Category::class, 'categoriable');
+    }
+
+    public function knowledge()
+    {
+        return $this->belongsToMany(Knowledge::class);
+    }
+
+    public function termType()
+    {
+        return $this->belongsTo(TermType::class);
+    }
+
+    public function scopeVocabulary($query)
+    {
+        return $query->where('name', '!=', '')
+            ->where('show_in_vocabulary', true)
+            ->orderBy('name');
+    }
+}
