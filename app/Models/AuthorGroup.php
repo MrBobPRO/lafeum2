@@ -9,12 +9,12 @@ class AuthorGroup extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-    protected $fillable = ['name'];
-
     const PERSONS_GROUP_NAME = 'Автор';
     const MOVIES_GROUP_NAME = 'Фильмы и Сериалы';
     const PROVERBS_GROUP_NAME = 'Пословицы и поговорки';
+
+    public $timestamps = false;
+    protected $fillable = ['name'];
 
     public function authors()
     {

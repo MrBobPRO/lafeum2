@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('authors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
             $table->text('biography')->nullable();
             $table->text('photo')->nullable();
             $table->integer('author_group_id');
-            $table->string('slug');
             $table->timestamps();
             $table->softDeletes();
         });

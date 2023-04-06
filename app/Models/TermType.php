@@ -9,10 +9,10 @@ class TermType extends Model
 {
     use HasFactory;
 
-    public $timestamp = false;
-
     const SCIENTIFIC_TERMS = 'Термины научного мира';
     const EXPERT_COMMENTS = 'Комментарии специалистов';
+
+    public $timestamp = false;
 
     public function terms()
     {

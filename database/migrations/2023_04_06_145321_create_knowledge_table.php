@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('knowledge', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description')->nullable();
             $table->string('slug');
+            $table->string('description')->nullable();
             $table->integer('parent_id');
             $table->timestamps();
         });
