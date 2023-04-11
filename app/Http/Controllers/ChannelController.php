@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chanel;
-use App\Http\Requests\StoreChanelRequest;
-use App\Http\Requests\UpdateChanelRequest;
+use App\Models\Channel;
+use App\Http\Requests\StoreChannelRequest;
+use App\Http\Requests\UpdateChannelRequest;
 
-class ChanelController extends Controller
+class ChannelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class ChanelController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreChanelRequest $request)
+    public function store(StoreChannelRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class ChanelController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Chanel $chanel)
+    public function show(Channel $channel)
     {
         //
     }
@@ -43,7 +43,7 @@ class ChanelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Chanel $chanel)
+    public function edit(Channel $channel)
     {
         //
     }
@@ -51,7 +51,7 @@ class ChanelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateChanelRequest $request, Chanel $chanel)
+    public function update(UpdateChannelRequest $request, Channel $channel)
     {
         //
     }
@@ -59,7 +59,7 @@ class ChanelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Chanel $chanel)
+    public function destroy(Channel $channel)
     {
         //
     }
