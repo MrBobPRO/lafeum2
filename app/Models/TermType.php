@@ -13,6 +13,7 @@ class TermType extends Model
     const EXPERT_COMMENTS = 'Комментарии специалистов';
 
     public $timestamp = false;
+    protected $guarded = ['id'];
 
     public function terms()
     {

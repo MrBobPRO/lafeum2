@@ -11,6 +11,8 @@ class Author extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $guarded = ['id'];
+
     public function quotes()
     {
         return $this->hasMany(Quote::class);
@@ -19,11 +21,6 @@ class Author extends Model
     public function authorGroup()
     {
         return $this->belongsTo(AuthorGroup::class);
-    }
-
-    public function categories()
-    {
-        return $this->morphMany(Category::class, 'categoriable');
     }
 
     public function scopePersons($query)

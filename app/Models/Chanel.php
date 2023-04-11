@@ -11,6 +11,8 @@ class Chanel extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $guarded = ['id'];
+
     public function videos()
     {
         return $this->hasMany(Video::class);

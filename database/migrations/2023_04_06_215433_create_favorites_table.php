@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('knowledge', function (Blueprint $table) {
+        Schema::create('favorites', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug');
-            $table->integer('parent_id');
-            $table->string('description')->nullable();
-            $table->timestamps();
+            $table->integer('user_id');
+            $table->integer('favoritable_id');
+            $table->string('favoritable_type');
+            $table->unique(['user_id', 'favoritable_id', 'favoritable_type']);
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('knowledge');
+        Schema::dropIfExists('favorites');
     }
 };

@@ -9,6 +9,8 @@ class Knowledge extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function terms()
     {
         return $this->belongsToMany(Term::class);

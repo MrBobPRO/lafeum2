@@ -14,7 +14,7 @@ class AuthorGroup extends Model
     const PROVERBS_GROUP_NAME = 'Пословицы и поговорки';
 
     public $timestamps = false;
-    protected $fillable = ['name'];
+    protected $guarded = ['id'];
 
     public function authors()
     {
