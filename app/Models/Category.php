@@ -27,6 +27,16 @@ class Category extends Model
         return $this->morphedByMany(Video::class, 'categoriable');
     }
 
+    public function childs()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function scopeParents($query)
+    {
+        return $query->whereNull('parent_id');
+    }
+
     public function scopeQuote($query)
     {
         return $query->where('type', Quote::class);
@@ -41,4 +51,6 @@ class Category extends Model
     {
         return $query->where('type', Video::class);
     }
+
+
 }

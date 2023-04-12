@@ -26,9 +26,9 @@ use Illuminate\Support\Facades\Route;
 Route::controller(AppController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get("/about-us", 'aboutUs')->name('aboutUs');
+    Route::get("/contacts", 'contacts')->name('contacts');
     Route::get("/privacy-policy", 'privacy')->name('privacy');
     Route::get("/terms-of-use", 'termsOfUse')->name('termsOfUse');
-    Route::get("/contacts", 'contacts')->name('contacts');
 });
 
 Route::controller(KnowledgeController::class)->name('knowledge.')->group(function () {
