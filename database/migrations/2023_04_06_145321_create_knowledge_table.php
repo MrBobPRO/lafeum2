@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->integer('parent_id');
             $table->string('description')->nullable();
-            $table->timestamps();
+            $table->nestedSet();
         });
     }
 

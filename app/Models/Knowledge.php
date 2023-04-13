@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NodeTrait;
 
 class Knowledge extends Model
 {
     use HasFactory;
+    use NodeTrait;
 
+    public $timestamps = false;
     protected $guarded = ['id'];
 
     public function terms()

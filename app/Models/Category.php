@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NodeTrait;
 
 class Category extends Model
 {
     use HasFactory;
+    use NodeTrait;
 
     public $timestamps = false;
     protected $guarded = ['id'];
@@ -27,30 +29,18 @@ class Category extends Model
         return $this->morphedByMany(Video::class, 'categoriable');
     }
 
-    public function childs()
-    {
-        return $this->hasMany(Category::class, 'parent_id');
-    }
-
-    public function scopeParents($query)
-    {
-        return $query->whereNull('parent_id');
-    }
-
-    public function scopeQuote($query)
+    public function scopeQuoteType($query)
     {
         return $query->where('type', Quote::class);
     }
 
-    public function scopeTerm($query)
+    public function scopeTermType($query)
     {
         return $query->where('type', Term::class);
     }
 
-    public function scopeVideo($query)
+    public function scopeVideoType($query)
     {
         return $query->where('type', Video::class);
     }
-
-
 }
