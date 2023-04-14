@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    @include('layouts.meta-tags')
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    {{-- Google Material Symbols --}}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    {{-- Normalize CSS --}}
+    <link rel="stylesheet" href="{{ asset('plugins/normalize.css') }}">
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+    {{-- App Styles --}}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/media.css') }}">
+</head>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
+<body class="{{ $pageClass }}">
+    @include('layouts.header')
+
+    <div class="main-wrapper">
+        @hasSection ('leftbar')
+            @yield('leftbar')
+        @endif
+
+        <main class="main">@yield('main')</main>
+
+        @includeWhen($includeRightBar, 'layouts.rightbar')
+    </div>
+
+    @include('layouts.footer')
+
+    {{-- Yandex Share Buttons --}}
+    <script src="https://yastatic.net/share2/share.js"></script>
+
+    {{-- App Scripts --}}
+    <script src="{{ asset('js/app.js') }}"></script>
+</body>
+
 </html>
