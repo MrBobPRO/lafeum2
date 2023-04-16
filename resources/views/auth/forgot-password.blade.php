@@ -1,25 +1,26 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+@extends('auth.app')
+
+@section('form')
+<form class="form login-form" action="{{ route('password.email') }}" method="POST">
+    @csrf
+
+    <p class="desc">
+        @if (session('status'))
+            <b>{{ session('status') }}</b><br><br>
+        @endif
+
+        Забыли пароль? Без проблем. Просто сообщите нам свой адрес электронной почты, и мы отправим вам ссылку для сброса пароля, которая позволит вам выбрать новый.
+    </p>
+
+    <div class="form-group {{ $errors->get('email') ? 'form-group--error' : '' }}">
+        <label class="label" for="email">{{ $errors->get('email') ? 'Пользователья с таким адресом электронной почты не существует' : 'Ваш Email' }}</label>
+        <input class="input" type="email" name="email" id="email" placeholder="Введите Ваш Email" value="{{ old('email') }}" required autofocus>
     </div>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <button class="submit">Запросить ссылку</button>
 
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    <p class="return-home">
+        <a href="{{ route('home') }}">Вернуться на главную</a>
+    </p>
+</form>
+@endsection

@@ -7,7 +7,15 @@
         <x-navbar class="header__navbar" />
 
         @guest
-            <button class="header__login-btn">Вход</button>
+            <a class="header__login-btn" href="{{ route('login') }}">Вход</a>
         @endguest
+
+        @auth
+            <form action="/logout" method="POST">
+                @csrf
+
+                <button class="header__login-btn">Выйти</button>
+            </form>
+        @endauth
     </div>
 </header>

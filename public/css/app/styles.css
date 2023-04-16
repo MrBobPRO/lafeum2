@@ -131,8 +131,9 @@ picture {
 
 .header__login-btn {
     margin-left: 60px;
-    padding: 8px 24px;
+    padding: 4px 24px;
     font-weight: bold;
+    text-decoration: none;
     border: none;
     border-radius: 8px;
     color: var(--secondary-color);

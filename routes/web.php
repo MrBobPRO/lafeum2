@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::controller(AppController::class)->group(function () {
-    Route::get('/', 'home')->name('home');
+    Route::get('/', 'home')->name('home')->middleware('verified');
     Route::get("/about-us", 'aboutUs')->name('aboutUs');
     Route::get("/contacts", 'contacts')->name('contacts');
     Route::get("/privacy-policy", 'privacy')->name('privacy');
@@ -77,14 +77,14 @@ Route::controller(FeedbackController::class)->name('feedbacks.')->group(function
     Route::post('/feedback', 'store')->name('store');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::controller(ProfileController::class)->name('profile.')->middleware('auth')->group(function () {
+    Route::get('/profile', 'edit')->name('edit');
+    Route::patch('/profile', 'update')->name('update');
+    Route::delete('/profile', 'destroy')->name('destroy');
+});
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+Route::get('/dashboard', function () {
+    return 'dashboard';
+})->name('dashboard');
 
 require __DIR__.'/auth.php';

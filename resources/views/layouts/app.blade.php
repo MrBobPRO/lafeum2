@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="{{ asset('plugins/normalize.css') }}">
 
     {{-- App Styles --}}
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/media.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app/media.css') }}">
 </head>
 
 <body class="{{ $pageClass }}">

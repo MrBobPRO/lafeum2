@@ -1,47 +1,27 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('auth.app')
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+@section('form')
+<form class="form login-form" action="{{ route('login') }}" method="POST">
+    @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <h1 class="title">Вход</h1>
+    <p class="desc">Добро пожаловать, мы ждали Вас !</p>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    <div class="form-group {{ $errors->get('email') ? 'form-group--error' : ($errors->any() ? 'form-group--valid' : '') }}">
+        <label class="label" for="email">{{ $errors->get('email') ? 'Неверный Email' : 'Ваш Email' }}</label>
+        <input class="input" type="email" name="email" id="email" placeholder="Введите Ваш Email" value="{{ old('email') }}" required autofocus>
+    </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+    <div class="form-group {{ $errors->any() ? 'form-group--error' : '' }}">
+        <label class="label" for="password">{{ $errors->get('password') ? 'Неверный пароль' : 'Пароль' }}</label>
+        <input class="input" type="password" name="password" id="password" autocomplete="current-password" placeholder="Введите Ваш пароль" required>
+    </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+    <div class="additional-links">
+        <a class="additional-links__register" href="{{ route('register') }}">У вас нет аккаунта?</a>
+        <a class="additional-links__forgot" href="{{ route('password.request') }}">Забыли пароль?</a>
+    </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    <button class="submit">Вход</button>
+</form>
+@endsection
