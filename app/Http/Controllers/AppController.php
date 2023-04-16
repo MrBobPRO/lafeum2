@@ -2,24 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Quote;
-use App\Models\Term;
-use App\Models\Video;
+use App\Models\QuoteCategory;
+use App\Models\TermCategory;
+use App\Models\VideoCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Kalnoy\Nestedset\Collection as NestedsetCollection;
 
 class AppController extends Controller
 {
     public function home()
     {
-        $categories = Category::orderBy('_lft')->get()->each(function ($item) {
-            $supportedTypes = Category::where('name', $item->name)
-                ->orderBy('_lft')
-                ->get('type')
-                ->pluck('type');
-            $item->links = $this->getCategoryLinks($item, $supportedTypes);
-        })->toTree()->unique('name');
+        // Join all categories
+        $categories = new NestedsetCollection();
+        $categories = $categories->concat(QuoteCategory::orderBy('_lft')->get()->toTree());
+        $categories = $categories->concat(TermCategory::orderBy('_lft')->get()->toTree());
+        $categories = $categories->concat(VideoCategory::orderBy('_lft')->get()->toTree());
+        $categories = $categories->unique('name');
+
+        // Add supported types
+        $categories->each(function ($item) {
+            foreach($item->children as $child) {
+                $child->supportedTypeLinks = $this->getSupportedTypeLinks($child);
+            }
+        });
 
         return view('pages.home', compact('categories'));
     }
@@ -29,32 +35,32 @@ class AppController extends Controller
         return view('pages.about-us');
     }
 
-    private function getCategoryLinks(Category $category, Collection $supportedTypes)
+    private function getSupportedTypeLinks($category)
     {
         $links = [];
 
-        if ($supportedTypes->contains(Quote::class)) {
+        if (QuoteCategory::where('name', $category->name)->first()) {
             $links[] = [
                 'label' => 'Цитаты и Афоризмы',
                 'href' => route('quotes.category', $category->slug)
             ];
         }
 
-        if ($supportedTypes->contains(Term::class)) {
+        if (TermCategory::where('name', $category->name)->first()) {
             $links[] = [
                 'label' => 'Термины',
                 'href' => route('terms.category', $category->slug)
             ];
         }
 
-        if ($supportedTypes->contains(Video::class)) {
+        if (VideoCategory::where('name', $category->name)->first()) {
             $links[] = [
                 'label' => 'Видео',
                 'href' => route('videos.category', $category->slug)
             ];
         }
 
-        if ($supportedTypes->contains(Term::class)) {
+        if (TermCategory::where('name', $category->name)->first()) {
             $links[] = [
                 'label' => 'Словарь',
                 'href' => route('vocabulary.category', $category->slug)

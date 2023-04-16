@@ -16,31 +16,16 @@ class Category extends Model
 
     public function quotes()
     {
-        return $this->morphedByMany(Quote::class, 'categoriable');
+        return $this->hasMany(Quote::class);
     }
 
     public function terms()
     {
-        return $this->morphedByMany(Term::class, 'categoriable');
+        return $this->hasMany(Term::class);
     }
 
-    public function video()
+    public function videos()
     {
-        return $this->morphedByMany(Video::class, 'categoriable');
-    }
-
-    public function scopeQuoteType($query)
-    {
-        return $query->where('type', Quote::class);
-    }
-
-    public function scopeTermType($query)
-    {
-        return $query->where('type', Term::class);
-    }
-
-    public function scopeVideoType($query)
-    {
-        return $query->where('type', Video::class);
+        return $this->hasMany(Video::class);
     }
 }

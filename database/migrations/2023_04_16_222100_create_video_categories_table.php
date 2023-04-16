@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categoriables', function (Blueprint $table) {
-            $table->integer('category_id');
-            $table->integer('categoriable_id');
-            $table->string('categoriable_type');
+        Schema::create('video_categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('slug');
+            $table->text('description')->nullable();
+            $table->nestedSet();
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categoriables');
+        Schema::dropIfExists('video_categories');
     }
 };
