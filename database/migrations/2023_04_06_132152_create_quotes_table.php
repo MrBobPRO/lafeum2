@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('author_id');
             $table->text('notes')->nullable();
             $table->timestamps();
+            $table->timestamp('publish_at')->useCurrent();
             $table->softDeletes();
         });
     }

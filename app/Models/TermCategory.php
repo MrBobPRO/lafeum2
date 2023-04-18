@@ -4,8 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kalnoy\Nestedset\NodeTrait;
 
-class TermCategory extends Category
+class TermCategory extends Model
 {
+    use HasFactory;
+    use NodeTrait;
 
+    public $timestamps = false;
+    protected $guarded = ['id'];
+
+    public function terms()
+    {
+        return $this->belongsToMany(Term::class, 'category_term', 'term_id');
+    }
 }

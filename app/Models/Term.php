@@ -17,13 +17,14 @@ class Term extends Model
 
     public function categories()
     {
-        return $this->morphToMany(Category::class, 'categoriable');
+        return $this->belongsToMany(TermCategory::class, 'category_term', 'term_id', 'category_id');
     }
 
     public function knowledge()
     {
         return $this->belongsToMany(Knowledge::class);
     }
+
 
     public function termType()
     {

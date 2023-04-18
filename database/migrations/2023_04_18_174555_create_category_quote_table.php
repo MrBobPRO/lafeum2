@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('photos', function (Blueprint $table) {
-            $table->id();
-            $table->text('path');
-            $table->text('description')->nullable();
-            $table->timestamps();
-            $table->timestamp('publish_at')->useCurrent();
-            $table->softDeletes();
+        Schema::create('category_quote', function (Blueprint $table) {
+            $table->integer('category_id');
+            $table->integer('quote_id');
+            $table->primary(['category_id', 'quote_id']);
         });
     }
 
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('photos');
+        Schema::dropIfExists('category_quote');
     }
 };

@@ -32,6 +32,36 @@ class DatabaseController extends Controller
             $category->save();
         });
 
+        // Attach categories
+        Category::all()->each(function ($item) {
+            switch ($item->categoriable_type) {
+                case 'App\Video':
+                    $video = Video::find($item->categoriable_id);
+                    if($video) {
+                        $video->categories()->attach($item->category_id);
+                    }
+                    break;
+
+                case 'App\Term':
+                    $term = Term::find($item->categoriable_id);
+                    if($term) {
+                        $term->categories()->attach($item->category_id);
+                    }
+                    break;
+
+                case 'App\Quote':
+                    $quote = Quote::find($item->categoriable_id);
+                    if($quote) {
+                        $quote->categories()->attach($item->category_id);
+                    }
+                    break;
+
+                default:
+                    dd($item);
+                    break;
+            }
+        });
+
         // Authors
         Author::withTrashed()->get()->each(function ($item) {
             $item->photo = substr($item->photo, 13);

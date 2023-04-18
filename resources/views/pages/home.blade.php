@@ -1,7 +1,7 @@
 @extends('layouts.app', ['pageClass' => 'home-page', 'includeRightBar' => true])
 
 @section('leftbar')
-    <x-home-leftbar :categories="$categories" />
+    @include('layouts.home-leftbar')
 @endsection
 
 @section('main')

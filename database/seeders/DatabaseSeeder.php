@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
 
         $post = new DailyPost();
         $post->date = now();
-        $post->quote_id = '7';
+        $post->quote_id = '18';
         $post->term_id = '25';
         $post->video_id = '41';
         $post->photo_id = '20';

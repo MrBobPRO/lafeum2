@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('term_type_id');
             $table->boolean('show_in_vocabulary');
             $table->timestamps();
+            $table->timestamp('publish_at')->useCurrent();
             $table->softDeletes();
         });
     }

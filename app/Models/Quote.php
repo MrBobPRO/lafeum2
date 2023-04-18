@@ -22,6 +22,6 @@ class Quote extends Model
 
     public function categories()
     {
-        return $this->morphToMany(Category::class, 'categoriable');
+        return $this->belongsToMany(QuoteCategory::class, 'category_quote', 'quote_id', 'category_id');
     }
 }

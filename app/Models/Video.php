@@ -13,6 +13,8 @@ class Video extends Model
     use SoftDeletes;
     use Favoritable;
 
+    protected $appends = ['link', 'embeded_link', 'thumbnail'];
+
     public function channel()
     {
         return $this->belongsTo(Channel::class);
@@ -20,72 +22,22 @@ class Video extends Model
 
     public function categories()
     {
-        return $this->morphToMany(Category::class, 'categoriable');
-    }
-
-    /**
-     * ****************************************************************
-     */
-    public function setLinkAttribute($value)
-    {
-        $hostData = $this->getHostData($value);
-
-        $this->attributes['host_type_id'] = $hostData['host_type_id'];
-        $this->attributes['host_id'] = $hostData['host_id'];
+        return $this->belongsToMany(VideoCategory::class, 'category_video', 'video_id', 'category_id');
     }
 
     public function getLinkAttribute()
     {
-        switch ($this->host_type_id) {
-            case VideoHost::YOUTUBE_HOST_TYPE_ID:
-                return 'https://youtu.be/' . $this->host_id;
-
-            default:
-                return $this->host_id;
-        }
+        return 'https://youtu.be/' . $this->host_id;
     }
 
     public function getEmbededLinkAttribute()
     {
-        switch ($this->host_type_id) {
-            case VideoHost::YOUTUBE_HOST_TYPE_ID:
-                return 'https://www.youtube.com/embed/' . $this->host_id;
-
-            default:
-                return $this->host_id;
-        }
+        return 'https://www.youtube.com/embed/' . $this->host_id;
     }
 
     public function getThumbnailAttribute()
     {
-        switch ($this->host_type_id) {
-            case VideoHost::YOUTUBE_HOST_TYPE_ID:
-                return 'https://i.ytimg.com/vi/' . $this->host_id . '/mqdefault.jpg';
-
-            default:
-                return null;
-        }
-    }
-
-    /**
-     * Helpers
-     */
-
-    public function getHostData($link)
-    {
-        $hostData = [
-            'host_type_id' => VideoHost::UNKNOWN_HOST_TYPE_ID,
-            'host_id' => $link,
-        ];
-
-        $youtubeId = $this->getYoutubeId($link);
-
-        if ($youtubeId) {
-            $hostData['host_type_id'] = VideoHost::YOUTUBE_HOST_TYPE_ID;
-            $hostData['host_id'] = $youtubeId;
-        }
-
-        return $hostData;
+        return 'https://i.ytimg.com/vi/' . $this->host_id . '/mqdefault.jpg';
     }
 
     private function getYoutubeId($link)
