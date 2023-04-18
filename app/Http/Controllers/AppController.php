@@ -2,26 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
+use App\Models\Category;
+use App\Models\Photo;
 use App\Models\QuoteCategory;
 use App\Models\TermCategory;
 use App\Models\VideoCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Kalnoy\Nestedset\Collection as NestedsetCollection;
+use Kalnoy\Nestedset\Collection;
 
 class AppController extends Controller
 {
     public function home()
     {
         // Join all categories
-        $categories = new NestedsetCollection();
-        $categories = $categories->concat(QuoteCategory::orderBy('_lft')->get()->toTree());
-        $categories = $categories->concat(TermCategory::orderBy('_lft')->get()->toTree());
-        $categories = $categories->concat(VideoCategory::orderBy('_lft')->get()->toTree());
+        $categories = new Collection();
+        $categories = $categories->concat(QuoteCategory::get()->toTree());
+        $categories = $categories->concat(TermCategory::get()->toTree());
+        $categories = $categories->concat(VideoCategory::get()->toTree());
         $categories = $categories->unique('name');
 
         // Add supported types
         $categories->each(function ($item) {
+            $item->supportedTypeLinks = $this->getSupportedTypeLinks($item);
+
             foreach($item->children as $child) {
                 $child->supportedTypeLinks = $this->getSupportedTypeLinks($child);
             }

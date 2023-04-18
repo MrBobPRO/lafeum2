@@ -10,13 +10,28 @@ body {
     font-size: 14px;
     line-height: 1.5;
     color: var(--text-color);
-    background-color: #f8fafc;
+    background-color: #EEEEEE;
 }
 
 :root {
     --main-color: #04718C;
     --secondary-color: #0645AD;
     --text-color: #000000DE;
+}
+
+
+body::-webkit-scrollbar {
+    width: 7px
+}
+
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3)
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #ABABAB;
+    outline: 1px solid #ABABAB;
 }
 
 *,
@@ -76,6 +91,7 @@ picture {
 .main-title {
     font-size: 18px;
     text-transform: uppercase;
+    font-weight: 400;
 }
 
 .logo {
@@ -139,6 +155,7 @@ picture {
     color: var(--secondary-color);
     background-color: white;
 }
+
 /* ------------ /end Header ------------ */
 
 
@@ -210,19 +227,20 @@ picture {
 .footer__socials-image {
     width: 32px;
 }
+
 /* ------------ /end Footer ------------ */
 
 
 /* ------------ Main Wrapper ------------ */
 .main-wrapper {
-    max-width: 1420px;
+    max-width: 1400px;
     width: 100%;
     display: flex;
     /* PUSH FOOTER TO THE BOTTOM */
     flex-grow: 1;
     align-items: flex-start;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 28px 40px 20px;
 }
 
 /* ------------ /end Main Wrapper ------------ */
@@ -230,8 +248,43 @@ picture {
 
 /* ------------ Leftbar ------------ */
 .leftbar {
-    width: 22%;
+    width: 280px;
+    min-width: 280px;
+}
+
+.leftbar__title {
+    margin-bottom: 16px;
+}
+
+.leftbar__body {
+    border-radius: 8px;
     background-color: white;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 0 rgba(0, 0, 0, .14), 0 0 0 0 rgba(0, 0, 0, .12);
+    padding: 16px 24px;
+    font-size: 15px;
+}
+
+/* Home LeftBar */
+.leftbar__body .accordion {
+    margin-bottom: 8px;
+}
+
+.leftbar__body .accordion:last-child {
+    margin-bottom: 0;
+}
+
+.leftbar__body .accordion__button {
+    line-height: 1.8;
+}
+
+.leftbar__body .accordion__collapse {
+    flex-direction: column;
+}
+
+.leftbar__body .accordion__collapse a {
+    line-height: 1.6;
+    color: var(--main-color);
+    text-decoration: none;
 }
 
 /* ------------ /end Leftbar ------------ */
@@ -239,8 +292,20 @@ picture {
 
 /* ------------ Rightbar ------------ */
 .rightbar {
-    width: 22%;
+    width: 280px;
+    min-width: 280px;
+}
+
+.rightbar__title {
+    margin-bottom: 16px;
+}
+
+.rightbar__body {
+    border-radius: 8px;
     background-color: white;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 0 rgba(0, 0, 0, .14), 0 0 0 0 rgba(0, 0, 0, .12);
+    padding: 16px 24px;
+    font-size: 15px;
 }
 
 /* ------------ /end Rightbar ------------ */
@@ -249,6 +314,82 @@ picture {
 /* ------------ Main ------------ */
 .main {
     flex-grow: 1;
+    padding: 0 24px;
 }
 
 /* ------------ /end Main ------------ */
+
+
+/* ------------ Accordion ------------ */
+.accordion__button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+.accordion__button-icon {
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+.accordion__button--active .accordion__button-icon {
+    transform: rotate(180deg);
+}
+
+.accordion__collapse {
+    height: 0px;
+    transition: height .3s;
+    overflow: hidden;
+    display: flex;
+}
+
+.accordion__collapse--show {
+    height: 100%;
+}
+
+/* ------------ /end Accordion ------------ */
+
+
+/* ------------ Home ------------ */
+.greetings {
+
+}
+
+.greetings__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 8px;
+}
+
+.greetings__logo {
+    width: 160px;
+    margin: 40px 0;
+}
+
+.greetings__title {
+    max-width: 320px;
+    margin-bottom: 24px;
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.greetings__subtitle {
+    margin-bottom: 24px;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--main-color);
+    text-align: center;
+}
+
+.greetings__desc {
+    font-size: 14.4px;
+    text-align: center;
+    line-height: 1.5;
+}
+/* ------------ /end Home ------------ */

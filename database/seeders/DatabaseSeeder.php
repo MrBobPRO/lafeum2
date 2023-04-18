@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\DailyPost;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -36,5 +37,13 @@ class DatabaseSeeder extends Seeder
         $user->password = bcrypt('12345');
         $user->email_verified_at = now();
         $user->save();
+
+        $post = new DailyPost();
+        $post->date = now();
+        $post->quote_id = '7';
+        $post->term_id = '25';
+        $post->video_id = '41';
+        $post->photo_id = '20';
+        $post->save();
     }
 }

@@ -8,31 +8,6 @@ use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
-
-    /**
-     * *****************************************
-     * Helpers needed while validating database
-     */
-
-    public function validateDatabase()
-    {
-        Category::all()->each(function ($item) {
-            $model = $item->type . 'Category';
-
-            $category = new $model();
-            $category->id = $item->id;
-            $category->name = $item->name;
-            $category->slug = $item->slug;
-            $category->description = $item->description;
-            $category->_lft = $item->_lft;
-            $category->_rgt = $item->_rgt;
-            $category->parent_id = $item->parent_id;
-            $category->save();
-        });
-    }
-
-
-
     /**
      * Display a listing of the resource.
      */

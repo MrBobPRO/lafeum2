@@ -16,16 +16,16 @@ class Category extends Model
 
     public function quotes()
     {
-        return $this->hasMany(Quote::class);
+        return $this->belongsToMany(Quote::class);
     }
 
     public function terms()
     {
-        return $this->hasMany(Term::class);
+        return $this->belongsToMany(Term::class);
     }
 
     public function videos()
     {
-        return $this->hasMany(Video::class);
+        return $this->belongsToMany(Video::class);
     }
 }
