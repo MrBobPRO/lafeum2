@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Quote;
 use App\Http\Requests\StoreQuoteRequest;
 use App\Http\Requests\UpdateQuoteRequest;
+use App\Models\QuoteCategory;
 
 class QuoteController extends Controller
 {
@@ -13,7 +14,9 @@ class QuoteController extends Controller
      */
     public function index()
     {
-        //
+        $categories = QuoteCategory::get()->toTree();
+
+        return view('quotes.index', compact('categories'));
     }
 
     /**

@@ -13,7 +13,9 @@ class KnowledgeController extends Controller
      */
     public function index()
     {
-        //
+        $knowledge = Knowledge::get()->toTree();
+
+        return view('knowledge.index', compact('knowledge'));
     }
 
     /**
@@ -37,7 +39,18 @@ class KnowledgeController extends Controller
      */
     public function show(Knowledge $knowledge)
     {
-        //
+        $allKnowledge = Knowledge::get()->toTree();
+        $terms = $knowledge
+            ->terms()
+            ->with([
+                'categories',
+                'termType',
+            ])
+            ->orderBy('term_type_id', 'asc')
+            ->published('desc')
+            ->paginate(20);
+
+        return view('knowledge.show', compact('allKnowledge', 'terms', 'knowledge'));
     }
 
     /**

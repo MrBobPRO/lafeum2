@@ -1,3 +1,14 @@
+// debounce function
+function debounce(callback, timeoutDelay = 500) {
+    let timeoutId;
+
+    return (...rest) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+    };
+}
+
+
 // Accordion
 document.querySelectorAll('.accordion__button').forEach((item) => {
     item.addEventListener('click', (evt) => {
@@ -30,4 +41,26 @@ document.querySelectorAll('.accordion__button').forEach((item) => {
             button.classList.add('accordion__button--active');
         }
     });
+});
+
+
+// Disable Form Submits
+document.querySelectorAll('.submit-disabled').forEach((item) => {
+    item.addEventListener('submit', () => {
+        return false;
+    });
+});
+
+
+// Local Search
+document.querySelectorAll('[data-action="local-search"]').forEach((input) => {
+    input.addEventListener('input', debounce(function (evt) {
+        let keyword = evt.target.value.toLowerCase();
+        let selector = evt.target.dataset.selector;
+
+        // Hide & show elements
+        document.querySelectorAll(selector).forEach((item) => {
+            item.style.display = item.innerHTML.toLowerCase().includes(keyword) ? null : 'none'
+        });
+    }));
 });
