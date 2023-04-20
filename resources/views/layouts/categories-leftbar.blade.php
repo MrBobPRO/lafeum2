@@ -1,4 +1,4 @@
-<aside class="leftbar">
+<aside class="leftbar categories-leftbar">
     <h2 class="leftbar__title main-title">{{ $title }}</h2>
 
     <div class="leftbar__body">

@@ -5,7 +5,7 @@
     @include('layouts.meta-tags')
 
     {{-- Google Material Symbols --}}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     {{-- Normalize CSS --}}
     <link rel="stylesheet" href="{{ asset('plugins/normalize.css') }}">
@@ -34,6 +34,7 @@
     <script src="https://yastatic.net/share2/share.js"></script>
 
     {{-- App Scripts --}}
+    <script src="{{ asset('plugins/jquery/jquery-3.6.4.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

@@ -1,4 +1,4 @@
-<aside class="leftbar">
+<aside class="leftbar home-leftbar">
     <h2 class="leftbar__title main-title">Темы</h2>
 
     <div class="leftbar__body">

@@ -5,12 +5,14 @@
 @endsection
 
 @section('main')
-    <section class="knowledge-show-about">
+    <div class="knowledge-show-about">
         <div class="knowledge-show-about__inner">
             <h1 class="knowledge-show-about__title main-title">{{ $knowledge->name }}</h1>
             <div class="knowledge-show-about__desc">
                 {!! $knowledge->description !!}
             </div>
         </div>
-    </section>
+    </div>
+
+    <x-terms-list :terms="$terms" />
 @endsection

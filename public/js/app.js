@@ -1,3 +1,27 @@
+// Remove unnecessary Expand More buttons
+document.querySelectorAll('.expand-more-container').forEach(function (item) {
+    let postTxt = item.previousElementSibling;
+
+    if (postTxt.clientHeight == postTxt.scrollHeight) {
+        item.remove();
+    } else {
+        postTxt.style.height = '316px';
+    }
+});
+
+// Add Expand More events
+document.querySelectorAll('.expand-more').forEach((item) => {
+    item.addEventListener('click', (evt) => {
+        let btn = evt.target;
+        let postTxt = btn.parentElement.previousElementSibling;
+
+        btn.classList.toggle('expand-more--active');
+        console.log('clientHeight = ' + postTxt.clientHeight + ' scrollHeight = ' + postTxt.scrollHeight);
+        postTxt.style.height = postTxt.clientHeight < postTxt.scrollHeight ? (postTxt.scrollHeight + 'px') : '316px';
+    });
+});
+
+
 // debounce function
 function debounce(callback, timeoutDelay = 500) {
     let timeoutId;
