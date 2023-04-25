@@ -35,7 +35,7 @@ class Term extends Model
     public function scopeVocabulary($query)
     {
         return $query->where('name', '!=', '')
-            ->where('show_in_vocabulary', true)
-            ->orderBy('name');
+            ->where('show_in_vocabulary', true);
     }
+
 }

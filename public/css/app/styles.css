@@ -274,6 +274,9 @@ a {
 
 .categories-nav__block {
     margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .categories-nav__block:last-child {
@@ -753,6 +756,7 @@ a {
 
 /* ------------ /end Pagination ------------ */
 
+
 /* ------------ Search ------------ */
 .search-form {
     display: flex;
@@ -869,6 +873,77 @@ a {
 }
 
 /* ------------ /end Knowledge pages ------------ */
+
+
+/* ------------ Vocabulary pages ------------ */
+.vocabulary-search {
+    margin: 12px 0;
+}
+
+.vocabulary-search .search-form__input {
+    flex-grow: 1;
+}
+
+.vocabulary-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.vocabulary-list__dividers {
+    width: calc(50% - 12px);
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px 24px;
+}
+
+.vocabulary-list__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.vocabulary-list__link {
+    line-height: 1.6;
+    display: flex;
+}
+
+.vocabulary-list__popup {
+    position: absolute;
+    display: none;
+    overflow: hidden;
+    -webkit-line-clamp: 9;
+    -webkit-box-orient: vertical;
+    padding: 16px;
+    background-color: white;
+    box-shadow: 0 9px 11px -5px rgba(0,0,0,.2), 0 18px 28px 2px rgba(0,0,0,.14), 0 7px 34px 6px rgba(0,0,0,.12);
+    top: 28px;
+    z-index: 1;
+    width: 296px;
+    transition: 0.3s;
+    opacity: 1;
+}
+
+.vocabulary-list__popup:empty {
+    opacity: 0;
+}
+
+.vocabulary-list__item:hover .vocabulary-list__popup, .vocabulary-list__item:focus-within .vocabulary-list__popup {
+    display: block;
+}
+
+.vocabulary-list__popup a {
+    color: var(--secondary-color);
+}
+
+.vocabulary-list__popup-inner {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 9;
+    -webkit-box-orient: vertical;
+}
+/* ------------ /end Vocabulary pages ------------ */
 
 
 /* ------------ Quote pages ------------ */

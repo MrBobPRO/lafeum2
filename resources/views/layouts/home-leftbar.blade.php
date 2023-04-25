@@ -10,7 +10,7 @@
 
                 <div class="accordion__collapse">
                     @foreach ($category->supportedTypeLinks as $link)
-                        <a href="{{ $link['href'] }}">{{ $link['label'] }}</a>
+                        <a href="{{ $link['href'] }}" target="_blank">{{ $link['label'] }}</a>
                     @endforeach
                 </div>
             </div>
@@ -22,7 +22,7 @@
 
                     <div class="accordion__collapse">
                         @foreach ($child->supportedTypeLinks as $link)
-                        <a href="{{ $link['href'] }}">{{ $link['label'] }}</a>
+                            <a href="{{ $link['href'] }}" target="_blank">{{ $link['label'] }}</a>
                         @endforeach
                     </div>
                 </div>

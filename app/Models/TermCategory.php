@@ -16,6 +16,6 @@ class TermCategory extends Model
 
     public function terms()
     {
-        return $this->belongsToMany(Term::class, 'category_term', 'term_id');
+        return $this->belongsToMany(Term::class, 'category_term', 'category_id');
     }
 }

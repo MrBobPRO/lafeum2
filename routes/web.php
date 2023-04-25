@@ -38,7 +38,9 @@ Route::middleware('verified')->group(function () {
 
     Route::controller(VocabularyController::class)->name('vocabulary.')->group(function () {
         Route::get('/vocabulary', 'index')->name('index');
-        Route::get('/vocabulary/{category}', 'category')->name('category');
+        Route::get('/vocabulary/{category:slug}', 'category')->name('category');
+        Route::get('/vocabulary/body/{term}', 'getBody')->name('get-body'); // used in AJAX search
+        Route::post('/vocabulary/search', 'search')->name('search');
     });
 
     Route::controller(QuoteController::class)->name('quotes.')->group(function () {

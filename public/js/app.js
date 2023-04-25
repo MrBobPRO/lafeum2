@@ -1,3 +1,5 @@
+let csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
 // Remove unnecessary Expand More buttons
 document.querySelectorAll('.expand-more-container').forEach(function (item) {
     let postTxt = item.previousElementSibling;
@@ -27,8 +29,8 @@ function debounce(callback, timeoutDelay = 500) {
     let timeoutId;
 
     return (...rest) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
     };
 }
 
@@ -88,3 +90,67 @@ document.querySelectorAll('[data-action="local-search"]').forEach((input) => {
         });
     }));
 });
+
+
+// Load Vocabulary Term body on Term link hover
+function addVocabularyLinkHoverListeners() {
+    document.querySelectorAll('.vocabulary-list__link').forEach((item) => {
+        item.addEventListener('mouseover', function (evt) {
+            let link = evt.target;
+
+            if (link.dataset.bodyLoaded == 0) {
+                let popup = link.nextElementSibling;
+                link.dataset.bodyLoaded = 1;
+
+                const xhttp = new XMLHttpRequest();
+                xhttp.onloadend = function () {
+                    if (xhttp.status == 200) {
+                        popup.innerHTML = '<div class="vocabulary-list__popup-inner">' + this.responseText + '</div>';
+                    } else {
+                        xhttp.abort();
+                    }
+                }
+
+                xhttp.open('GET', '/vocabulary/body/' + link.dataset.id, true);
+                xhttp.send();
+            }
+        });
+    });
+}
+addVocabularyLinkHoverListeners();
+
+
+// Vocabulary search on Vocabulary categories page
+let vocabularySearch = document.querySelector('[data-action="vocabulary-search"]');
+if (vocabularySearch) {
+    vocabularySearch.addEventListener('input', debounce(function (evt) {
+        let keyword = evt.target.value;
+        let categoryId = document.querySelector('[name="category_id"]').value;
+
+        searchVocabulary(keyword, categoryId);
+    }));
+}
+
+function searchVocabulary(keyword, categoryId) {
+    const params = {
+        keyword: keyword,
+        categoryId: categoryId
+    };
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onloadend = function () {
+        if (xhttp.status == 200) {
+            let listContainer = document.querySelector('.vocabulary-list-container');
+            listContainer.innerHTML = xhttp.responseText;
+            addVocabularyLinkHoverListeners();
+        } else {
+            xhttp.abort();
+        }
+    }
+
+    xhttp.open('POST', '/vocabulary/search', true);
+    xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken)
+    xhttp.setRequestHeader('Content-type', 'application/json')
+    xhttp.send(JSON.stringify(params));
+}
+

@@ -7,12 +7,12 @@
             <p class="knowledge-about__desc">
                 В этой рубрике термины и комментарии специалистов классифицированы более развернуто по группам и направлениям.
             </p>
-        </div>
 
-        <form class="search-form submit-disabled">
-            <input class="search-form__input" type="text" data-action="local-search" data-selector=".knowledge-block__link" placeholder="Введите область знаний">
-            <button class="search-form__button" type="button">Поиск</button>
-        </form>
+            <form class="search-form submit-disabled">
+                <input class="search-form__input" type="text" data-action="local-search" data-selector=".knowledge-block__link" placeholder="Введите область знаний">
+                <button class="search-form__button" type="button">Поиск</button>
+            </form>
+        </div>
 
         <div class="knowledge-block">
             @foreach ($knowledge as $item)

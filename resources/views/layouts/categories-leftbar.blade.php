@@ -5,10 +5,10 @@
         <nav class="categories-nav">
             @foreach ($categories as $category)
                 <div class="categories-nav__block">
-                    <a class="categories-nav__link" href="{{ route($routeName, $category->slug) }}"><b>{{ $category->name }}</b></a>
+                    <a class="categories-nav__link" href="{{ route($routeName, $category->slug) }}" target="_blank"><b>{{ $category->name }}</b></a>
 
                     @foreach ($category->children as $child)
-                        <a class="categories-nav__link" href="{{ route($routeName, $child->slug) }}">{{ $child->name }}</a>
+                        <a class="categories-nav__link" href="{{ route($routeName, $child->slug) }}" target="_blank">{{ $child->name }}</a>
                     @endforeach
                 </div>
             @endforeach
