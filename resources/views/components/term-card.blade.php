@@ -1,18 +1,20 @@
 <div class="post-card term-card">
     <div class="post-card__header">
-        <div class="term-card__icons">
-            <span class="material-symbols-outlined">brightness_5</span>
-            <span class="material-symbols-outlined">brightness_5</span>
-            <span class="material-symbols-outlined">brightness_5</span>
-        </div>
+        @if($term->termType->name == 'Термины научного мира')
+            <div class="term-card__icons">
+                <span class="material-symbols-outlined">brightness_5</span>
+                <span class="material-symbols-outlined">brightness_5</span>
+                <span class="material-symbols-outlined">brightness_5</span>
+            </div>
+        @else
+            <div class="term-card__title">{{ $term->termType->name }}</div>
+        @endif
 
-        <a class="post-card__id" href="{{ route('terms.show', $term->id) }}">#{{ $term->id }}</a>
+        <a class="post-card__id" href="{{ route('terms.show', $term->id) }}" target="_blank">#{{ $term->id }}</a>
     </div>
 
     <div class="post-card__body">
-        <div class="post-card__txt">
-            {!! $term->body !!}
-        </div>
+        <div class="post-card__txt">{!! $term->body !!}</div>
 
         <div class="expand-more-container">
             <button class="expand-more">

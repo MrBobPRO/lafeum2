@@ -4,10 +4,9 @@ let csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 document.querySelectorAll('.expand-more-container').forEach(function (item) {
     let postTxt = item.previousElementSibling;
 
+    console.log('clinetHeight = ' + postTxt.clientHeight + ' scrollHeight = ' + postTxt.scrollHeight);
     if (postTxt.clientHeight == postTxt.scrollHeight) {
         item.remove();
-    } else {
-        postTxt.style.height = '316px';
     }
 });
 
@@ -18,8 +17,7 @@ document.querySelectorAll('.expand-more').forEach((item) => {
         let postTxt = btn.parentElement.previousElementSibling;
 
         btn.classList.toggle('expand-more--active');
-        console.log('clientHeight = ' + postTxt.clientHeight + ' scrollHeight = ' + postTxt.scrollHeight);
-        postTxt.style.height = postTxt.clientHeight < postTxt.scrollHeight ? (postTxt.scrollHeight + 'px') : '316px';
+        postTxt.style.maxHeight = postTxt.clientHeight < postTxt.scrollHeight ? (postTxt.scrollHeight + 'px') : '316px';
     });
 });
 

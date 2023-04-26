@@ -25,7 +25,12 @@ class VocabularyController extends Controller
     public function category(TermCategory $category)
     {
         $categories = TermCategory::get()->toTree();
-        $terms = $category->terms()->vocabulary()->published()->select('id', 'name')->orderBy('name')->get();
+        $terms = $category->terms()
+            ->vocabulary()
+            ->published()
+            ->select('id', 'name')
+            ->orderBy('name')
+            ->get();
 
         return view('vocabulary.category', compact('category', 'categories', 'terms'));
     }
@@ -41,6 +46,7 @@ class VocabularyController extends Controller
                 ->select('id', 'name')
                 ->orderBy('name')
                 ->get();
+        // else return results from all categories
         } else {
             $terms = Term::vocabulary()
             ->published()

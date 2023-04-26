@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Term;
 use App\Http\Requests\StoreTermRequest;
 use App\Http\Requests\UpdateTermRequest;
+use App\Models\TermCategory;
 
 class TermController extends Controller
 {
@@ -13,7 +14,28 @@ class TermController extends Controller
      */
     public function index()
     {
-        //
+        $categories = TermCategory::get()->toTree();
+        $terms = Term::published('desc')
+            ->with([
+                'categories',
+                'termType'
+            ])
+            ->paginate(20);
+
+        return view('terms.index', compact('categories', 'terms'));
+    }
+
+    public function category(TermCategory $category)
+    {
+        $categories = TermCategory::get()->toTree();
+        $terms = $category->terms()->published('desc')
+            ->with([
+                'categories',
+                'termType'
+            ])
+            ->paginate(20);
+
+        return view('terms.category', compact('category' ,'categories', 'terms'));
     }
 
     /**
@@ -37,7 +59,9 @@ class TermController extends Controller
      */
     public function show(Term $term)
     {
-        //
+        $term = $term->load(['categories', 'termType']);
+
+        return view('terms.show', compact('term'));
     }
 
     /**

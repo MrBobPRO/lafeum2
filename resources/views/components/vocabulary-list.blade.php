@@ -5,7 +5,7 @@
         <div class="vocabulary-list__dividers">
             @foreach ($chunk as $term)
                 <div class="vocabulary-list__item">
-                    <a class="vocabulary-list__link" data-body-loaded="0" data-id="{{ $term->id }}" href="{{ route('terms.show', $term->id) }}">{{ $term->name }}</a>
+                    <a class="vocabulary-list__link" data-body-loaded="0" data-id="{{ $term->id }}" href="{{ route('terms.show', $term->id) }}" target="_blank">{{ $term->name }}</a>
                     <div class="vocabulary-list__popup"></div>
                 </div>
             @endforeach

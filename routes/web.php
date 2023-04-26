@@ -46,7 +46,7 @@ Route::middleware('verified')->group(function () {
     Route::controller(QuoteController::class)->name('quotes.')->group(function () {
         Route::get('/quotes', 'index')->name('index');
         Route::get('/quote/{quote}', 'show')->name('show');
-        Route::get('/quotes/{category}', 'category')->name('category');
+        Route::get('/quotes/{category:slug}', 'category')->name('category');
     });
 
     Route::controller(AuthorController::class)->name('authors.')->group(function () {
@@ -57,7 +57,7 @@ Route::middleware('verified')->group(function () {
     Route::controller(VideoController::class)->name('videos.')->group(function () {
         Route::get('/videos', 'index')->name('index');
         Route::get('/video/{video}', 'show')->name('show');
-        Route::get('/videos/{category}', 'category')->name('category');
+        Route::get('/videos/{category:slug}', 'category')->name('category');
     });
 
     Route::controller(ChannelController::class)->name('channels.')->group(function () {
@@ -68,7 +68,7 @@ Route::middleware('verified')->group(function () {
     Route::controller(TermController::class)->name('terms.')->group(function () {
         Route::get('/terms', 'index')->name('index');
         Route::get('/term/{term}', 'show')->name('show');
-        Route::get('/terms/{category}', 'category')->name('category');
+        Route::get('/terms/{category:slug}', 'category')->name('category');
     });
 
     Route::controller(PhotoController::class)->name('photos.')->group(function () {

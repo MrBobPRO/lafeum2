@@ -15,8 +15,27 @@ class QuoteController extends Controller
     public function index()
     {
         $categories = QuoteCategory::get()->toTree();
+        $quotes = Quote::with([
+            'author:id,name,slug',
+            'categories:id,name,slug'
+        ])
+            ->published('desc')
+            ->paginate(20);
 
-        return view('quotes.index', compact('categories'));
+        return view('quotes.index', compact('categories', 'quotes'));
+    }
+
+    public function category(QuoteCategory $category)
+    {
+        $categories = QuoteCategory::get()->toTree();
+        $quotes = $category->quotes()->with([
+            'author:id,name,slug',
+            'categories:id,name,slug'
+        ])
+            ->published('desc')
+            ->paginate(20);
+
+        return view('quotes.category', compact('category' ,'categories', 'quotes'));
     }
 
     /**
@@ -40,7 +59,7 @@ class QuoteController extends Controller
      */
     public function show(Quote $quote)
     {
-        //
+        return view('quotes.show', compact('quote'));
     }
 
     /**
