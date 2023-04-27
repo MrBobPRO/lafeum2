@@ -25,10 +25,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('verified')->group(function () {
     Route::controller(AppController::class)->group(function () {
         Route::get('/', 'home')->name('home')->middleware('verified');
-        Route::get("/about-us", 'aboutUs')->name('aboutUs');
+        Route::get("/about-us", 'aboutUs')->name('about-us');
         Route::get("/contacts", 'contacts')->name('contacts');
         Route::get("/privacy-policy", 'privacy')->name('privacy');
-        Route::get("/terms-of-use", 'termsOfUse')->name('termsOfUse');
+        Route::get("/terms-of-use", 'termsOfUse')->name('terms-of-use');
     });
 
     Route::controller(KnowledgeController::class)->name('knowledge.')->group(function () {
@@ -51,7 +51,7 @@ Route::middleware('verified')->group(function () {
 
     Route::controller(AuthorController::class)->name('authors.')->group(function () {
         Route::get('/authors', 'index')->name('index');
-        Route::get('/authors/{author:slug}', 'show')->name('show');
+        Route::get('/authors/{slug}', 'show')->name('show');
     });
 
     Route::controller(VideoController::class)->name('videos.')->group(function () {

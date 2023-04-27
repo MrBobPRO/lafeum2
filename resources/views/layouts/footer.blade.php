@@ -5,10 +5,10 @@
         </a>
 
         <nav class="footer__nav">
-            <a class="footer__nav-link" href="{{ route('aboutUs') }}">О сайте</a>
-            <a class="footer__nav-link" href="{{ route('aboutUs') }}">Контакты</a>
-            <a class="footer__nav-link" href="{{ route('aboutUs') }}">Политика конфиденциальности</a>
-            <a class="footer__nav-link" href="{{ route('aboutUs') }}">Пользовательское соглашение</a>
+            <a class="footer__nav-link" href="{{ route('about-us') }}">О сайте</a>
+            <a class="footer__nav-link" href="{{ route('contacts') }}">Контакты</a>
+            <a class="footer__nav-link" href="{{ route('privacy') }}">Политика конфиденциальности</a>
+            <a class="footer__nav-link" href="{{ route('terms-of-use') }}">Пользовательское соглашение</a>
         </nav>
 
         <p class="footer__copyright">© 2017 - 2023 — Lafeum. Все права защищены.</p>

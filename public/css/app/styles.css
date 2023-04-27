@@ -309,20 +309,30 @@ a {
 }
 
 /* Titled leftbar body */
-.leftbar__body-title {
-    display: flex;
-    align-items: center;
-    padding: 12px 24px;
-    font-size: 18px;
-    font-weight: 500;
-    border-bottom: 1px solid #eee;
-    margin: 0;
-}
-
 .leftbar__body--titled {
     padding-top: 0;
     padding-left: 0;
     padding-right: 0;
+}
+
+.leftbar__body-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: 500;
+    border-bottom: 1px solid #e3e3e3;
+    margin: 0;
+}
+
+.leftbar__body-title span {
+    color: #9e9e9e;
+    font-variation-settings:
+      'FILL' 1,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48;
 }
 
 .leftbar__body--titled .categories-nav {
@@ -612,8 +622,10 @@ a {
     'opsz' 48;
 }
 
+
 .ya-share2__link.ya-share2__link_more {
     background-color: transparent !important;
+    padding: 2px 0 !important;
 }
 
 .ya-share2__icon_more {
@@ -711,6 +723,38 @@ a {
 }
 
 /* ------------ /end Video Card ------------ */
+
+
+/* ------------ Author Card ------------ */
+.author-card {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+}
+
+.author-card__image {
+    min-width: 100px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-card__title {
+    margin-bottom: 8px;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--main-color);
+}
+
+.author-card__biography {
+    font-size: 16px;
+}
+
+.author-card__biography p {
+    margin: 0;
+}
+/* ------------ /end Author Card ------------ */
 
 
 /* ------------ Accordion ------------ */
@@ -1022,3 +1066,44 @@ a {
     margin-bottom: 16px;
 }
 /* ------------ /end Term pages ------------ */
+
+
+/* ------------ Authors pages ------------ */
+/* index */
+.authors-about__title {
+    margin-bottom: 20px;
+}
+
+.authors-about__desc {
+    max-width: 540px;
+}
+
+.authors-list {
+    display: flex;
+    gap: 24px;
+    margin: 20px 0;
+}
+
+.authors-list__row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 28px;
+    background-color: white;
+    border-radius: 8px;
+    width: 33.3%;
+}
+
+.authors-list__item {
+    display: flex;
+}
+
+.authors-list__item:hover {
+    color: var(--main-color);
+}
+
+/* Show page */
+.authors-show-about__inner .author-card {
+    margin-bottom: 20px;
+}
+/* ------------ /end Authors pages ------------ */

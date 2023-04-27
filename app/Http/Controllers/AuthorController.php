@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
+use App\Models\AuthorGroup;
+use App\Models\Quote;
 
 class AuthorController extends Controller
 {
@@ -13,7 +15,9 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        $authors = $this->getAAuthorsList();
+
+        return view('authors.index', compact('authors'));
     }
 
     /**
@@ -35,9 +39,61 @@ class AuthorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Author $author)
+    public function show($slug)
     {
-        //
+        $authors = $this->getAAuthorsList();
+
+        switch ($slug) {
+                // Case MOVIES
+            case AuthorGroup::MOVIES_GROUP_SLUG:
+                $author = new Author([
+                    'name' => AuthorGroup::MOVIES_GROUP_NAME,
+                    'biography' => AuthorGroup::MOVIES_GROUP_BIOGRAPHY
+                ]);
+
+                $movieIds = Author::movies()->orderBy('name')->pluck('id');
+
+                $quotes = Quote::whereIn('author_id', $movieIds)
+                    ->with(
+                        'categories:id,name,slug',
+                        'author:id,name,slug'
+                    )
+                    ->published('desc')
+                    ->paginate(20);
+                break;
+
+                // CASE PROVERBS
+            case AuthorGroup::PROVERBS_GROUP_SLUG:
+                $author = new Author([
+                    'name' => AuthorGroup::PROVERBS_GROUP_NAME,
+                    'biography' => AuthorGroup::PROVERBS_GROUP_BIOGRAPHY,
+                ]);
+
+                $proverbIds = Author::proverbs()->orderBy('name')->pluck('id');
+
+                $quotes = Quote::whereIn('author_id', $proverbIds)
+                    ->with(
+                        'categories:id,name,slug',
+                        'author:id,name,slug'
+                    )
+                    ->published('desc')
+                    ->paginate(20);
+                break;
+
+                // CASE PERSONS
+            default:
+                $author = Author::where('slug', $slug)->firstOrFail();
+
+                $quotes = $author->quotes()->with([
+                    'author:id,name,slug',
+                    'categories:id,name,slug'
+                ])
+                    ->published('desc')
+                    ->paginate(20);
+                break;
+        }
+
+        return view('authors.show', compact('author', 'authors', 'quotes'));
     }
 
     /**
@@ -62,5 +118,24 @@ class AuthorController extends Controller
     public function destroy(Author $author)
     {
         //
+    }
+
+    private function getAAuthorsList()
+    {
+        $authors = Author::persons()
+            ->orderBy('name', 'asc')
+            ->get();
+
+        $authors->prepend(new Author([
+            'name' => AuthorGroup::PROVERBS_GROUP_NAME,
+            'slug' => AuthorGroup::PROVERBS_GROUP_SLUG
+        ]));
+
+        $authors->prepend(new Author([
+            'name' => AuthorGroup::MOVIES_GROUP_NAME,
+            'slug' => AuthorGroup::MOVIES_GROUP_SLUG,
+        ]));
+
+        return $authors;
     }
 }
