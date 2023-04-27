@@ -23,9 +23,12 @@
             @yield('leftbar')
         @endif
 
-        <main class="main">@yield('main')</main>
+        <main class="main">
+            @yield('main')
+        </main>
 
         @includeWhen($includeRightBar, 'layouts.rightbar')
+        @include('layouts.video-modal')
     </div>
 
     @include('layouts.footer')

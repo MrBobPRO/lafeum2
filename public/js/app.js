@@ -1,4 +1,7 @@
 let csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+let videoModal = document.querySelector('.video-modal');
+let videoModalTitle = videoModal.querySelector('.modal__header-title');
+let videoModalFrame = videoModal.querySelector('iframe');
 
 // Remove unnecessary Expand More buttons
 document.querySelectorAll('.expand-more-container').forEach(function (item) {
@@ -138,8 +141,7 @@ function searchVocabulary(keyword, categoryId) {
     const xhttp = new XMLHttpRequest();
     xhttp.onloadend = function () {
         if (xhttp.status == 200) {
-            let listContainer = document.querySelector('.vocabulary-list-container');
-            listContainer.innerHTML = xhttp.responseText;
+            document.querySelector('.vocabulary-list-container').innerHTML = xhttp.responseText;
             addVocabularyLinkHoverListeners();
         } else {
             xhttp.abort();
@@ -150,5 +152,44 @@ function searchVocabulary(keyword, categoryId) {
     xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken)
     xhttp.setRequestHeader('Content-type', 'application/json')
     xhttp.send(JSON.stringify(params));
+}
+
+
+// Modal
+// Modal dismiss
+document.querySelectorAll('.modal__background, modal__dismiss').forEach((item) => {
+    item.addEventListener('click', (evt) => {
+        let modal = evt.target.closest('.modal');
+        modal.classList.remove('modal--visible');
+
+        // stop iframe video
+        let iframe = modal.querySelector('iframe');
+        if (iframe) {
+            iframe.src = iframe.src;
+        }
+    });
+});
+
+// RightBar Video Modal
+let rightBarVideo = document.querySelector('.rightbar__video');
+rightBarVideo.querySelector('.video-thumb__image').addEventListener('click', (evt) => {
+    videoModalFrame.src = evt.target.dataset.videoSrc;
+    videoModalTitle.innerHTML = evt.target.dataset.videoTitle;
+    videoModal.classList.add('modal--visible');
+})
+
+// Vidoe List modals
+let videosList = document.querySelector('.videos-list');
+
+if (videosList) {
+    videosList.querySelectorAll('.video-thumb__image, .video-card__title').forEach((item) => {
+        item.addEventListener('click', (evt) => {
+            let card = evt.target.closest('.video-card');
+
+            videoModalFrame.src = card.dataset.videoSrc;
+            videoModalTitle.innerHTML = card.dataset.videoTitle;
+            videoModal.classList.add('modal--visible');
+        });
+    });
 }
 

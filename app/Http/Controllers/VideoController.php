@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Video;
 use App\Http\Requests\StoreVideoRequest;
 use App\Http\Requests\UpdateVideoRequest;
+use App\Models\VideoCategory;
 
 class VideoController extends Controller
 {
@@ -13,7 +14,16 @@ class VideoController extends Controller
      */
     public function index()
     {
-        //
+        $categories = VideoCategory::get()->toTree();
+
+        $videos = Video::with([
+            'channel:id,name,slug',
+            'categories',
+        ])
+            ->published('desc')
+            ->paginate(20);
+
+        return view('videos.index', compact('categories', 'videos'));
     }
 
     /**

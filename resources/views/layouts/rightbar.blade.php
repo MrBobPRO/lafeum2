@@ -41,7 +41,7 @@
             <h3 class="righbar__item-title">Видео дня</h3>
 
             <div class="video-thumb">
-                <img class="video-thumb__image" src="{{ $todaysPost->video->thumbnail }}" alt="{{ $todaysPost->video->title }}">
+                <img class="video-thumb__image" src="{{ $todaysPost->video->thumbnail }}" data-video-src="{{ $todaysPost->video->embeded_link }}" data-video-title="{{ $todaysPost->video->title }}" alt="{{ $todaysPost->video->title }}">
                 <span class="video-thumb__duration">{{ $todaysPost->video->duration }} : 00</span>
             </div>
 
