@@ -13,7 +13,9 @@ class ChannelController extends Controller
      */
     public function index()
     {
-        //
+        $channels = Channel::select('name', 'slug')->orderBy('name')->get();
+
+        return view('channels.index', compact('channels'));
     }
 
     /**
@@ -37,7 +39,16 @@ class ChannelController extends Controller
      */
     public function show(Channel $channel)
     {
-        //
+        $channels = Channel::select('name', 'slug')->orderBy('name')->get();
+
+        $videos = $channel->videos()->with([
+            'channel:id,name,slug',
+            'categories',
+        ])
+            ->published('desc')
+            ->paginate(20);
+
+        return view('channels.show', compact('channel', 'channels', 'videos'));
     }
 
     /**

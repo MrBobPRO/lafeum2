@@ -10,14 +10,14 @@
             </h3>
 
             <div class="rightbar__quote-header">
-                <h4 class="rightbar__quote-author"><a href="{{ route('authors.show', $todaysPost->quote->author->slug) }}">{{ $todaysPost->quote->author->name }}</a></h4>
+                <h4 class="rightbar__quote-author"><a href="{{ route('authors.show', $todaysPost->quote->author->slug) }}" target="_blank">{{ $todaysPost->quote->author->name }}</a></h4>
                 <img class="rightbar__quote-image" src="{{ asset('img/authors/' . $todaysPost->quote->author->photo) }}" alt="{{ $todaysPost->quote->author->name }}">
             </div>
 
             <p class="rightbar__quote-body">{{ $todaysPost->quote->body }}</p>
 
             <div class="rightbar__expand">
-                <a href="{{ route('quotes.index') }}">
+                <a href="{{ route('quotes.index') }}" target="_blank">
                     <span class="material-symbols-outlined">keyboard_arrow_down</span>
                 </a>
             </div>
@@ -30,7 +30,7 @@
             <p class="rightbar__term-body">{!! $todaysPost->term->body !!}</p>
 
             <div class="rightbar__expand">
-                <a href="{{ route('terms.index') }}">
+                <a href="{{ route('terms.index') }}" target="_blank">
                     <span class="material-symbols-outlined">keyboard_arrow_down</span>
                 </a>
             </div>
@@ -48,7 +48,7 @@
             <p class="rightbar__video-body">{!! $todaysPost->video->title !!}</p>
 
             <div class="rightbar__expand">
-                <a href="{{ route('videos.index') }}">
+                <a href="{{ route('videos.index') }}" target="_blank">
                     <span class="material-symbols-outlined">keyboard_arrow_down</span>
                 </a>
             </div>
@@ -61,7 +61,7 @@
             <p class="rightbar__photo-body">{!! $todaysPost->photo->description !!}</p>
 
             <div class="rightbar__expand">
-                <a href="{{ route('photos.index') }}">
+                <a href="{{ route('photos.index') }}" target="_blank">
                     <span class="material-symbols-outlined">keyboard_arrow_down</span>
                 </a>
             </div>

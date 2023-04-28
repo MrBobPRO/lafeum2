@@ -8,9 +8,7 @@
     <div class="terms-category-about">
         <div class="terms-category-about__inner">
             <h1 class="terms-category-about__title main-title">{{ $category->name }}</h1>
-            <div class="terms-category-about__desc">
-                {!! $category->description !!}
-            </div>
+            <div class="terms-category-about__desc">{!! $category->description !!}</div>
         </div>
     </div>
 

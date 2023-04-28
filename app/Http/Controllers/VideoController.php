@@ -26,6 +26,20 @@ class VideoController extends Controller
         return view('videos.index', compact('categories', 'videos'));
     }
 
+    public function category(VideoCategory $category)
+    {
+        $categories = VideoCategory::get()->toTree();
+
+        $videos = $category->videos()->with([
+            'channel:id,name,slug',
+            'categories',
+        ])
+            ->published('desc')
+            ->paginate(20);
+
+        return view('videos.category', compact('category', 'categories', 'videos'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -47,7 +61,12 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        //
+        $video = $video->load([
+            'channel:id,name,slug',
+            'categories',
+        ]);
+
+        return view('videos.show', compact('video'));
     }
 
     /**

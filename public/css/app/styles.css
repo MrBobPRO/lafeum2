@@ -728,9 +728,9 @@ a {
 
 /* ------------ Video Card ------------ */
 .video-card__about {
-    padding: 16px 16px 8px;
+    padding: 16px 16px 12px;
     display: flex;
-    gap: 8px;
+    gap: 16px;
     align-items: flex-start;
 }
 
@@ -746,6 +746,7 @@ a {
     border-radius: 4px;
     background-color: #f8fafc;
     cursor: pointer;
+    width: 100%;
 }
 
 .video-thumb__duration {
@@ -1205,10 +1206,6 @@ a {
     margin-bottom: 20px;
 }
 
-.authors-about__desc {
-    max-width: 540px;
-}
-
 .authors-list {
     display: flex;
     gap: 24px;
@@ -1219,7 +1216,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 20px 28px;
+    padding: 16px 20px;
     background-color: white;
     border-radius: 8px;
     width: 33.3%;
@@ -1248,4 +1245,74 @@ a {
     gap: 24px;
     padding-bottom: 40px;
 }
+
+/* Category page */
+.videos-category-about {
+    margin-bottom: 20px;
+}
+
+.videos-category-about__title {
+    margin-bottom: 16px;
+}
+
+/* Show page */
+.videos-show__inner .video-thumb {
+    width: 40%;
+}
+
+.videos-show__inner .video-card__title {
+    width: 60%;
+}
 /* ------------ /end Videos pages ------------ */
+
+
+/* ------------ Channel pages ------------ */
+/* index */
+.channels-about__title {
+    margin-bottom: 20px;
+}
+
+.channels-list {
+    display: flex;
+    gap: 24px;
+    margin: 20px 0;
+}
+
+.channels-list__row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 20px;
+    background-color: white;
+    border-radius: 8px;
+    width: 33.3%;
+}
+
+.channels-list__item {
+    display: flex;
+}
+
+.channels-list__item:hover {
+    color: var(--main-color);
+}
+
+/* Show page */
+.channels-show-about__title {
+    margin-bottom: 8px;
+    font-size: 24px;
+    color: #2196f3;
+    font-weight: 500;
+}
+
+.channels-show-about__desc {
+    font-size: 16px;
+}
+
+.channels-show-about__desc a {
+    color: var(--secondary-color);
+}
+
+.channels-show-about__desc a:hover {
+    text-decoration: underline;
+}
+/* ------------ /end Channel pages ------------ */
