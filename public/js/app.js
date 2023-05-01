@@ -1,8 +1,14 @@
 let csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
 let videoModal = document.querySelector('.video-modal');
 let videoModalTitle = videoModal.querySelector('.modal__header-title');
 let videoModalFrame = videoModal.querySelector('iframe');
 
+let photoModal = document.querySelector('.photo-modal');
+let photoModalImage = photoModal.querySelector('.photo-modal__image');
+let photoModalDesc = photoModal.querySelector('.photo-modal__desc');
+
+// ********** EXPAND MORE **********
 // Remove unnecessary Expand More buttons
 document.querySelectorAll('.expand-more-container').forEach(function (item) {
     let postTxt = item.previousElementSibling;
@@ -23,6 +29,7 @@ document.querySelectorAll('.expand-more').forEach((item) => {
         postTxt.style.maxHeight = postTxt.clientHeight < postTxt.scrollHeight ? (postTxt.scrollHeight + 'px') : '316px';
     });
 });
+// ********** /END EXPAND MORE **********
 
 
 // debounce function
@@ -92,34 +99,38 @@ document.querySelectorAll('[data-action="local-search"]').forEach((input) => {
     }));
 });
 
+// ************ VOCABULARY ************
+function initializeVocabularyHoverListener() {
+    let vocabularyList = document.querySelector('.vocabulary-list');
 
-// Load Vocabulary Term body on Term link hover
-function addVocabularyLinkHoverListeners() {
-    document.querySelectorAll('.vocabulary-list__link').forEach((item) => {
-        item.addEventListener('mouseover', function (evt) {
-            let link = evt.target;
+    if (vocabularyList) {
+        // Load Vocabulary Term body on Vocabulary Item hover
+        vocabularyList.addEventListener('mouseover', function (evt) {
+            let targ = evt.target;
 
-            if (link.dataset.bodyLoaded == 0) {
-                let popup = link.nextElementSibling;
-                link.dataset.bodyLoaded = 1;
+            if (targ.classList.contains('vocabulary-list__link')) {
+                if (targ.dataset.bodyLoaded == 0) {
+                    let popup = targ.nextElementSibling;
+                    targ.dataset.bodyLoaded = 1;
 
-                const xhttp = new XMLHttpRequest();
-                xhttp.onloadend = function () {
-                    if (xhttp.status == 200) {
-                        popup.innerHTML = '<div class="vocabulary-list__popup-inner">' + this.responseText + '</div>';
-                    } else {
-                        xhttp.abort();
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.onloadend = function () {
+                        if (xhttp.status == 200) {
+                            popup.innerHTML = '<div class="vocabulary-list__popup-inner">' + this.responseText + '</div>';
+                        } else {
+                            xhttp.abort();
+                        }
                     }
-                }
 
-                xhttp.open('GET', '/vocabulary/body/' + link.dataset.id, true);
-                xhttp.send();
+                    xhttp.open('GET', '/vocabulary/body/' + targ.dataset.id, true);
+                    xhttp.send();
+                }
             }
         });
-    });
+    }
 }
-addVocabularyLinkHoverListeners();
 
+initializeVocabularyHoverListener()
 
 // Vocabulary search on Vocabulary categories page
 let vocabularySearch = document.querySelector('[data-action="vocabulary-search"]');
@@ -142,7 +153,7 @@ function searchVocabulary(keyword, categoryId) {
     xhttp.onloadend = function () {
         if (xhttp.status == 200) {
             document.querySelector('.vocabulary-list-container').innerHTML = xhttp.responseText;
-            addVocabularyLinkHoverListeners();
+            initializeVocabularyHoverListener();
         } else {
             xhttp.abort();
         }
@@ -153,10 +164,11 @@ function searchVocabulary(keyword, categoryId) {
     xhttp.setRequestHeader('Content-type', 'application/json')
     xhttp.send(JSON.stringify(params));
 }
+// ************ /END VOCABULARY ************
 
 
-// Modal
-// Modal dismiss
+// ************ MODAL ************
+// Modal Dismiss
 document.querySelectorAll('.modal__background, modal__dismiss').forEach((item) => {
     item.addEventListener('click', (evt) => {
         let modal = evt.target.closest('.modal');
@@ -172,13 +184,16 @@ document.querySelectorAll('.modal__background, modal__dismiss').forEach((item) =
 
 // RightBar Video Modal
 let rightBarVideo = document.querySelector('.rightbar__video');
-rightBarVideo.querySelector('.video-thumb__image').addEventListener('click', (evt) => {
-    videoModalFrame.src = evt.target.dataset.videoSrc;
-    videoModalTitle.innerHTML = evt.target.dataset.videoTitle;
-    videoModal.classList.add('modal--visible');
-})
+if (rightBarVideo) {
+    rightBarVideo.querySelector('.video-thumb__image').addEventListener('click', (evt) => {
+        videoModalFrame.src = evt.target.dataset.videoSrc;
+        videoModalTitle.innerHTML = evt.target.dataset.videoTitle;
+        videoModal.classList.add('modal--visible');
+    });
+}
 
-// Vidoe List modals
+
+// Video List Modals
 let videosList = document.querySelector('.videos-list');
 
 if (videosList) {
@@ -193,3 +208,19 @@ if (videosList) {
     });
 }
 
+
+// Photos List Modals
+let photosList = document.querySelector('.photos-list');
+
+if (photosList) {
+    photosList.querySelectorAll('.photo-card__image').forEach((item) => {
+        item.addEventListener('click', (evt) => {
+            let card = evt.target.closest('.photo-card');
+
+            photoModalImage.src = card.dataset.imageSrc;
+            photoModalDesc.innerHTML = card.dataset.imageDesc;
+            photoModal.classList.add('modal--visible');
+        });
+    });
+}
+// ************ /END MODAL ************

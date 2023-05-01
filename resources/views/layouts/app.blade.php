@@ -29,6 +29,7 @@
 
         @includeWhen($includeRightBar, 'layouts.rightbar')
         @include('layouts.video-modal')
+        @include('layouts.photo-modal')
     </div>
 
     @include('layouts.footer')

@@ -14,12 +14,12 @@
         <p class="footer__copyright">© 2017 - 2023 — Lafeum. Все права защищены.</p>
 
         <nav class="footer__socials">
-            <a class="footer__socials-link" href="https://vk.com/club209177677">
+            <a class="footer__socials-link" href="https://vk.com/club209177677" target="_blank">
                 <img class="footer__socials-image" src="{{ asset('img/main/vk.svg') }}" alt="vkontakte">
             </a>
 
-            <a class="footer__socials-link" href="https://t.me/lafeum_ru">
-                <img class="footer__socials-image" src="{{ asset('img/main/telegram.svg') }}" alt="vkontakte">
+            <a class="footer__socials-link" href="https://t.me/lafeum_ru" target="_blank">
+                <img class="footer__socials-image" src="{{ asset('img/main/telegram.svg') }}" alt="telegram">
             </a>
         </nav>
     </div>

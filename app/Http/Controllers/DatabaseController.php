@@ -70,7 +70,7 @@ class DatabaseController extends Controller
 
         // Photos
         Photo::withTrashed()->get()->each(function ($item) {
-            $item->path = substr($item->path, 13);
+            $item->path = substr($item->path, 12);
             $item->save();
         });
     }

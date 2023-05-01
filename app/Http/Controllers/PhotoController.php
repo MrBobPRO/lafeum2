@@ -13,7 +13,9 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        //
+        $photos = Photo::published('desc')->paginate(16);
+
+        return view('photos.index', compact('photos'));
     }
 
     /**
