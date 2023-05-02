@@ -20,3 +20,5 @@ yarn-error.log
 
 /public/img/authors/*
 /public/img/photos/*
+!/public/img/photos/thumbs
+/public/img/photos/thumbs/*

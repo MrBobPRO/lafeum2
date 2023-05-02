@@ -41,6 +41,21 @@ class AppController extends Controller
         return view('pages.about-us');
     }
 
+    public function policy()
+    {
+        return view('pages.policy');
+    }
+
+    public function termsOfUse()
+    {
+        return view('pages.terms-of-use');
+    }
+
+    public function contacts()
+    {
+        return view('pages.contacts');
+    }
+
     private function getSupportedTypeLinks($category)
     {
         $links = [];

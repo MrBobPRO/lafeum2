@@ -106,6 +106,50 @@ a {
     display: flex;
 }
 
+.text-card {
+    padding: 24px 24px 12px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);
+}
+
+
+/* ------------ Form ------------ */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label .required {
+    color: red;
+    font-weight: bold;
+}
+
+.input, .textarea {
+    background-color: #F7F7F7;
+    border-radius: 8px;
+    border: none;
+    padding: 12px;
+    font-weight: 500;
+}
+
+.submit {
+    background-color: var(--main-color);
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    padding: 14px;
+    border: none;
+    transition: 0.3s;
+}
+
+.submit:hover {
+    box-shadow: 0 0 12px var(--main-color);
+}
+/* ------------ /end Form ------------ */
+
+
 /* ------------ Header ------------ */
 .header {
     display: flex;
@@ -865,6 +909,10 @@ a {
     color: var(--text-color);
 }
 
+.modal-dismiss span {
+    pointer-events: none;
+}
+
 .modal-body {
     display: flex;
     padding: 16px;
@@ -1360,6 +1408,9 @@ a {
 }
 
 .photo-card__image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     cursor: pointer;
 }
 
@@ -1367,3 +1418,64 @@ a {
     margin-top: 20px;
 }
 /* ------------ /end Photo pages ------------ */
+
+
+/* ------------ About us, Policy & Terms of use pages ------------ */
+.about-us__title, .policy__title, .terms__title {
+    margin-bottom: 16px;
+}
+
+/* ------------ /end About us, Policy & Terms of use pages ------------ */
+
+
+/* ------------ Contacts page ------------ */
+.contacts__inner {
+    display: flex;
+    gap: 100px;
+}
+
+.contacts__about {
+    max-width: 50%;
+}
+
+.contacts-about__title {
+    margin-bottom: 16px;
+}
+
+.contacts-about__desc {
+    font-size: 16px;
+    margin-bottom: 32px;
+}
+
+.contacts-about__mail {
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.contacts-about__mail strong {
+    font-weight: 600;
+}
+
+/* Feedback */
+.feedback {
+    padding: 40px;
+    background-color: white;
+    width: 450px;
+    border-radius: 8px;
+}
+
+.feedback__title {
+    margin-bottom: 20px;
+}
+
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.feedback-form__submit {
+    margin-top: 24px;
+    width: 100%;
+}
+/* ------------ /end Contacts pages ------------ */

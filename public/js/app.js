@@ -169,15 +169,19 @@ function searchVocabulary(keyword, categoryId) {
 
 // ************ MODAL ************
 // Modal Dismiss
-document.querySelectorAll('.modal__background, modal__dismiss').forEach((item) => {
+document.querySelectorAll('.modal__background').forEach((item) => {
     item.addEventListener('click', (evt) => {
-        let modal = evt.target.closest('.modal');
-        modal.classList.remove('modal--visible');
+        let targ = evt.target;
 
-        // stop iframe video
-        let iframe = modal.querySelector('iframe');
-        if (iframe) {
-            iframe.src = iframe.src;
+        if (targ.classList.contains('modal__background') || targ.classList.contains('modal-dismiss')) {
+            let modal = targ.closest('.modal');
+            modal.classList.remove('modal--visible');
+
+            // stop iframe video
+            let iframe = modal.querySelector('iframe');
+            if (iframe) {
+                iframe.src = iframe.src;
+            }
         }
     });
 });
@@ -218,7 +222,8 @@ if (photosList) {
             let card = evt.target.closest('.photo-card');
 
             photoModalImage.src = card.dataset.imageSrc;
-            photoModalDesc.innerHTML = card.dataset.imageDesc;
+            cardDesc = card.querySelector('.photo-card__desc');
+            photoModalDesc.innerHTML = cardDesc.innerHTML;
             photoModal.classList.add('modal--visible');
         });
     });

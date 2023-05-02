@@ -27,7 +27,7 @@ Route::middleware('verified')->group(function () {
         Route::get('/', 'home')->name('home')->middleware('verified');
         Route::get("/about-us", 'aboutUs')->name('about-us');
         Route::get("/contacts", 'contacts')->name('contacts');
-        Route::get("/privacy-policy", 'privacy')->name('privacy');
+        Route::get("/privacy-policy", 'policy')->name('policy');
         Route::get("/terms-of-use", 'termsOfUse')->name('terms-of-use');
     });
 
@@ -75,7 +75,7 @@ Route::middleware('verified')->group(function () {
         Route::get('/photos', 'index')->name('index');
     });
 
-    Route::controller(FeedbackController::class)->name('feedbacks.')->group(function () {
+    Route::controller(FeedbackController::class)->name('feedback.')->group(function () {
         Route::post('/feedback', 'store')->name('store');
     });
 

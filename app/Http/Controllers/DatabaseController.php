@@ -73,5 +73,22 @@ class DatabaseController extends Controller
             $item->path = substr($item->path, 12);
             $item->save();
         });
+
+        // create thumbs
+        Photo::withTrashed()->get()->each(function ($item) {
+            if(file_exists(public_path('img/photos/' . $item->path))) {
+                try {
+                    $thumb = Image::make(public_path('img/photos/' . $item->path));
+
+                    $thumb->resize(320, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+
+                    $thumb->save(public_path('img/photos/thumbs/' . $item->path));
+                } catch (Exception $e) {
+                    dd("ERROR: " . $item->path);
+                }
+            }
+        });
     }
 }

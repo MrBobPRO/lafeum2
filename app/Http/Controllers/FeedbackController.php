@@ -29,7 +29,9 @@ class FeedbackController extends Controller
      */
     public function store(StoreFeedbackRequest $request)
     {
-        //
+        Feedback::create($request->all());
+
+        return redirect()->back();
     }
 
     /**
