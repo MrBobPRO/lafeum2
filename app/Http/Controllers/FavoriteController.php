@@ -5,9 +5,39 @@ namespace App\Http\Controllers;
 use App\Models\Favorite;
 use App\Http\Requests\StoreFavoriteRequest;
 use App\Http\Requests\UpdateFavoriteRequest;
+use App\Models\Quote;
+use App\Models\Term;
+use App\Models\Video;
+use Illuminate\Http\Request;
 
 class FavoriteController extends Controller
 {
+    public function toggle(Request $request)
+    {
+        $model = $request->model;
+        $favoritableModels = array(Quote::class, Term::class, Video::class);
+
+        // escape hacks
+        if(in_array($model, $favoritableModels)) {
+            $instance = $model::find($request->id);
+            $user = request()->user();
+
+            // Toggle Favorite
+            if($instance->favoritedBy($user)) {
+                $instance->favorites()->where('user_id', $user->id)->first()->delete();
+
+                return 'unfavorited';
+
+            } else {
+                $favorite = new Favorite(['user_id' => $user->id]);
+                $instance->favorites()->save($favorite);
+
+                return 'favorited';
+            }
+        }
+    }
+
+
     /**
      * Display a listing of the resource.
      */

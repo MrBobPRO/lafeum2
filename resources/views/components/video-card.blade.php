@@ -26,7 +26,7 @@
     <div class="post-card__footer">
         <div class="post-card__actions">
             @auth
-                <span class="favorite material-symbols-outlined" data-action="favorite" data-target="{{ $video->id }}">favorite</span>
+                <span class="material-symbols-outlined favorite {{ $video->favoritedBy($currentUser) ? 'favorite--active' : '' }}" data-action="favorite" data-model="App\Models\Video" data-id="{{ $video->id }}">favorite</span>
             @endauth
         </div>
 

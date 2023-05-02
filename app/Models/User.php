@@ -73,12 +73,6 @@ class User extends Authenticatable implements MustVerifyEmail
             ->where('favoritable_type', Term::class);
     }
 
-    public function favoritePhotos()
-    {
-        return $this->belongsToMany(Photo::class, 'favorites', 'user_id', 'favoritable_id')
-            ->where('favoritable_type', Photo::class);
-    }
-
     public function favoriteVideos()
     {
         return $this->belongsToMany(Video::class, 'favorites', 'user_id', 'favoritable_id')

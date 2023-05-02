@@ -12,7 +12,6 @@ class Photo extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    use Favoritable;
     use Publishable;
 
     protected $guarded = ['id'];

@@ -33,7 +33,7 @@
     <div class="post-card__footer">
         <div class="post-card__actions">
             @auth
-                <span class="favorite material-symbols-outlined" data-action="favorite-term" data-target="{{ $term->id }}">favorite</span>
+                <span class="material-symbols-outlined favorite {{ $term->favoritedBy($currentUser) ? 'favorite--active' : '' }}" data-action="favorite" data-model="App\Models\Term" data-id="{{ $term->id }}">favorite</span>
             @endauth
         </div>
 

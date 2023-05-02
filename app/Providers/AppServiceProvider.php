@@ -23,5 +23,9 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.rightbar', function ($view) {
             $view->with('todaysPost', DailyPost::orderBy('date', 'desc')->with(['quote', 'term', 'video', 'photo'])->first());
         });
+
+        View::composer(['components.quote-card', 'components.term-card', 'components.video-card'], function ($view) {
+            $view->with('currentUser', auth()->user());
+        });
     }
 }

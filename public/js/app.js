@@ -13,7 +13,6 @@ let photoModalDesc = photoModal.querySelector('.photo-modal__desc');
 document.querySelectorAll('.expand-more-container').forEach(function (item) {
     let postTxt = item.previousElementSibling;
 
-    console.log('clinetHeight = ' + postTxt.clientHeight + ' scrollHeight = ' + postTxt.scrollHeight);
     if (postTxt.clientHeight == postTxt.scrollHeight) {
         item.remove();
     }
@@ -229,3 +228,34 @@ if (photosList) {
     });
 }
 // ************ /END MODAL ************
+
+
+// Toggle Favorite
+document.querySelectorAll('[data-action="favorite"]').forEach((item) => {
+    item.addEventListener('click', (evt) => {
+        targ = evt.target;
+
+        const params = {
+            model: targ.dataset.model,
+            id: targ.dataset.id,
+        };
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onloadend = function () {
+            if (xhttp.status == 200) {
+                if (xhttp.responseText == 'favorited') {
+                    targ.classList.add('favorite--active');
+                } else if (xhttp.responseText == 'unfavorited') {
+                    targ.classList.remove('favorite--active');
+                }
+            } else {
+                xhttp.abort();
+            }
+        }
+
+        xhttp.open('POST', '/favorites/toggle', true);
+        xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken)
+        xhttp.setRequestHeader('Content-type', 'application/json')
+        xhttp.send(JSON.stringify(params));
+    });
+});

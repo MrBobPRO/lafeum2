@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ChannelController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\KnowledgeController;
 use App\Http\Controllers\PhotoController;
@@ -77,6 +78,10 @@ Route::middleware('verified')->group(function () {
 
     Route::controller(FeedbackController::class)->name('feedback.')->group(function () {
         Route::post('/feedback', 'store')->name('store');
+    });
+
+    Route::controller(FavoriteController::class)->name('favorites.')->group(function () {
+        Route::post('/favorites/toggle', 'toggle')->name('toggle');
     });
 
     Route::controller(ProfileController::class)->name('profile.')->middleware('auth')->group(function () {
