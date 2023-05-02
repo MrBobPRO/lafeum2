@@ -113,6 +113,62 @@ a {
     box-shadow: 0 0 0 0 rgba(0,0,0,.2), 0 0 0 0 rgba(0,0,0,.14), 0 0 0 0 rgba(0,0,0,.12);
 }
 
+/* ------------ Dropdown ------------ */
+.dropdown {
+    position: relative;
+}
+
+.dropdown__content {
+    position: absolute;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px 0px #04718ccf;
+    margin-top: 12px;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.dropdown--active .dropdown__content {
+    opacity: 1;
+    visibility: visible;
+}
+/* ------------ /end Dropdown ------------ */
+
+
+/* ------------ Scroll Buttons ------------ */
+.scroll-buttons {
+    position: fixed;
+    bottom: 40px;
+    right: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+.scroll-buttons--visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-buttons button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+
+/* ------------ /end Scroll Buttons ------------ */
+
 
 /* ------------ Form ------------ */
 .form-group {
@@ -206,6 +262,68 @@ a {
     border-radius: 6px;
     color: var(--secondary-color);
     background-color: white;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    margin-left: 32px;
+}
+
+.profile-dropdown .dropdown__button {
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: white;
+}
+
+.profile-dropdown__image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.profile-nav {
+    width: 260px;
+    max-width: 290px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 28px 24px;
+}
+
+.profile-nav__item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-weight: 500;
+}
+
+.profile-nav__item:first-child {
+    font-weight: bold;
+    color: var(--secondary-color);
+    margin-bottom: 8px;
+}
+
+.profile-nav__item span {
+    font-variation-settings: "FILL" 0, "wght" 600, "GRAD" 0, "opsz" 48;
+    font-size: 18px;
+}
+
+.profile-logout-form {
+    margin-top: 8px;
+    color: red;
+}
+
+.profile-logout-form button {
+    font-weight: 500;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    color: red;
 }
 
 /* ------------ /end Header ------------ */
@@ -875,6 +993,7 @@ a {
 
 .modal--visible {
     visibility: visible;
+    z-index: 2;
 }
 
 .modal__inner {
@@ -1485,3 +1604,10 @@ a {
     width: 100%;
 }
 /* ------------ /end Contacts pages ------------ */
+
+
+/* ------------ Favorites pages ------------ */
+.favorites-about__title {
+    margin-bottom: 16px;
+}
+/* ------------ /end Favorites pages ------------ */

@@ -1,4 +1,5 @@
 let csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+let scrollButtons = document.querySelector('.scroll-buttons');
 
 let videoModal = document.querySelector('.video-modal');
 let videoModalTitle = videoModal.querySelector('.modal__header-title');
@@ -7,6 +8,31 @@ let videoModalFrame = videoModal.querySelector('iframe');
 let photoModal = document.querySelector('.photo-modal');
 let photoModalImage = photoModal.querySelector('.photo-modal__image');
 let photoModalDesc = photoModal.querySelector('.photo-modal__desc');
+
+
+// ********** DOCUMENT ONCLICK LISTENER **********
+// Hide active dropdown on outside of dropdown click
+document.addEventListener('click', function (evt) {
+    document.querySelectorAll('.dropdown--active').forEach((activeDropdown) => {
+        // Check if event target is outside of active dropdown
+        if (evt.target != activeDropdown && !activeDropdown.contains(evt.target)) {
+            activeDropdown.classList.remove('dropdown--active');
+        }
+    });
+});
+// ********** /END DOCUMENT ONCLICK LISTENER **********
+
+
+// ********** WINDOW ONSCROLL LISTENER **********
+window.addEventListener('scroll', (evt) => {
+    if (window.pageYOffset > 300) {
+        scrollButtons.classList.add('scroll-buttons--visible');
+    } else {
+        scrollButtons.classList.remove('scroll-buttons--visible');
+    }
+});
+// ********** /END WINDOW ONSCROLL LISTENER **********
+
 
 // ********** EXPAND MORE **********
 // Remove unnecessary Expand More buttons
@@ -253,9 +279,33 @@ document.querySelectorAll('[data-action="favorite"]').forEach((item) => {
             }
         }
 
-        xhttp.open('POST', '/favorites/toggle', true);
+        xhttp.open('POST', '/toggle-favorites', true);
         xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken)
         xhttp.setRequestHeader('Content-type', 'application/json')
         xhttp.send(JSON.stringify(params));
+    });
+});
+
+
+// Dropdown
+document.querySelectorAll('.dropdown__button').forEach((item) => {
+    item.addEventListener('click', (evt) => {
+        evt.target.closest('.dropdown').classList.toggle('dropdown--active');
+    });
+});
+
+
+// Scroll Buttons
+document.querySelector('.scroll-buttons__top').addEventListener('click', (evt) => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+    });
+});
+
+document.querySelector('.scroll-buttons__bottom').addEventListener('click', (evt) => {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
     });
 });

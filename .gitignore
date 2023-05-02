@@ -22,3 +22,6 @@ yarn-error.log
 /public/img/photos/*
 !/public/img/photos/thumbs
 /public/img/photos/thumbs/*
+/public/img/users/*
+!/public/img/users/__default.png
+!/public/img/users/__default-dark.png

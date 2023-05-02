@@ -18,16 +18,15 @@ class FavoriteController extends Controller
         $favoritableModels = array(Quote::class, Term::class, Video::class);
 
         // escape hacks
-        if(in_array($model, $favoritableModels)) {
+        if (in_array($model, $favoritableModels)) {
             $instance = $model::find($request->id);
             $user = request()->user();
 
             // Toggle Favorite
-            if($instance->favoritedBy($user)) {
+            if ($instance->favoritedBy($user)) {
                 $instance->favorites()->where('user_id', $user->id)->first()->delete();
 
                 return 'unfavorited';
-
             } else {
                 $favorite = new Favorite(['user_id' => $user->id]);
                 $instance->favorites()->save($favorite);
@@ -35,6 +34,45 @@ class FavoriteController extends Controller
                 return 'favorited';
             }
         }
+    }
+
+    public function quotes()
+    {
+        $quotes = auth()->user()->favoriteQuotes()->
+        with([
+            'author:id,name,slug',
+            'categories:id,name,slug'
+        ])
+            ->published('desc')
+            ->paginate(20);
+
+        return view('favorites.quotes', compact('quotes'));
+    }
+
+    public function terms()
+    {
+        $terms = auth()->user()->favoriteTerms()
+        ->with([
+            'categories',
+            'termType'
+        ])
+        ->published('desc')
+        ->paginate(20);
+
+        return view('favorites.terms', compact('terms'));
+    }
+
+    public function videos()
+    {
+        $videos = auth()->user()->favoriteVideos()
+        ->with([
+            'channel:id,name,slug',
+            'categories',
+        ])
+            ->published('desc')
+            ->paginate(20);
+
+        return view('favorites.videos', compact('videos'));
     }
 
 

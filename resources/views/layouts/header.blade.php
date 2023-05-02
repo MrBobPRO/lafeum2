@@ -11,11 +11,7 @@
         @endguest
 
         @auth
-            <form action="/logout" method="POST">
-                @csrf
-
-                <button class="header__login-btn">Выйти</button>
-            </form>
+            <x-profile-dropdown />
         @endauth
     </div>
 </header>

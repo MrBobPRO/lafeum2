@@ -81,7 +81,10 @@ Route::middleware('verified')->group(function () {
     });
 
     Route::controller(FavoriteController::class)->name('favorites.')->group(function () {
-        Route::post('/favorites/toggle', 'toggle')->name('toggle');
+        Route::get('/favorite-quotes', 'quotes')->name('quotes');
+        Route::get('/favorite-terms', 'terms')->name('terms');
+        Route::get('/favorite-videos', 'videos')->name('videos');
+        Route::post('/toggle-favorites', 'toggle')->name('toggle');
     });
 
     Route::controller(ProfileController::class)->name('profile.')->middleware('auth')->group(function () {

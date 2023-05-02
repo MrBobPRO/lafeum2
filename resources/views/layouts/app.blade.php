@@ -25,11 +25,12 @@
 
         <main class="main">
             @yield('main')
+            @include('layouts.video-modal')
+            @include('layouts.photo-modal')
+            <x-scroll-buttons />
         </main>
 
         @includeWhen($includeRightBar, 'layouts.rightbar')
-        @include('layouts.video-modal')
-        @include('layouts.photo-modal')
     </div>
 
     @include('layouts.footer')
