@@ -14,7 +14,7 @@
                 <img class="rightbar__quote-image" src="{{ asset('img/authors/' . $todaysPost->quote->author->photo) }}" alt="{{ $todaysPost->quote->author->name }}">
             </div>
 
-            <div class="rightbar__quote-body">{{ $todaysPost->quote->body }}</div>
+            <div class="rightbar__quote-body">{!! $todaysPost->quote->body !!}</div>
 
             <div class="rightbar__expand">
                 <a href="{{ route('quotes.index') }}" target="_blank">
@@ -45,7 +45,7 @@
                 <span class="video-thumb__duration">{{ $todaysPost->video->duration }} : 00</span>
             </div>
 
-            <p class="rightbar__video-body">{!! $todaysPost->video->title !!}</p>
+            <p class="rightbar__video-body">{{ $todaysPost->video->title }}</p>
 
             <div class="rightbar__expand">
                 <a href="{{ route('videos.index') }}" target="_blank">
@@ -58,7 +58,7 @@
         <div class="rightbar__photo rightbar__item">
             <h3 class="righbar__item-title">Фотография дня</h3>
 
-            <p class="rightbar__photo-body">{!! $todaysPost->photo->description !!}</p>
+            <p class="rightbar__photo-body">{{ $todaysPost->photo->description }}</p>
 
             <div class="rightbar__expand">
                 <a href="{{ route('photos.index') }}" target="_blank">
