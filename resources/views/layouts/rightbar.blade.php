@@ -14,7 +14,7 @@
                 <img class="rightbar__quote-image" src="{{ asset('img/authors/' . $todaysPost->quote->author->photo) }}" alt="{{ $todaysPost->quote->author->name }}">
             </div>
 
-            <p class="rightbar__quote-body">{{ $todaysPost->quote->body }}</p>
+            <div class="rightbar__quote-body">{{ $todaysPost->quote->body }}</div>
 
             <div class="rightbar__expand">
                 <a href="{{ route('quotes.index') }}" target="_blank">
@@ -27,7 +27,7 @@
         <div class="rightbar__term rightbar__item">
             <h3 class="righbar__item-title">Термин дня</h3>
 
-            <p class="rightbar__term-body">{!! $todaysPost->term->body !!}</p>
+            <div class="rightbar__term-body">{!! $todaysPost->term->body !!}</div>
 
             <div class="rightbar__expand">
                 <a href="{{ route('terms.index') }}" target="_blank">
