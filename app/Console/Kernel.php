@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             DailyPost::updateDaily();
-        })->everyMinute();
+        })->daily();
     }
 
     /**
