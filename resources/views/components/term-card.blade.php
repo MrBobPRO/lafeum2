@@ -25,7 +25,7 @@
 
         <div class="post-card__categories">
             @foreach ($term->categories as $cat)
-                <a class="post-card__categories-link" href="{{ route('terms.category', $cat->slug) }}">{{ $cat->name }}</a>
+                <a class="post-card__categories-link" href="{{ route('terms.category', $cat->slug) }}" target="_blank">{{ $cat->name }}</a>
             @endforeach
         </div>
     </div>

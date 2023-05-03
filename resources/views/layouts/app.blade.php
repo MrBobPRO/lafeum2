@@ -24,9 +24,9 @@
         @endif
 
         <main class="main">
-            @yield('main')
             @include('layouts.video-modal')
             @include('layouts.photo-modal')
+            @yield('main')
             <x-scroll-buttons />
         </main>
 

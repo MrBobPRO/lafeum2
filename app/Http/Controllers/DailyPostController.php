@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DailyPost;
-use App\Http\Requests\StoreDailyPostRequest;
-use App\Http\Requests\UpdateDailyPostRequest;
-
 class DailyPostController extends Controller
 {
     /**
@@ -27,7 +23,7 @@ class DailyPostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDailyPostRequest $request)
+    public function store()
     {
         //
     }
@@ -49,11 +45,11 @@ class DailyPostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     *
      */
-    public function update(UpdateDailyPostRequest $request, DailyPost $dailyPost)
+    public function update()
     {
-        //
+
     }
 
     /**

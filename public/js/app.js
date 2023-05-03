@@ -207,6 +207,9 @@ document.querySelectorAll('.modal__background').forEach((item) => {
             if (iframe) {
                 iframe.src = iframe.src;
             }
+
+            // remove img src
+            photoModalImage.src = '';
         }
     });
 });

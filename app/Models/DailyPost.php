@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Photo;
+use App\Models\Quote;
+use App\Models\Term;
+use App\Models\Video;
 
 class DailyPost extends Model
 {
@@ -30,5 +34,16 @@ class DailyPost extends Model
     public function photo()
     {
         return $this->belongsTo(Photo::class);
+    }
+
+    public static function updateDaily()
+    {
+        DailyPost::create([
+            'date' => now(),
+            'quote_id' => Quote::published()->inRandomOrder()->first()->id,
+            'term_id' => Term::published()->inRandomOrder()->first()->id,
+            'video_id' => Video::published()->inRandomOrder()->first()->id,
+            'photo_id' => Photo::published()->inRandomOrder()->first()->id
+        ]);
     }
 }
