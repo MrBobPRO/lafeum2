@@ -18,6 +18,7 @@ yarn-error.log
 /.idea
 /.vscode
 
+.htaccess
 /public/img/authors/*
 /public/img/photos/*
 !/public/img/photos/thumbs

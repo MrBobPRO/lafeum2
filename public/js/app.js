@@ -143,7 +143,7 @@ function initializeVocabularyHoverListener() {
                         if (xhttp.status == 200) {
                             popup.innerHTML = '<div class="vocabulary-list__popup-inner">' + this.responseText + '</div>';
                         } else {
-                            xhttp.abort();
+                            targ.dataset.bodyLoaded = 0;
                         }
                     }
 
