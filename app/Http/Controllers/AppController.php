@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mamba;
-use App\Models\Photo;
-use App\Models\Quote;
 use App\Models\QuoteCategory;
-use App\Models\Term;
 use App\Models\TermCategory;
-use App\Models\Video;
 use App\Models\VideoCategory;
 use Illuminate\Http\Request;
 use Kalnoy\Nestedset\Collection;
@@ -35,6 +30,7 @@ class AppController extends Controller
 
         return view('pages.home', compact('categories'));
     }
+
 
     public function aboutUs()
     {

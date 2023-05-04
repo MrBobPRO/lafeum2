@@ -687,6 +687,7 @@ a {
 
 .post-card__body {
     padding: 8px 16px 16px;
+    position: relative;
 }
 
 .post-card__txt {
@@ -828,6 +829,34 @@ a {
     font-size: 20px;
 }
 
+.term-card__popup {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    padding: 16px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 9px 11px -5px rgba(0,0,0,.2),0 18px 28px 2px rgba(0,0,0,.14),0 7px 34px 6px rgba(0,0,0,.12);
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.term-card__popup--visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.term-card__popup-inner {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+}
+
+.term-card__subterms-container {
+    display: none;
+}
 /* ------------ /end Terms Card ------------ */
 
 

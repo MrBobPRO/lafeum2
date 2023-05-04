@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class DatabaseController extends Controller
@@ -37,21 +38,21 @@ class DatabaseController extends Controller
             switch ($item->categoriable_type) {
                 case 'App\Video':
                     $video = Video::find($item->categoriable_id);
-                    if($video) {
+                    if ($video) {
                         $video->categories()->attach($item->category_id);
                     }
                     break;
 
                 case 'App\Term':
                     $term = Term::find($item->categoriable_id);
-                    if($term) {
+                    if ($term) {
                         $term->categories()->attach($item->category_id);
                     }
                     break;
 
                 case 'App\Quote':
                     $quote = Quote::find($item->categoriable_id);
-                    if($quote) {
+                    if ($quote) {
                         $quote->categories()->attach($item->category_id);
                     }
                     break;
@@ -76,7 +77,7 @@ class DatabaseController extends Controller
 
         // create thumbs
         Photo::withTrashed()->get()->each(function ($item) {
-            if(file_exists(public_path('img/photos/' . $item->path))) {
+            if (file_exists(public_path('img/photos/' . $item->path))) {
                 try {
                     $thumb = Image::make(public_path('img/photos/' . $item->path));
 
@@ -90,5 +91,41 @@ class DatabaseController extends Controller
                 }
             }
         });
+    }
+
+    public static function fixTermsBodyLinks($terms, $newDomain)
+    {
+        foreach($terms as $term) {
+            $body = $term->body;
+
+            preg_match_all('/<a\s+.*?href=[\"\']?([^\"\' >]*)[^>]*>/i', $body, $links);
+
+            // Replace all links
+            foreach($links[0] as $link) {
+                $parsed = parse_url($link);
+                // Links wich include only id /1235
+                if(!array_key_exists('host', $parsed)) {
+                    $id = substr($parsed['path'], 1);
+                    $post = Post::find($id);
+
+                    if($post) {
+                        $body = str_replace($link, "https://{$newDomain}/term/" . $post->postable_id, $body);
+                    }
+                }
+
+                // Full links https://lafeum.ru/14124
+                else if($parsed['host'] == 'lafeum.ru') {
+                    $id = substr($parsed['path'], 1);
+                    $post = Post::find($id);
+
+                    if($post) {
+                        $body = str_replace($link, "https://{$newDomain}/term/" . $post->postable_id, $body);
+                    }
+                }
+            }
+
+            $term->body = $body;
+            $term->save();
+        }
     }
 }

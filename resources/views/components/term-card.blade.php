@@ -14,7 +14,14 @@
     </div>
 
     <div class="post-card__body">
-        <div class="post-card__txt">{!! $term->body !!}</div>
+        <div class="term-card__popup">
+            <div class="term-card__popup-inner" data-subterm-id="0"></div>
+        </div>
+
+        <div class="post-card__txt">
+            {!! $term->body !!}
+            <div class="term-card__subterms-container">{!! $term->subterms !!}</div>
+        </div>
 
         <div class="expand-more-container">
             <button class="expand-more">
