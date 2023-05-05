@@ -839,7 +839,8 @@ a {
     box-shadow: 0 9px 11px -5px rgba(0,0,0,.2),0 18px 28px 2px rgba(0,0,0,.14),0 7px 34px 6px rgba(0,0,0,.12);
     visibility: hidden;
     opacity: 0;
-    transition: 0.3s;
+    transition: all 0.3s, top 0s;
+    z-index: 1;
 }
 
 .term-card__popup--visible {
@@ -852,6 +853,10 @@ a {
     display: -webkit-box;
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
+}
+
+.term-card__popup a {
+    color: var(--secondary-color);
 }
 
 .term-card__subterms-container {
@@ -1010,7 +1015,6 @@ a {
     width: 100%;
     height: 100%;
     visibility: hidden;
-    z-index: -1;
     transition: 0s;
 }
 

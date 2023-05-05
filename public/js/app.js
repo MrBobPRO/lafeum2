@@ -193,48 +193,52 @@ function searchVocabulary(keyword, categoryId) {
 
 
 // ************ TERMS ************
-let termsList = document.querySelector('.terms-list');
-if (termsList) {
-    document.querySelectorAll('.term-card').forEach((card) => {
-        document.querySelectorAll('a').forEach((link) => {
-            // IGNORE Subterm Links
-            if (!link.closest('.term-card__subterms-container')) {
-                if (link.href == '') return;
+document.querySelectorAll('.term-card').forEach((card) => {
+    document.querySelectorAll('a').forEach((link) => {
+        // IGNORE Subterm Links
+        if (!link.closest('.term-card__subterms-container')) {
+            if (link.href == '') return;
 
-                let url = new URL(link.href);
+            let url = new URL(link.href);
 
-                // Get ID from pathname https://lafeum.ru/term/{id}
-                if (url.hostname == 'lafeum.ru') {
-                    let id = url.pathname.slice(6);
-                    link.dataset.targetId = 'subterm' + id;
+            // Get ID from pathname https://lafeum.ru/term/{id}
+            if (url.hostname == 'lafeum.ru') {
+                let id = url.pathname.slice(6);
+                link.dataset.targetId = 'subterm' + id;
 
-                    link.addEventListener('mouseover', (evt) => {
-                        let targ = link
-                        let card = targ.closest('.post-card__body');
-                        let popupInner = card.querySelector('.term-card__popup-inner');
+                link.addEventListener('mouseover', function () {
+                    showTermPopup(link);
+                });
 
-                        // escape unneeded multiple change
-                        if (popupInner.dataset.subtermId != targ.dataset.targetId) {
-                            popupInner.innerHTML = document.getElementById(targ.dataset.targetId).innerHTML;
-                            popupInner.dataset.subtermId = targ.dataset.targetId
-                        }
-
-                        let popup = card.querySelector('.term-card__popup');
-                        popup.classList.add('term-card__popup--visible');
-                    });
-
-                    link.addEventListener('mouseleave', (evt) => {
-                        document.querySelectorAll('.term-card__popup--visible').forEach((popup) => {
-                            popup.classList.remove('term-card__popup--visible');
-                            popup.querySelector('.term-card__popup-inner').dataset.subtermId = 0;
-                        });
-                    });
-                }
+                link.addEventListener('mouseleave', function () {
+                    hideTermPopup();
+                });
             }
-        });
+        }
     });
+});
+
+function showTermPopup(link) {
+    let card = link.closest('.post-card__body');
+    let popup = card.querySelector('.term-card__popup');
+    let popupInner = card.querySelector('.term-card__popup-inner');
+
+    // escape unneeded multiple change
+    if (popupInner.dataset.subtermId != link.dataset.targetId) {
+        popupInner.innerHTML = document.getElementById(link.dataset.targetId).innerHTML;
+        popupInner.dataset.subtermId = link.dataset.targetId;
+        popup.style.top = (link.offsetTop + 30) + 'px';
+    }
+
+    popup.classList.add('term-card__popup--visible');
 }
 
+function hideTermPopup() {
+    document.querySelectorAll('.term-card__popup--visible').forEach((popup) => {
+        popup.classList.remove('term-card__popup--visible');
+        popup.querySelector('.term-card__popup-inner').dataset.subtermId = 0;
+    });
+}
 // ************ /END TERMS ************
 
 

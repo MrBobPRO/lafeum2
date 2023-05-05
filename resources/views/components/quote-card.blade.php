@@ -2,7 +2,7 @@
     <div class="post-card__header">
         <div class="quote-card__title">
             <span class="material-symbols-outlined">person</span>
-            <a class="quote-card__author" href="{{ route('authors.show', $quote->author->slug) }}">{{ $quote->author->name }}</a>
+            <a class="quote-card__author" href="{{ route('authors.show', $quote->author->slug) }}" target="_blank">{{ $quote->author->name }}</a>
         </div>
 
         <a class="post-card__id" href="{{ route('quotes.show', $quote->id) }}" target="_blank">#{{ $quote->id }}</a>
