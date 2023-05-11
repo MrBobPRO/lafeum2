@@ -340,6 +340,14 @@ document.querySelectorAll('[data-action="favorite"]').forEach((item) => {
 });
 
 
+// Redirect Actions. Used while favoriting for unathorized user
+document.querySelectorAll('[data-action="redirect"]').forEach((item) => {
+    item.addEventListener('click', (evt) => {
+        window.location.href = evt.target.dataset.url;
+    });
+});
+
+
 // Dropdown
 document.querySelectorAll('.dropdown__button').forEach((item) => {
     item.addEventListener('click', (evt) => {

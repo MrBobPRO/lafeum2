@@ -27,6 +27,8 @@
         <div class="post-card__actions">
             @auth
                 <span class="material-symbols-outlined favorite {{ $video->favoritedBy($currentUser) ? 'favorite--active' : '' }}" data-action="favorite" data-model="App\Models\Video" data-id="{{ $video->id }}">favorite</span>
+            @else
+                <span class="material-symbols-outlined favorite" data-action="redirect" data-url="{{ route('login') }}">favorite</span>
             @endauth
         </div>
 

@@ -2,9 +2,9 @@
     <div class="post-card__header">
         @if($term->termType->name == 'Термины научного мира')
             <div class="term-card__icons">
-                <span class="material-symbols-outlined">brightness_5</span>
-                <span class="material-symbols-outlined">brightness_5</span>
-                <span class="material-symbols-outlined">brightness_5</span>
+                <img src="{{ asset('img/main/atom.svg') }}" alt="atom">
+                <img src="{{ asset('img/main/atom.svg') }}" alt="atom">
+                <img src="{{ asset('img/main/atom.svg') }}" alt="atom">
             </div>
         @else
             <div class="term-card__title">{{ $term->termType->name }}</div>
@@ -41,6 +41,8 @@
         <div class="post-card__actions">
             @auth
                 <span class="material-symbols-outlined favorite {{ $term->favoritedBy($currentUser) ? 'favorite--active' : '' }}" data-action="favorite" data-model="App\Models\Term" data-id="{{ $term->id }}">favorite</span>
+            @else
+                <span class="material-symbols-outlined favorite" data-action="redirect" data-url="{{ route('login') }}">favorite</span>
             @endauth
         </div>
 

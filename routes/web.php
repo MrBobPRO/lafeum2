@@ -7,6 +7,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\KnowledgeController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\TermController;
 use App\Http\Controllers\VideoController;
@@ -90,7 +91,6 @@ Route::middleware('verified')->group(function () {
     Route::controller(ProfileController::class)->name('profile.')->middleware('auth')->group(function () {
         Route::get('/profile', 'edit')->name('edit');
         Route::patch('/profile', 'update')->name('update');
-        Route::delete('/profile', 'destroy')->name('destroy');
     });
 });
 

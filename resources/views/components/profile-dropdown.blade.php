@@ -5,30 +5,20 @@
     </button>
 
     <div class="dropdown__content">
-        <nav class="profile-nav">
-            <p class="profile-nav__item">
-                {{ auth()->user()->name }}
-            </p>
-
-            <a class="profile-nav__item" href="{{ route('favorites.quotes') }}">
-                <span class="material-symbols-outlined">format_quote</span>
-                Избранные цитаты
+        <nav class="profile-dropdown__nav">
+            <a class="profile-dropdown__nav-item" href="{{ route('profile.edit') }}">
+                <span class="material-symbols-outlined">account_circle</span>
+                Мой профиль
             </a>
 
-            <a class="profile-nav__item" href="{{ route('favorites.terms') }}">
-                <span class="material-symbols-outlined">description</span>
-                Избранные термины
+            <a class="profile-dropdown__nav-item profile-dropdown__nav-favorite" href="{{ route('favorites.quotes') }}">
+                <span class="material-symbols-outlined">favorite</span>
+                Избранное
             </a>
 
-            <a class="profile-nav__item" href="{{ route('favorites.videos') }}">
-                <span class="material-symbols-outlined">smart_display</span>
-                Избранные видео
-            </a>
-
-            <form class="profile-nav__item profile-logout-form" action="{{ route('logout') }}" method="POST">
+            <form class="profile-dropdown__nav-item profile-dropdown__nav-logout" action="{{ route('logout') }}" method="POST">
                 @csrf
-                <span class="material-symbols-outlined">logout</span>
-                <button>Выйти из аккаунта</button>
+                <button><span class="material-symbols-outlined">logout</span> Выход</button>
             </form>
         </nav>
     </div>

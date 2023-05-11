@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\DailyPost;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +27,15 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer(['components.quote-card', 'components.term-card', 'components.video-card'], function ($view) {
             $view->with('currentUser', auth()->user());
+        });
+
+        View::composer('layouts.profile-leftbar', function ($view) {
+            $view->with('user', request()->user())
+                ->with('routeName', Route::currentRouteName());
+        });
+
+        View::composer('pages.profile', function ($view) {
+            $view->with('user', request()->user());
         });
     }
 }
