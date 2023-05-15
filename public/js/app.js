@@ -1,5 +1,6 @@
 let csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 let scrollButtons = document.querySelector('.scroll-buttons');
+let spinner = document.querySelector('.spinner');
 
 let videoModal = document.querySelector('.video-modal');
 let videoModalTitle = videoModal.querySelector('.modal__header-title');
@@ -185,8 +186,8 @@ function searchVocabulary(keyword, categoryId) {
     }
 
     xhttp.open('POST', '/vocabulary/search', true);
-    xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken)
-    xhttp.setRequestHeader('Content-type', 'application/json')
+    xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+    xhttp.setRequestHeader('Content-type', 'application/json');
     xhttp.send(JSON.stringify(params));
 }
 // ************ /END VOCABULARY ************
@@ -333,8 +334,8 @@ document.querySelectorAll('[data-action="favorite"]').forEach((item) => {
         }
 
         xhttp.open('POST', '/toggle-favorites', true);
-        xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken)
-        xhttp.setRequestHeader('Content-type', 'application/json')
+        xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify(params));
     });
 });
@@ -368,5 +369,54 @@ document.querySelector('.scroll-buttons__bottom').addEventListener('click', (evt
     window.scrollTo({
         top: document.body.scrollHeight,
         behavior: "smooth",
+    });
+});
+
+
+// Profile Ava change
+let avaInput = document.querySelector('#update-ava-input');
+let imgTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+let imgTypesRegex = new RegExp('(' + imgTypes.join('|').replace(/\./g, '\\.') + ')$');
+
+if (avaInput) {
+    avaInput.addEventListener('change', (evt) => {
+        spinner.classList.add('spinner--visible');
+        let file = evt.target.files[0];
+
+        if (imgTypesRegex.test(file.type)) {
+            let formData = new FormData(document.querySelector('form.update-ava'));
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.onloadend = function () {
+                if (xhttp.status == 200) {
+                    // replace all users avas
+                    document.querySelector(`.update-ava__img`).src = xhttp.responseText;
+                    document.querySelector(`.user-box__image`).src = xhttp.responseText;
+                    document.querySelector(`.profile-dropdown__image`).src = xhttp.responseText;
+                    // refresh input value
+                    evt.target.value = '';
+                    spinner.classList.remove('spinner--visible');
+                } else {
+                    xhttp.abort();
+                    spinner.classList.remove('spinner--visible');
+                }
+            }
+
+            xhttp.open('POST', '/profile/update-ava', true);
+            xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+            xhttp.send(formData);
+        } else {
+            evt.target.value = '';
+            spinner.classList.remove('spinner--visible');
+            alert('Формат файла не поддерживается!');
+        }
+    });
+}
+
+
+// Show Spinner on Form Submit
+document.querySelectorAll('[data-on-submit="show-spinner"]').forEach((item) => {
+    item.addEventListener('submit', (evt) => {
+        spinner.classList.add('spinner--visible');
     });
 });

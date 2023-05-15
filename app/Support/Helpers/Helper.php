@@ -6,7 +6,7 @@
  * @author Bobur Nuridinov <bobnuridinov@gmail.com>
  */
 
-namespace App\Support;
+namespace App\Support\Helpers;
 
 use App\Models\Atx;
 use App\Models\Category;
@@ -75,6 +75,55 @@ class Helper
       $slug = $originalSlug . '-' . $counter;
       $counter++;
     }
+
+    return $slug;
+  }
+
+/**
+   * Generate unique slug for the given model
+   *
+   * @param string $string Generates slug from given string
+   * @param string $model Model Classname with full namespace
+   * @param integer $ignoreId ignore slug of a model with a given id (used while updating model)
+   * @return string
+   */
+  public static function generateSlug($string)
+  {
+    $search = [
+      'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п',
+      'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я',
+      'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П',
+      'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я',
+      'ӣ', 'ӯ', 'ҳ', 'қ', 'ҷ', 'ғ', 'Ғ', 'Ӣ', 'Ӯ', 'Ҳ', 'Қ', 'Ҷ',
+      ' ', '_'
+    ];
+
+    $replace = [
+      'a', 'b', 'v', 'g', 'd', 'e', 'io', 'zh', 'z', 'i', 'y', 'k', 'l', 'm', 'n', 'o', 'p',
+      'r', 's', 't', 'u', 'f', 'h', 'ts', 'ch', 'sh', 'shb', 'a', 'i', 'y', 'e', 'yu', 'ya',
+      'a', 'b', 'v', 'g', 'd', 'e', 'io', 'zh', 'z', 'i', 'y', 'k', 'l', 'm', 'n', 'o', 'p',
+      'r', 's', 't', 'u', 'f', 'h', 'ts', 'ch', 'sh', 'shb', 'a', 'i', 'y', 'e', 'yu', 'ya',
+      'i', 'u', 'h', 'q', 'j', 'g', 'g', 'i', 'u', 'h', 'q', 'j',
+      '-', '-'
+    ];
+
+    // manual transilation
+    $transilation = str_replace($search, $replace, $string);
+
+    // auto transilation
+    $transilation = Str::ascii($transilation);
+
+    // remove unwanted characters
+    $transilation = preg_replace('~[^-\w]+~', '', $transilation);
+
+    // remove duplicate divider
+    $transilation = preg_replace('~-+~', '-', $transilation);
+
+    // trim
+    $transilation = trim($transilation, '-');
+
+    // lowercase
+    $slug = strtolower($transilation);
 
     return $slug;
   }
@@ -183,7 +232,7 @@ class Helper
       }
 
       $filename = $name . '.' . $file->getClientOriginalExtension();
-      $filename = Helper::renameIfFileAlreadyExists($filename, $path);
+      $filename = Helper::escapeDuplicateFilename($filename, $path);
 
       $fullPath = public_path($path);
 
@@ -238,7 +287,7 @@ class Helper
         $constraint->upsize();
       }, 'center');
 
-      // aspect ration
+    // aspect ration
     } else {
       $thumb->resize($width, $height, function ($constraint) {
         $constraint->aspectRatio();
@@ -256,7 +305,7 @@ class Helper
    * @param string $path
    * @return string
    */
-  public static function renameIfFileAlreadyExists($filename, $path)
+  public static function escapeDuplicateFilename($filename, $path)
   {
     $name = pathinfo($filename, PATHINFO_FILENAME);
     $extension = pathinfo($filename, PATHINFO_EXTENSION);

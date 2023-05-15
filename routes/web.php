@@ -90,7 +90,9 @@ Route::middleware('verified')->group(function () {
 
     Route::controller(ProfileController::class)->name('profile.')->middleware('auth')->group(function () {
         Route::get('/profile', 'edit')->name('edit');
-        Route::patch('/profile', 'update')->name('update');
+        Route::post('/profile', 'update')->name('update');
+        Route::post('/profile/update-ava', 'updateAva')->name('update-ava');
+        Route::post('/profile/remove-ava', 'removeAva')->name('remove-ava');
     });
 });
 
