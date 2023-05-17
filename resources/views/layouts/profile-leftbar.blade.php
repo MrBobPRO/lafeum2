@@ -12,20 +12,35 @@
         </div>
 
         <nav class="profile-leftbar__nav">
-            <a class="profile-leftbar__nav-link {{ $routeName == 'profile.edit' ?  'profile-leftbar__nav-link--active' : ''}}" href="{{ route('profile.edit') }}">
-                <span class="material-symbols-outlined">account_circle</span>
-                Мой профиль
-            </a>
+            <div class="profile-leftbar__item">
+                <a class="profile-leftbar__link {{ $routeName == 'profile.edit' ?  'profile-leftbar__link--active' : ''}}" href="{{ route('profile.edit') }}">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    Мой профиль
+                </a>
+            </div>
 
-            <a class="profile-leftbar__nav-link" href="{{ route('favorites.quotes') }}">
-                <span class="material-symbols-outlined">favorite</span>
-                Избранное
-            </a>
+            <div class="profile-leftbar__item profile-leftbar__favorites">
+                <a class="profile-leftbar__link {{ str_contains($routeName, 'favorites.') ?  'profile-leftbar__link--active' : ''}}" href="{{ route('favorites.index') }}">
+                    <span class="material-symbols-outlined">folder_open</span>
+                    Избранное
+                </a>
 
-            <form class="profile-leftbar__nav-logout" action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button><span class="material-symbols-outlined">logout</span> Выход</button>
-            </form>
+                <div class="profile-leftbar__sublinks-container">
+                    @foreach ($user->folders as $folder)
+                        <a class="profile-leftbar__sublink" href="{{ route('favorites.folder', $folder->slug) }}">
+                            <span class="material-symbols-outlined">subdirectory_arrow_right</span>
+                            {{ $folder->name }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="profile-leftbar__item profile-leftbar__logout">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button><span class="material-symbols-outlined">logout</span> Выход</button>
+                </form>
+            </div>
         </nav>
     </div>
 </aside>

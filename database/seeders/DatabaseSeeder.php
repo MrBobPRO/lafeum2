@@ -15,12 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            AuthorGroupSeeder::class,
-            TermTypeSeeder::class,
-            RoleSeeder::class,
-        ]);
-
         $user = new User();
         $user->name = 'Admin';
         $user->email = 'admin@mail.ru';
@@ -37,6 +31,14 @@ class DatabaseSeeder extends Seeder
         $user->password = bcrypt('12345');
         $user->email_verified_at = now();
         $user->save();
+
+        $this->call([
+            AuthorGroupSeeder::class,
+            TermTypeSeeder::class,
+            RoleSeeder::class,
+            FolderSeeder::class,
+            FavoriteSeeder::class,
+        ]);
 
         $post = new DailyPost();
         $post->date = now();

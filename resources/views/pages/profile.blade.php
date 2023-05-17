@@ -5,12 +5,12 @@
 @endsection
 
 @section('main')
-<div class="profile-edit">
-    <div class="profile-edit__inner">
-        <div class="profile-edit__box">
+<div class="profiled-page-content profile-edit">
+    <div class="profiled-page-content__inner">
+        <div class="profiled-page-content__box">
             {{-- AVATAR --}}
             <div class="form-group edit-ava-group">
-                <label class="label" for="update-ava-input">Изменить фотографию профиля</label>
+                <label class="label edit-ava-group__label" for="update-ava-input">Изменить фотографию профиля</label>
 
                 <div class="edit-ava">
                     <form class="update-ava">

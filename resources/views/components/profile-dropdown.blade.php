@@ -11,8 +11,8 @@
                 Мой профиль
             </a>
 
-            <a class="profile-dropdown__nav-item profile-dropdown__nav-favorite" href="{{ route('favorites.quotes') }}">
-                <span class="material-symbols-outlined">favorite</span>
+            <a class="profile-dropdown__nav-item profile-dropdown__nav-favorites" href="{{ route('favorites.index') }}">
+                <span class="material-symbols-outlined">folder_open</span>
                 Избранное
             </a>
 

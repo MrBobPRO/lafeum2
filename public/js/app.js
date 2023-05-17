@@ -291,6 +291,21 @@ if (videosList) {
     });
 }
 
+// Mixed List Modals
+let mixedList = document.querySelector('.mixed-list');
+
+if (mixedList) {
+    mixedList.querySelectorAll('.video-thumb__image, .video-card__title').forEach((item) => {
+        item.addEventListener('click', (evt) => {
+            let card = evt.target.closest('.video-card');
+
+            videoModalFrame.src = card.dataset.videoSrc;
+            videoModalTitle.innerHTML = card.dataset.videoTitle;
+            videoModal.classList.add('modal--visible');
+        });
+    });
+}
+
 
 // Photos List Modals
 let photosList = document.querySelector('.photos-list');
@@ -313,27 +328,43 @@ if (photosList) {
 // Toggle Favorite
 document.querySelectorAll('[data-action="favorite"]').forEach((item) => {
     item.addEventListener('click', (evt) => {
+        spinner.classList.add('spinner--visible');
         targ = evt.target;
+        let dropdown = targ.closest('.favorite-dropdown');
+        let favoriteIcon = dropdown.querySelector('.favorite-icon');
+
+        // get all checked checkboxes values
+        let form = targ.closest('.favorite-form');
+        let chbList = [];
+
+        form.querySelectorAll('input[type=checkbox]:checked').forEach((chb) => {
+            chbList.push(chb.value);
+        });
 
         const params = {
             model: targ.dataset.model,
-            id: targ.dataset.id,
+            modelID: targ.dataset.id,
+            folderIDs: chbList
         };
 
         const xhttp = new XMLHttpRequest();
         xhttp.onloadend = function () {
+            // ON SUCCESS
             if (xhttp.status == 200) {
                 if (xhttp.responseText == 'favorited') {
-                    targ.classList.add('favorite--active');
+                    favoriteIcon.classList.add('favorite-icon--active');
                 } else if (xhttp.responseText == 'unfavorited') {
-                    targ.classList.remove('favorite--active');
+                    favoriteIcon.classList.remove('favorite-icon--active');
                 }
+                spinner.classList.remove('spinner--visible');
+            // ON ERROR
             } else {
                 xhttp.abort();
+                spinner.classList.remove('spinner--visible');
             }
         }
 
-        xhttp.open('POST', '/toggle-favorites', true);
+        xhttp.open('POST', '/favorites/toggle', true);
         xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken);
         xhttp.setRequestHeader('Content-type', 'application/json');
         xhttp.send(JSON.stringify(params));

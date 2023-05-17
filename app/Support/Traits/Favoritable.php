@@ -12,8 +12,12 @@ trait Favoritable
         return $this->morphMany(Favorite::class, 'favoritable');
     }
 
-    public function favoritedBy(User $user)
+    public function favoritedBy(User $user, $folderID = null)
     {
-        return $this->favorites->contains('user_id', $user->id);
+        if(!$folderID) {
+            return $this->favorites->contains('user_id', $user->id);
+        }
+
+        return ($this->favorites->contains('user_id', $user->id) && $this->favorites->contains('folder_id', $folderID));
     }
 }

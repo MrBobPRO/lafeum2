@@ -28,6 +28,7 @@
             <x-scroll-buttons />
             @include('layouts.video-modal')
             @include('layouts.photo-modal')
+            <x-spinner />
         </main>
 
         @includeWhen($includeRightBar, 'layouts.rightbar')

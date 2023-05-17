@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\FolderController;
 use App\Http\Controllers\KnowledgeController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfileController;
@@ -82,17 +83,22 @@ Route::middleware('verified')->group(function () {
     });
 
     Route::controller(FavoriteController::class)->name('favorites.')->group(function () {
-        Route::get('/favorite-quotes', 'quotes')->name('quotes');
-        Route::get('/favorite-terms', 'terms')->name('terms');
-        Route::get('/favorite-videos', 'videos')->name('videos');
-        Route::post('/toggle-favorites', 'toggle')->name('toggle');
+        Route::get('/favorites', 'index')->name('index');
+        Route::get('/favorites/{slug}', 'folder')->name('folder');
+        Route::post('/favorites/toggle', 'toggle')->name('toggle');
     });
 
     Route::controller(ProfileController::class)->name('profile.')->middleware('auth')->group(function () {
         Route::get('/profile', 'edit')->name('edit');
-        Route::post('/profile', 'update')->name('update');
+        Route::post('/profile/update', 'update')->name('update');
         Route::post('/profile/update-ava', 'updateAva')->name('update-ava');
         Route::post('/profile/remove-ava', 'removeAva')->name('remove-ava');
+    });
+
+    Route::controller(FolderController::class)->name('folders.')->middleware('auth')->group(function () {
+        Route::post('/folders/store', 'store')->name('store');
+        Route::post('/folders/update', 'update')->name('update');
+        Route::post('/folders/remove', 'remove')->name('remove');
     });
 });
 

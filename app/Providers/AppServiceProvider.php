@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\DailyPost;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -27,10 +29,16 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer(['components.quote-card', 'components.term-card', 'components.video-card'], function ($view) {
             $view->with('currentUser', auth()->user());
+
+            if(auth()->user()) {
+                $view->with('userFolders', auth()->user()->folders);
+            }
         });
 
         View::composer('layouts.profile-leftbar', function ($view) {
-            $view->with('user', request()->user())
+            $user = request()->user()->load('folders');
+
+            $view->with('user', $user)
                 ->with('routeName', Route::currentRouteName());
         });
 

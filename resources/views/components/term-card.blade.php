@@ -40,9 +40,25 @@
     <div class="post-card__footer">
         <div class="post-card__actions">
             @auth
-                <span class="material-symbols-outlined favorite {{ $term->favoritedBy($currentUser) ? 'favorite--active' : '' }}" data-action="favorite" data-model="App\Models\Term" data-id="{{ $term->id }}">favorite</span>
+                <div class="dropdown favorite-dropdown">
+                    <button class="dropdown__button">
+                        <span class="material-symbols-outlined favorite-icon {{ $term->favoritedBy($currentUser) ? 'favorite-icon--active' : '' }}">favorite</span>
+                    </button>
+
+                    <div class="dropdown__content">
+                        <div class="favorite-form">
+                            <p class="favorite-form__title">Выберите папку:</p>
+
+                            @foreach ($userFolders as $folder)
+                                <label class="label"><input type="checkbox" value="{{ $folder->id }}" @checked($term->favoritedBy($currentUser, $folder->id))>{{ $folder->name }}</label>
+                            @endforeach
+
+                            <button class="submit" data-action="favorite" data-model="App\Models\Term" data-id="{{ $term->id }}">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
             @else
-                <span class="material-symbols-outlined favorite" data-action="redirect" data-url="{{ route('login') }}">favorite</span>
+                <span class="material-symbols-outlined favorite-icon" data-action="redirect" data-url="{{ route('login') }}">favorite</span>
             @endauth
         </div>
 

@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Favorite;
 use App\Http\Requests\StoreFavoriteRequest;
 use App\Http\Requests\UpdateFavoriteRequest;
+use App\Models\Folder;
 use App\Models\Quote;
 use App\Models\Term;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Route;
 
 class FavoriteController extends Controller
 {
@@ -19,60 +22,20 @@ class FavoriteController extends Controller
 
         // escape hacks
         if (in_array($model, $favoritableModels)) {
-            $instance = $model::find($request->id);
+            $instance = $model::find($request->modelID);
+            $folderIDs = $request->folderIDs;
             $user = request()->user();
 
-            // Toggle Favorite
-            if ($instance->favoritedBy($user)) {
-                $instance->favorites()->where('user_id', $user->id)->first()->delete();
+            // Refresh Favorites
+            $instance->favorites()->where('user_id', $user->id)->delete();
 
-                return 'unfavorited';
-            } else {
-                $favorite = new Favorite(['user_id' => $user->id]);
+            foreach($folderIDs as $id) {
+                $favorite = new Favorite(['user_id' => $user->id, 'folder_id' => $id]);
                 $instance->favorites()->save($favorite);
-
-                return 'favorited';
             }
         }
-    }
 
-    public function quotes()
-    {
-        $quotes = auth()->user()->favoriteQuotes()->
-        with([
-            'author:id,name,slug',
-            'categories:id,name,slug'
-        ])
-            ->published('desc')
-            ->paginate(20);
-
-        return view('favorites.quotes', compact('quotes'));
-    }
-
-    public function terms()
-    {
-        $terms = auth()->user()->favoriteTerms()
-        ->with([
-            'categories',
-            'termType'
-        ])
-        ->published('desc')
-        ->paginate(20);
-
-        return view('favorites.terms', compact('terms'));
-    }
-
-    public function videos()
-    {
-        $videos = auth()->user()->favoriteVideos()
-        ->with([
-            'channel:id,name,slug',
-            'categories',
-        ])
-            ->published('desc')
-            ->paginate(20);
-
-        return view('favorites.videos', compact('videos'));
+        return count($folderIDs) ? 'favorited' : 'unfavorited';
     }
 
 
@@ -81,7 +44,26 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        //
+        $folders = request()->user()->folders;
+
+        return view('favorites.index', compact('folders'));
+    }
+
+    public function folder($slug)
+    {
+        $user = request()->user();
+        $folder = Folder::where('slug', $slug)->where('user_id', $user->id)->firstOrFail();
+        $items = $user->getFoldersItems($folder->id);
+
+        // Manual Pagination
+        $options = ['path' => url()->current()];
+        $perPage = 20;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = $items->forPage($currentPage, $perPage);
+
+        $paginatedItems = new LengthAwarePaginator($currentItems, count($items), $perPage, $currentPage, $options);
+
+        return view('favorites.folder', compact('folder', 'paginatedItems'));
     }
 
     /**

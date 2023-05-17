@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quote;
 use App\Models\User;
 use App\Support\Helpers\Helper;
 use Illuminate\Http\RedirectResponse;

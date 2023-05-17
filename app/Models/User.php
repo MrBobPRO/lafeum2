@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -56,26 +57,44 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->role->name == Role::ADMINISTRATOR_ROLE ? true : false;
     }
 
+    public function folders()
+    {
+        return $this->hasMany(Folder::class)->orderBy('name', 'asc');
+    }
+
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
     }
 
-    public function favoriteQuotes()
+    public function getFoldersItems($folderID)
     {
-        return $this->belongsToMany(Quote::class, 'favorites', 'user_id', 'favoritable_id')
-            ->where('favoritable_type', Quote::class);
+        $favorites = $this->favorites()->where('folder_id', $folderID)->latest()->get();
+        $items = new Collection();
+
+        foreach($favorites as $item) {
+            $instance = $item->favoritable;
+            $items->push($instance);
+        }
+
+        return $items;
     }
 
-    public function favoriteTerms()
-    {
-        return $this->belongsToMany(Term::class, 'favorites', 'user_id', 'favoritable_id')
-            ->where('favoritable_type', Term::class);
-    }
+    // public function favoriteQuotes()
+    // {
+    //     return $this->belongsToMany(Quote::class, 'favorites', 'user_id', 'favoritable_id')
+    //         ->where('favoritable_type', Quote::class);
+    // }
 
-    public function favoriteVideos()
-    {
-        return $this->belongsToMany(Video::class, 'favorites', 'user_id', 'favoritable_id')
-            ->where('favoritable_type', Video::class);
-    }
+    // public function favoriteTerms()
+    // {
+    //     return $this->belongsToMany(Term::class, 'favorites', 'user_id', 'favoritable_id')
+    //         ->where('favoritable_type', Term::class);
+    // }
+
+    // public function favoriteVideos()
+    // {
+    //     return $this->belongsToMany(Video::class, 'favorites', 'user_id', 'favoritable_id')
+    //         ->where('favoritable_type', Video::class);
+    // }
 }
