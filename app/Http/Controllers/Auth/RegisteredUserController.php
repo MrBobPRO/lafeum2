@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Folder;
 use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Support\Helpers\Helper;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,6 +46,10 @@ class RegisteredUserController extends Controller
             'role_id' => Role::where('name', Role::USER_ROLE)->first()->id,
             'photo' => '__default.png',
         ]);
+
+        $user->folders()->save(
+            new Folder(['name' => 'Избранное', 'slug' => Helper::generateSlug('Избранное')])
+        );
 
         event(new Registered($user));
 
