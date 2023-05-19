@@ -18,7 +18,10 @@ class DatabaseSeeder extends Seeder
         $user = new User();
         $user->name = 'Admin';
         $user->email = 'admin@mail.ru';
-        $user->phone = '+992 987 65 43 21';
+        $user->age = 26;
+        $user->biography = 'Натуральный блондин, на всю страну такой один. И молодой и золотой и в добавок холостой...';
+        $user->country_id = 1;
+        $user->gender_id = 1;
         $user->role_id = 1;
         $user->password = bcrypt('12345');
         $user->email_verified_at = now();
@@ -27,12 +30,17 @@ class DatabaseSeeder extends Seeder
         $user = new User();
         $user->name = 'User';
         $user->email = 'user@mail.ru';
-        $user->role_id = 2;
+        $user->age = 26;
+        $user->biography = 'Натуральный блондин, на всю страну такой один. И молодой и золотой и в добавок холостой...';
+        $user->country_id = 1;
+        $user->gender_id = 1;
+        $user->role_id = 3;
         $user->password = bcrypt('12345');
         $user->email_verified_at = now();
         $user->save();
 
         $this->call([
+            CountrySeeder::class,
             AuthorGroupSeeder::class,
             TermTypeSeeder::class,
             RoleSeeder::class,

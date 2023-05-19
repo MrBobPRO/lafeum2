@@ -15,6 +15,7 @@ class RoleSeeder extends Seeder
     {
         Role::insert([
             ['name' => Role::ADMINISTRATOR_ROLE],
+            ['name' => Role::AUTHOR_ROLE],
             ['name' => Role::USER_ROLE],
         ]);
     }

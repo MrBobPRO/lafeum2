@@ -1,6 +1,6 @@
 <title>@hasSection('title')@yield('title'){{ ' — ЛАФЕЮМ' }}@else{{ 'ЛАФЕЮМ' }}@endif</title>
 
-<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_video', function (Blueprint $table) {
-            $table->integer('category_id');
-            $table->integer('video_id');
-            $table->primary(['category_id', 'video_id']);
+        Schema::create('genders', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_video');
+        Schema::dropIfExists('genders');
     }
 };

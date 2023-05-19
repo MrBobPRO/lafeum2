@@ -28,10 +28,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('verified')->group(function () {
     Route::controller(AppController::class)->group(function () {
         Route::get('/', 'home')->name('home')->middleware('verified');
-        Route::get("/about-us", 'aboutUs')->name('about-us');
-        Route::get("/contacts", 'contacts')->name('contacts');
-        Route::get("/privacy-policy", 'policy')->name('policy');
-        Route::get("/terms-of-use", 'termsOfUse')->name('terms-of-use');
+        Route::get('/about-us', 'aboutUs')->name('about-us');
+        Route::get('/contacts', 'contacts')->name('contacts');
+        Route::get('/privacy-policy', 'policy')->name('policy');
+        Route::get('/terms-of-use', 'termsOfUse')->name('terms-of-use');
     });
 
     Route::controller(KnowledgeController::class)->name('knowledge.')->group(function () {

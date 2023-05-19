@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone')->nullable();
+            $table->unsignedTinyInteger('age')->nullable();
+            $table->text('biography')->nullable();
+            $table->integer('country_id')->nullable();
+            $table->integer('gender_id')->nullable();
             $table->integer('role_id');
             $table->string('photo')->default('__default.png');
             $table->timestamp('email_verified_at')->nullable();

@@ -28,7 +28,7 @@
             @auth
                 <div class="dropdown favorite-dropdown">
                     <button class="dropdown__button">
-                        <span class="material-symbols-outlined favorite-icon {{ $video->favoritedBy($currentUser) ? 'favorite-icon--active' : '' }}">favorite</span>
+                        <span class="material-symbols-outlined favorite-icon {{ $video->favoritedBy($currentUser) ? 'favorite-icon--active' : '' }}">bookmark</span>
                     </button>
 
                     <div class="dropdown__content">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             @else
-                <span class="material-symbols-outlined favorite-icon" data-action="redirect" data-url="{{ route('login') }}">favorite</span>
+                <span class="material-symbols-outlined favorite-icon" data-action="redirect" data-url="{{ route('login') }}">bookmark</span>
             @endauth
         </div>
 

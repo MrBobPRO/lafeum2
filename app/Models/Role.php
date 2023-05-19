@@ -10,6 +10,7 @@ class Role extends Model
     use HasFactory;
 
     const ADMINISTRATOR_ROLE = 'Администратор';
+    const AUTHOR_ROLE = 'Автор';
     const USER_ROLE = 'Пользователь';
 
     public $timestamps = false;
