@@ -57,13 +57,68 @@
                 </div>
             </form>
 
-            {{-- PHONE --}}
+            {{-- Password --}}
             <form class="profile-edit__form" action="{{ route('profile.update') }}" method="POST">
                 @csrf
-                <label class="label" for="phone">Номер телефона</label>
+                <label class="label" for="password">Пароль<span class="required">*</span></label>
 
                 <div class="profile-edit__form-divider">
-                    <input class="input" type="text" name="phone" id="phone" value="{{ old('phone', $user->phone) }}">
+                    <input class="input" type="password" name="password" id="password" placeholder="Старый пароль">
+                    <input class="input" type="password" name="password_confirmation" placeholder="Новый пароль">
+                    <button class="submit">Сохранить изменения</button>
+                </div>
+            </form>
+
+            {{-- Country --}}
+            <form class="profile-edit__form" action="{{ route('profile.update') }}" method="POST">
+                @csrf
+                <label class="label" for="country_id">Страна<span class="required">*</span></label>
+
+                <div class="profile-edit__form-divider">
+                    <select class="select" name="country_id" id="country_id">
+                        @foreach ($countries as $country)
+                            <option value="{{ $country->id }}" @selected($country->id == $user->country_id)>{{ $country->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <button class="submit">Сохранить изменения</button>
+                </div>
+            </form>
+
+            {{-- Age --}}
+            <form class="profile-edit__form" action="{{ route('profile.update') }}" method="POST">
+                @csrf
+                <label class="label" for="age">Возраст</label>
+
+                <div class="profile-edit__form-divider">
+                    <input class="input" type="number" min="10" max="100" step="1" name="age" id="age" value="{{ old('age', $user->age) }}" required>
+                    <button class="submit">Сохранить изменения</button>
+                </div>
+            </form>
+
+            {{-- Gender --}}
+            <form class="profile-edit__form" action="{{ route('profile.update') }}" method="POST">
+                @csrf
+                <label class="label" for="gender_id">Пол<span class="required">*</span></label>
+
+                <div class="profile-edit__form-divider">
+                    <select class="select" name="gender_id" id="gender_id">
+                        @foreach ($genders as $gender)
+                            <option value="{{ $gender->id }}" @selected($gender->id == $user->gender_id)>{{ $gender->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <button class="submit">Сохранить изменения</button>
+                </div>
+            </form>
+
+            {{-- Biography --}}
+            <form class="profile-edit__form" action="{{ route('profile.update') }}" method="POST">
+                @csrf
+                <label class="label" for="biography">Коротко о себе</label>
+
+                <div class="profile-edit__form-divider profile-edit__form-divider-biography">
+                    <textarea class="textarea" name="biography" rows="3" id="biography">{{ old('biography', $user->biography) }}</textarea>
                     <button class="submit">Сохранить изменения</button>
                 </div>
             </form>

@@ -7,6 +7,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\KnowledgeController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuoteController;
@@ -86,6 +87,11 @@ Route::middleware('verified')->group(function () {
         Route::get('/favorites', 'index')->name('index');
         Route::get('/favorites/{slug}', 'folder')->name('folder');
         Route::post('/favorites/toggle', 'toggle')->name('toggle');
+    });
+
+    Route::controller(LikeController::class)->name('likes.')->group(function () {
+        Route::get('/likes', 'index')->name('index');
+        Route::post('/likes/toggle', 'toggle')->name('toggle');
     });
 
     Route::controller(ProfileController::class)->name('profile.')->middleware('auth')->group(function () {

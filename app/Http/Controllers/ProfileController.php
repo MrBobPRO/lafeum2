@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
+use App\Models\Gender;
 use App\Models\Quote;
 use App\Models\User;
 use App\Support\Helpers\Helper;
@@ -24,8 +26,10 @@ class ProfileController extends Controller
     public function edit(): View
     {
         $user = request()->user();
+        $countries = Country::orderBy('name', 'asc')->get();
+        $genders = Gender::orderBy('name', 'asc')->get();
 
-        return view('pages.profile', compact('user'));
+        return view('pages.profile', compact('user', 'countries', 'genders'));
     }
 
     /**
@@ -58,9 +62,24 @@ class ProfileController extends Controller
             }
         }
 
-        // Phone
-        if($request->has('phone')) {
-            $user->phone = $request->phone;
+        // Country
+        if($request->has('country_id')) {
+            $user->country_id = $request->country_id;
+        }
+
+        // Age
+        if($request->has('age')) {
+            $user->age = $request->age;
+        }
+
+        // Gender
+        if($request->has('gender_id')) {
+            $user->gender_id = $request->gender_id;
+        }
+
+        // Biography
+        if($request->has('biography')) {
+            $user->biography = $request->biography;
         }
 
         $request->user()->save();

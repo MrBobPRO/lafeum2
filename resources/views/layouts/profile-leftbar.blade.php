@@ -19,6 +19,13 @@
                 </a>
             </div>
 
+            <div class="profile-leftbar__item">
+                <a class="profile-leftbar__link {{ $routeName == 'likes.index' ?  'profile-leftbar__link--active' : ''}}" href="{{ route('likes.index') }}">
+                    <span class="material-symbols-outlined">favorite</span>
+                    Лайки
+                </a>
+            </div>
+
             <div class="profile-leftbar__item profile-leftbar__favorites">
                 <a class="profile-leftbar__link {{ str_contains($routeName, 'favorites.') ?  'profile-leftbar__link--active' : ''}}" href="{{ route('favorites.index') }}">
                     <span class="material-symbols-outlined">folder_open</span>

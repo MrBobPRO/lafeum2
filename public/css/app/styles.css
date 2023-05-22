@@ -217,7 +217,7 @@ a {
     font-weight: bold;
 }
 
-.input, .textarea {
+.input, .textarea, .select {
     background-color: #F7F7F7;
     border-radius: 8px;
     border: none;
@@ -373,6 +373,14 @@ a {
     color: var(--text-color);
     font-variation-settings:
     'FILL' 1,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 48;
+}
+
+.profile-dropdown__nav-likes span {
+    font-variation-settings:
+    'FILL' 0,
     'wght' 700,
     'GRAD' 0,
     'opsz' 48;
@@ -840,7 +848,12 @@ a {
     border-top: 1px solid #eee;
 }
 
-.post-card__footer .favorite-icon {
+.post-card__actions {
+    display: flex;
+    gap: 16px;
+}
+
+.post-card__footer .favorite-icon, .post-card__footer .like-icon {
     transition: 0.3s;
     cursor: pointer;
     color: #cdcdcd;
@@ -851,8 +864,22 @@ a {
     'opsz' 48;
 }
 
+.post-card__footer .like-icon--active {
+    color: red;
+}
+
 .post-card__footer .favorite-icon--active {
     color: var(--main-color);
+}
+
+.like-container {
+    display: flex;
+    gap: 8px;
+}
+
+.like-container__counter {
+    margin: 0;
+    font-family: sans-serif;
 }
 
 .ya-share2__link.ya-share2__link_more {
@@ -1933,8 +1960,12 @@ a {
     gap: 20px;
 }
 
-.profile-edit__form-divider .input {
+.profile-edit__form-divider .input, .profile-edit__form-divider .select, .profile-edit__form-divider .textarea {
     flex-grow: 1;
+}
+
+.profile-edit__form-divider-biography {
+    align-items: flex-start;
 }
 
 .profile-security {

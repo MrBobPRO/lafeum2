@@ -11,6 +11,11 @@
                 Мой профиль
             </a>
 
+            <a class="profile-dropdown__nav-item profile-dropdown__nav-likes" href="{{ route('likes.index') }}">
+                <span class="material-symbols-outlined">favorite</span>
+                Лайки
+            </a>
+
             <a class="profile-dropdown__nav-item profile-dropdown__nav-favorites" href="{{ route('favorites.index') }}">
                 <span class="material-symbols-outlined">folder_open</span>
                 Избранное

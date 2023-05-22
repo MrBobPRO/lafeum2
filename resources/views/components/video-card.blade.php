@@ -26,6 +26,12 @@
     <div class="post-card__footer">
         <div class="post-card__actions">
             @auth
+                <div class="like-container">
+                    <span class="material-symbols-outlined like-icon {{ $video->likedBy($currentUser) ? 'like-icon--active' : '' }}" data-action="like" data-model="App\Models\Video" data-id="{{ $video->id }}">favorite</span>
+
+                    <p class="like-container__counter">{{ $video->likesCount() }}</p>
+                </div>
+
                 <div class="dropdown favorite-dropdown">
                     <button class="dropdown__button">
                         <span class="material-symbols-outlined favorite-icon {{ $video->favoritedBy($currentUser) ? 'favorite-icon--active' : '' }}">bookmark</span>
@@ -44,6 +50,8 @@
                     </div>
                 </div>
             @else
+                <span class="material-symbols-outlined like-icon" data-action="redirect" data-url="{{ route('login') }}">favorite</span>
+
                 <span class="material-symbols-outlined favorite-icon" data-action="redirect" data-url="{{ route('login') }}">bookmark</span>
             @endauth
         </div>

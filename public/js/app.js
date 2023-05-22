@@ -372,7 +372,48 @@ document.querySelectorAll('[data-action="favorite"]').forEach((item) => {
 });
 
 
-// Redirect Actions. Used while favoriting for unathorized user
+// Toggle Likes
+document.querySelectorAll('[data-action="like"]').forEach((item) => {
+    item.addEventListener('click', (evt) => {
+        spinner.classList.add('spinner--visible');
+        targ = evt.target;
+        let counterElement = targ.nextElementSibling;
+        let counter = parseInt(counterElement.innerHTML);
+        console.log(counter);
+
+        const params = {
+            model: targ.dataset.model,
+            modelID: targ.dataset.id,
+        };
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onloadend = function () {
+            // ON SUCCESS
+            if (xhttp.status == 200) {
+                if (xhttp.responseText == 'liked') {
+                    targ.classList.add('like-icon--active');
+                    counterElement.innerHTML = counter + 1;
+                } else if (xhttp.responseText == 'unliked') {
+                    targ.classList.remove('like-icon--active');
+                    counterElement.innerHTML = counter - 1;
+                }
+                spinner.classList.remove('spinner--visible');
+            // ON ERROR
+            } else {
+                xhttp.abort();
+                spinner.classList.remove('spinner--visible');
+            }
+        }
+
+        xhttp.open('POST', '/likes/toggle', true);
+        xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        xhttp.setRequestHeader('Content-type', 'application/json');
+        xhttp.send(JSON.stringify(params));
+    });
+});
+
+
+// Redirect Actions. Used while favoriting & liking for unathorized user
 document.querySelectorAll('[data-action="redirect"]').forEach((item) => {
     item.addEventListener('click', (evt) => {
         window.location.href = evt.target.dataset.url;

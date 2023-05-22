@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CountrySeeder::class,
+            GenderSeeder::class,
             AuthorGroupSeeder::class,
             TermTypeSeeder::class,
             RoleSeeder::class,
