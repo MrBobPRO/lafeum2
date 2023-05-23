@@ -62,6 +62,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Folder::class)->orderBy('name', 'asc');
     }
 
+    public function rootFolders()
+    {
+        return $this->hasMany(Folder::class)->whereNull('parent_id')->orderBy('name', 'asc');
+    }
+
     public function favorites()
     {
         return $this->hasMany(Favorite::class);

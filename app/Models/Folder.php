@@ -10,4 +10,10 @@ class Folder extends Model
     use HasFactory;
 
     protected $guarded = ['id', 'user_id'];
+    protected $with = ['childs'];
+
+    public function childs()
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
 }

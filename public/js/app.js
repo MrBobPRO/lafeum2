@@ -378,8 +378,7 @@ document.querySelectorAll('[data-action="like"]').forEach((item) => {
         spinner.classList.add('spinner--visible');
         targ = evt.target;
         let counterElement = targ.nextElementSibling;
-        let counter = parseInt(counterElement.innerHTML);
-        console.log(counter);
+        let counter = counterElement.innerHTML == '' ? 0 : parseInt(counterElement.innerHTML);
 
         const params = {
             model: targ.dataset.model,
@@ -395,7 +394,8 @@ document.querySelectorAll('[data-action="like"]').forEach((item) => {
                     counterElement.innerHTML = counter + 1;
                 } else if (xhttp.responseText == 'unliked') {
                     targ.classList.remove('like-icon--active');
-                    counterElement.innerHTML = counter - 1;
+                    counter--;
+                    counterElement.innerHTML = counter > 0 ? counter : '';
                 }
                 spinner.classList.remove('spinner--visible');
             // ON ERROR

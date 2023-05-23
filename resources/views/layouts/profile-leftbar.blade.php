@@ -33,11 +33,22 @@
                 </a>
 
                 <div class="profile-leftbar__sublinks-container">
-                    @foreach ($user->folders as $folder)
-                        <a class="profile-leftbar__sublink" href="{{ route('favorites.folder', $folder->slug) }}">
+                    @foreach ($user->rootFolders as $folder)
+                        <a class="profile-leftbar__sublink" href="{{ route('favorites.folder', $folder->id) }}">
                             <span class="material-symbols-outlined">subdirectory_arrow_right</span>
                             {{ $folder->name }}
                         </a>
+
+                        @if ($folder->childs->count())
+                            <div class="profile-leftbar__sublinks-childs">
+                                @foreach ($folder->childs as $child)
+                                    <a class="profile-leftbar__sublink" href="{{ route('favorites.folder', $child->id) }}">
+                                        <span class="material-symbols-outlined">subdirectory_arrow_right</span>
+                                        {{ $child->name }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        @endif
                     @endforeach
                 </div>
             </div>

@@ -35,7 +35,7 @@
                 <div class="like-container">
                     <span class="material-symbols-outlined like-icon {{ $quote->likedBy($currentUser) ? 'like-icon--active' : '' }}" data-action="like" data-model="App\Models\Quote" data-id="{{ $quote->id }}">favorite</span>
 
-                    <p class="like-container__counter">{{ $quote->likesCount() }}</p>
+                    <p class="like-container__counter">{{ $quote->likesCount() ?: '' }}</p>
                 </div>
 
                 <div class="dropdown favorite-dropdown">
@@ -48,7 +48,20 @@
                             <p class="favorite-form__title">Выберите папку:</p>
 
                             @foreach ($userFolders as $folder)
-                                <label class="label"><input type="checkbox" value="{{ $folder->id }}" @checked($quote->favoritedBy($currentUser, $folder->id))>{{ $folder->name }}</label>
+                                @if ($folder->childs->count())
+                                    <div class="favorite-form__item">
+                                        <label class="label"><input type="checkbox" value="{{ $folder->id }}" @checked($quote->favoritedBy($currentUser, $folder->id))>{{ $folder->name }}</label>
+
+                                        <div class="favorite-form__item-childs">
+                                            <p class="favorite-form__title">Подпапки:</p>
+                                            @foreach ($folder->childs as $child)
+                                                <label class="label"><input type="checkbox" value="{{ $child->id }}" @checked($quote->favoritedBy($currentUser, $child->id))>{{ $child->name }}</label>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @else
+                                    <label class="label"><input type="checkbox" value="{{ $folder->id }}" @checked($quote->favoritedBy($currentUser, $folder->id))>{{ $folder->name }}</label>
+                                @endif
                             @endforeach
 
                             <button class="submit" data-action="favorite" data-model="App\Models\Quote" data-id="{{ $quote->id }}">Сохранить</button>

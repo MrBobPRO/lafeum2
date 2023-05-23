@@ -31,12 +31,12 @@ class AppServiceProvider extends ServiceProvider
             $view->with('currentUser', auth()->user());
 
             if(auth()->user()) {
-                $view->with('userFolders', auth()->user()->folders);
+                $view->with('userFolders', auth()->user()->rootFolders);
             }
         });
 
         View::composer('layouts.profile-leftbar', function ($view) {
-            $user = request()->user()->load('folders');
+            $user = request()->user()->load('rootFolders');
 
             $view->with('user', $user)
                 ->with('routeName', Route::currentRouteName());

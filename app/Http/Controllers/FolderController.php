@@ -35,16 +35,9 @@ class FolderController extends Controller
             'name' => ['string', 'max:255']
         ]);
 
-        $name = $request->name;
-
-        if($request->user()->folders->contains('name', $name)) {
-            return redirect()->back()->withErrors(['name' => 'unique'])->withInput();
-
-        } else {
-            $request->user()->folders()->save(
-                new Folder(['name' => $name, 'slug' => Helper::generateUniqueSlug($name, Folder::class)])
-            );
-        }
+        $request->user()->folders()->save(
+            new Folder(['name' => $request->name, 'parent_id' => $request->parent_id])
+        );
 
         return redirect()->back();
     }

@@ -17,19 +17,24 @@
 
                     <div class="form-group">
                         @error('name')
-                            <label class="label" for="name">Имя папки. Папка с таким именем уже существует!<span class="required">*</span></label>
-                        @else
-                            <label class="label" for="name">Имя папки<span class="required">*</span></label>
+                            <label class="label">Папка с таким именем уже существует!</label>
                         @enderror
 
                         <div class="create-folder__form-divider">
-                            <input class="input @error('name')input--error @enderror" type="text" name="name" id="name" value="{{ old('name') }}" required>
+                            <input class="input @error('name')input--error @enderror" type="text" name="name" id="name" value="{{ old('name') }}" placeholder="Имя папки" required>
+
+                            <select class="select" name="parent_id">
+                                <option value="">Без родителя</option>
+                                @foreach ($folders as $folder)
+                                    <option value="{{ $folder->id }}">{{ $folder->name }}</option>
+                                @endforeach
+                            </select>
+
                             <button class="submit">Добавить</button>
                         </div>
                     </div>
                 </form>
             </div>
-
 
             {{-- Folders List --}}
             <div class="folders-list-container">
@@ -38,10 +43,15 @@
                 <div class="folders-list">
                     @foreach ($folders as $folder)
                         <div class="folders-list__item">
-                            <a class="folders-list__link" href="{{ route('favorites.folder', $folder->slug) }}">
-                                <span class="material-symbols-outlined">folder</span>
-                                <p class="folders-list__name">{{ $folder->name }}</p>
+                            <a class="folders-list__link" href="{{ route('favorites.folder', $folder->id) }}">
+                               <span class="material-symbols-outlined">folder</span> {{ $folder->name }}
                             </a>
+
+                            @foreach ($folder->childs as $child)
+                                <a class="folders-list__link folders-list__link--child" href="{{ route('favorites.folder', $child->id) }}">
+                                    <span class="material-symbols-outlined">folder</span> {{ $child->name }}
+                                </a>
+                            @endforeach
                         </div>
                     @endforeach
                 </div>

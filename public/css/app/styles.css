@@ -882,6 +882,10 @@ a {
     font-family: sans-serif;
 }
 
+.like-container__counter:empty {
+    display: none;
+}
+
 .ya-share2__link.ya-share2__link_more {
     background-color: transparent !important;
     padding: 2px 0 !important;
@@ -925,6 +929,30 @@ a {
     flex-direction: column;
     gap: 4px;
     padding: 8px;
+}
+
+.favorite-form__item {
+    position: relative;
+}
+
+.favorite-form__item-childs {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    left: 100%;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
+    padding: 8px;
+    width: 180px;
+    margin-left: 10px;
+    top: -4px;
+}
+
+.favorite-form__item:hover .favorite-form__item-childs {
+    opacity: 1;
+    visibility: visible;
 }
 
 .favorite-form__title {
@@ -1893,6 +1921,14 @@ a {
     color: #CCCCCC;
 }
 
+.profile-leftbar__sublinks-childs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 20px;
+    gap: 12px;
+}
+
 /* Profiled pages content */
 .profiled-page-content {
     height: 100%;
@@ -2002,7 +2038,7 @@ a {
     gap: 20px;
 }
 
-.create-folder__form .input {
+.create-folder__form .input, .create-folder__form .select {
     flex-grow: 1;
 }
 
@@ -2012,33 +2048,36 @@ a {
 
 .folders-list {
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .folders-list__item {
-    width: 12.5%;
-    padding: 12px 6px;
-    display: flex;
-    justify-content: center;
+    width: 100%
 }
 
 .folders-list__link {
     display: flex;
-    flex-direction: column;
+    border: 1px solid #eaeaea;
     align-items: center;
+    gap: 8px;
+    padding: 6px;
+    transition: 0.3s;
+}
+
+.folders-list__link:hover {
+    background-color: #F7F7F7;
 }
 
 .folders-list__link span {
     font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
     color: #FFE9A3;
-    font-size: 60px;
+    font-size: 20px;
 }
 
-.folders-list__name {
-    margin: 0;
-    text-align: center;
-    line-height: 1.3;
+.folders-list__link--child {
+    margin-left: 20px;
+    margin-top: 8px;
 }
 
 /* Folders page */

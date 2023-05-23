@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('folders', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
+            $table->integer('parent_id')->nullable();
             $table->integer('user_id');
             $table->timestamps();
         });

@@ -85,7 +85,7 @@ Route::middleware('verified')->group(function () {
 
     Route::controller(FavoriteController::class)->name('favorites.')->group(function () {
         Route::get('/favorites', 'index')->name('index');
-        Route::get('/favorites/{slug}', 'folder')->name('folder');
+        Route::get('/favorites/folder/{id}', 'folder')->name('folder');
         Route::post('/favorites/toggle', 'toggle')->name('toggle');
     });
 

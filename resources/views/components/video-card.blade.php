@@ -29,7 +29,7 @@
                 <div class="like-container">
                     <span class="material-symbols-outlined like-icon {{ $video->likedBy($currentUser) ? 'like-icon--active' : '' }}" data-action="like" data-model="App\Models\Video" data-id="{{ $video->id }}">favorite</span>
 
-                    <p class="like-container__counter">{{ $video->likesCount() }}</p>
+                    <p class="like-container__counter">{{ $video->likesCount() ?: '' }}</p>
                 </div>
 
                 <div class="dropdown favorite-dropdown">
@@ -42,7 +42,20 @@
                             <p class="favorite-form__title">Выберите папку:</p>
 
                             @foreach ($userFolders as $folder)
-                                <label class="label"><input type="checkbox" value="{{ $folder->id }}" @checked($video->favoritedBy($currentUser, $folder->id))>{{ $folder->name }}</label>
+                                @if ($folder->childs->count())
+                                    <div class="favorite-form__item">
+                                        <label class="label"><input type="checkbox" value="{{ $folder->id }}" @checked($video->favoritedBy($currentUser, $folder->id))>{{ $folder->name }}</label>
+
+                                        <div class="favorite-form__item-childs">
+                                            <p class="favorite-form__title">Подпапки:</p>
+                                            @foreach ($folder->childs as $child)
+                                                <label class="label"><input type="checkbox" value="{{ $child->id }}" @checked($video->favoritedBy($currentUser, $child->id))>{{ $child->name }}</label>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @else
+                                    <label class="label"><input type="checkbox" value="{{ $folder->id }}" @checked($video->favoritedBy($currentUser, $folder->id))>{{ $folder->name }}</label>
+                                @endif
                             @endforeach
 
                             <button class="submit" data-action="favorite" data-model="App\Models\Video" data-id="{{ $video->id }}">Сохранить</button>

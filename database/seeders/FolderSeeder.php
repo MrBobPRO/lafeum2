@@ -15,11 +15,21 @@ class FolderSeeder extends Seeder
      */
     public function run(): void
     {
-        User::all()->each(function ($user) {
-            $user->folders()->saveMany([
-                new Folder(['name' => 'Основная папка', 'slug' => Helper::generateSlug('Основная папка')]),
-                new Folder(['name' => 'Разное', 'slug' => Helper::generateSlug('Разное')]),
-            ]);
-        });
+        $user = User::find(1);
+        $user->folders()->saveMany([
+            new Folder(['name' => 'Цитаты']),
+            new Folder(['name' => 'Термины']),
+            new Folder(['name' => 'Видео']),
+        ]);
+
+        $user = User::find(2);
+        $user->folders()->saveMany([
+            new Folder(['name' => 'Мои любимые']),
+            new Folder(['name' => 'Цитаты', 'parent_id' => 4]),
+            new Folder(['name' => 'Термины', 'parent_id' => 4]),
+            new Folder(['name' => 'Видео', 'parent_id' => 4]),
+            new Folder(['name' => 'Для записей']),
+            new Folder(['name' => 'Посмотреть позже']),
+        ]);
     }
 }

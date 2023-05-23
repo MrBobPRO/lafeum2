@@ -44,15 +44,15 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        $folders = request()->user()->folders;
+        $folders = request()->user()->rootFolders;
 
         return view('favorites.index', compact('folders'));
     }
 
-    public function folder($slug)
+    public function folder($id)
     {
         $user = request()->user();
-        $folder = Folder::where('slug', $slug)->where('user_id', $user->id)->firstOrFail();
+        $folder = Folder::where('id', $id)->where('user_id', $user->id)->firstOrFail();
         $items = $user->getFoldersItems($folder->id);
 
         // Manual Pagination
