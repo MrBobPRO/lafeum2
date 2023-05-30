@@ -77,7 +77,11 @@
                     </div>
                 </div>
             @else
-                <span class="material-symbols-outlined like-icon" data-action="redirect" data-url="{{ route('login') }}">favorite</span>
+                <div class="like-container">
+                    <span class="material-symbols-outlined like-icon" data-action="redirect" data-url="{{ route('login') }}">favorite</span>
+
+                    <p class="like-container__counter">{{ $term->likesCount() ?: '' }}</p>
+                </div>
 
                 <span class="material-symbols-outlined favorite-icon" data-action="redirect" data-url="{{ route('login') }}">bookmark</span>
             @endauth
