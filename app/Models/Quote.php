@@ -18,6 +18,7 @@ class Quote extends Model
     use Likeable;
 
     protected $guarded = ['id'];
+    public static $tag = 'quotes'; // used in dashboard
 
     public function author()
     {

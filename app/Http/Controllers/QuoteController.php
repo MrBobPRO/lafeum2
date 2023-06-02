@@ -6,6 +6,8 @@ use App\Models\Quote;
 use App\Http\Requests\StoreQuoteRequest;
 use App\Http\Requests\UpdateQuoteRequest;
 use App\Models\QuoteCategory;
+use App\Support\Helpers\Helper;
+use Illuminate\Http\Request;
 
 class QuoteController extends Controller
 {
@@ -35,7 +37,27 @@ class QuoteController extends Controller
             ->published('desc')
             ->paginate(20);
 
-        return view('quotes.category', compact('category' ,'categories', 'quotes'));
+        return view('quotes.category', compact('category', 'categories', 'quotes'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function dashboardIndex(Request $request)
+    {
+        // order parameters
+        $params = Helper::generatePageParams($request, 'publish_at', 'desc');
+
+        // used in search & counter
+        $allItems = Quote::select('id')->get();
+        $items = Quote::join('authors', 'quotes.author_id', '=', 'authors.id')
+            ->select('quotes.id', 'quotes.body', 'quotes.notes', 'quotes.publish_at', 'authors.name as author')
+            ->orderBy($params['orderBy'], $params['orderType'])
+            ->with('categories')
+            ->paginate(30, ['*'], 'page', $params['currentPage'])
+            ->appends($request->except('page'));
+
+        return view('dashboard.quotes.index', compact('params', 'items', 'allItems'));
     }
 
     /**

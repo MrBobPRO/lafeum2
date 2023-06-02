@@ -8,13 +8,7 @@
 
 namespace App\Support\Helpers;
 
-use App\Models\Atx;
-use App\Models\Category;
-use App\Models\Nosology;
-use App\Models\Post;
-use App\Models\Product;
-use App\Models\Top;
-use App\Models\Video;
+use App\Models\Quote;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Image;
@@ -189,6 +183,19 @@ class Helper
     return $orderType == 'asc' ? 'desc' : 'asc';
   }
 
+  public static function generatePageParams($request, $orderBy, $orderType)
+  {
+    $params = [
+        'orderBy' => $request->orderBy ?: $orderBy,
+        'orderType' => $request->orderType ?: $orderType,
+        'currentPage' => $request->page ?: '1',
+    ];
+
+    $params['reversedOrderType'] = self::reverseOrderType($params['orderType']);
+
+    return $params;
+  }
+
   /**
    * Fill Eloquent Model Items fields from request by loop. Used while storing & updating Eloquent Model item
    *
@@ -343,32 +350,8 @@ class Helper
     $route = Route::currentRouteName();
     $modelTag = 'undefined';
 
-    if (strpos($route, 'products') !== false) {
-      return Product::$tag;
-    }
-
-    if (strpos($route, 'atx') !== false) {
-      return Atx::$tag;
-    }
-
-    if (strpos($route, 'nosology') !== false) {
-      return Nosology::$tag;
-    }
-
-    if (strpos($route, 'posts') !== false) {
-      return Post::$tag;
-    }
-
-    if (strpos($route, 'categories') !== false) {
-      return Category::$tag;
-    }
-
-    if (strpos($route, 'top') !== false) {
-      return Top::$tag;
-    }
-
-    if (strpos($route, 'videos') !== false) {
-      return Video::$tag;
+    if (strpos($route, 'quotes') !== false) {
+      return Quote::$tag;
     }
 
     return $modelTag;

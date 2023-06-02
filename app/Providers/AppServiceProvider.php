@@ -3,8 +3,7 @@
 namespace App\Providers;
 
 use App\Models\DailyPost;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
+use App\Support\Helpers\Helper;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -44,6 +43,11 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('pages.profile', function ($view) {
             $view->with('user', request()->user());
+        });
+
+        View::composer('dashboard.layouts.app', function ($view) {
+            $view->with('routeName', Route::currentRouteName())
+                ->with('modelTag', Helper::getModelTag());;
         });
     }
 }

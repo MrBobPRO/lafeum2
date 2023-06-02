@@ -86,7 +86,7 @@ document.querySelectorAll('.accordion__button').forEach((item) => {
                 // remove active button class
                 let activeCollapseItem = activeCollapse.closest('.accordion__item');
                 let activeCollapseButton = activeCollapseItem.querySelector('.accordion__button')
-                activeCollapseButton.classList.remove('accordion__collapse--show');
+                activeCollapseButton.classList.remove('accordion__button--active');
             }
         });
 
