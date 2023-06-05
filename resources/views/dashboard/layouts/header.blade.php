@@ -26,13 +26,13 @@
 
             @if (in_array('multiselect', $actions))
                 <li>
-                    <button data-action="select-all">
+                    <button class="header__action-select-all">
                         <span class="material-symbols-outlined">done_all</span> Отметить все
                     </button>
                 </li>
 
                 <li>
-                    <button data-bs-toggle="modal" data-bs-target="#destroy-multiple-items-modal">
+                    <button data-action="show-modal" data-modal-target=".modal--multiple-destroy">
                         <span class="material-symbols-outlined">clear</span> Удалить отмеченные
                     </button>
                 </li>

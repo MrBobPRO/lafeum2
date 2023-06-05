@@ -48,9 +48,13 @@ class QuoteController extends Controller
         // order parameters
         $params = Helper::generatePageParams($request, 'publish_at', 'desc');
 
+        // search keyword maybe used
+        $params['keyword'] = $request->keyword;
+
         // used in search & counter
         $allItems = Quote::select('id')->get();
-        $items = Quote::join('authors', 'quotes.author_id', '=', 'authors.id')
+        $items = Quote::where('quotes.body', 'LIKE', '%' . $params['keyword'] . '%')
+            ->join('authors', 'quotes.author_id', '=', 'authors.id')
             ->select('quotes.id', 'quotes.body', 'quotes.notes', 'quotes.publish_at', 'authors.name as author')
             ->orderBy($params['orderBy'], $params['orderType'])
             ->with('categories')
@@ -58,6 +62,26 @@ class QuoteController extends Controller
             ->appends($request->except('page'));
 
         return view('dashboard.quotes.index', compact('params', 'items', 'allItems'));
+    }
+
+    public function dashboardSearch(Request $request)
+    {
+        // order parameters
+        $params = Helper::generatePageParams($request, 'publish_at', 'desc');
+        $params['keyword'] = $request->keyword;
+
+        // used in search & counter
+        $items = Quote::where('quotes.body', 'LIKE', '%' . $params['keyword'] . '%')
+            ->join('authors', 'quotes.author_id', '=', 'authors.id')
+            ->select('quotes.id', 'quotes.body', 'quotes.notes', 'quotes.publish_at', 'authors.name as author')
+            ->orderBy($params['orderBy'], $params['orderType'])
+            ->with('categories')
+            ->paginate(30, ['*'], 'page', $params['currentPage'])
+            ->appends(['keyword' => $request->keyword]);
+
+        $items->withPath(route('quotes.dashboard.index'));
+
+        return view('dashboard.tables.quotes', compact('params', 'items'));
     }
 
     /**
@@ -103,8 +127,8 @@ class QuoteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Quote $quote)
+    public function destroy(Request $request)
     {
-        //
+        dd($request->input('id'));
     }
 }

@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('user', request()->user());
         });
 
-        View::composer('dashboard.layouts.app', function ($view) {
+        View::composer('dashboard.*', function ($view) {
             $view->with('routeName', Route::currentRouteName())
                 ->with('modelTag', Helper::getModelTag());;
         });

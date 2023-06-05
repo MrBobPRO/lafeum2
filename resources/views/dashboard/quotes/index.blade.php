@@ -17,4 +17,7 @@
             @include('dashboard.tables.quotes', ['quotes' => $items])
         </div>
     </div>
+
+    @include('dashboard.modals.single-destroy')
+    @include('dashboard.modals.multiple-destroy')
 @endsection
