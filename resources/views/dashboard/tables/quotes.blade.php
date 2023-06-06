@@ -1,4 +1,4 @@
-<table class="table" cellpadding="8" cellspacing="10">
+<table class="table" cellpadding="10" cellspacing="10">
     {{-- Head start --}}
     <thead>
         <tr>

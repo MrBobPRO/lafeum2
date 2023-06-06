@@ -19,7 +19,7 @@ Route::middleware('admin')->prefix('dashboard')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
         Route::get('/create', 'create')->name('create');
         Route::get('/trash', 'trash')->name('trash');
-        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::get('/edit/{item}', 'edit')->name('edit');
         Route::get('/search', 'dashboardSearch')->name('dashboard.search');
 
         Route::post('/store', 'store')->name('store');

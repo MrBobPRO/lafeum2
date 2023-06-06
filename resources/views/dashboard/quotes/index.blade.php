@@ -10,7 +10,7 @@
 ])
 
 @section('main')
-    @include('dashboard.layouts.default-search', ['action' => route('quotes.dashboard.search')])
+    @include('dashboard.layouts.default-search')
 
     <div class="table-container">
         <div class="table-container__inner">

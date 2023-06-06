@@ -1,4 +1,4 @@
-<aside class="aside">
+<aside class="aside thin-scrollbar">
     <nav class="navbar">
         {{-- Main Links --}}
         <ul class="menu">

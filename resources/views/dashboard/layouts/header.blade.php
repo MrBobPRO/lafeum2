@@ -15,28 +15,40 @@
         </ul>
 
         {{-- Actions --}}
-        <ul class="header__actions">
+        <div class="header__actions">
             @if (in_array('create', $actions))
-                <li>
-                    <a href="{{ route($modelTag . '.create') }}">
-                        <span class="material-symbols-outlined">add</span> Добавить
-                    </a>
-                </li>
+                <a href="{{ route($modelTag . '.create') }}">
+                    <span class="material-symbols-outlined">add</span> Добавить
+                </a>
+            @endif
+
+            @if (in_array('store', $actions))
+                <button type="submit" form="create-form">
+                    <span class="material-symbols-outlined">done_all</span> Добавить
+                </button>
+            @endif
+
+            @if (in_array('update', $actions))
+                <button type="submit" form="update-form">
+                    <span class="material-symbols-outlined">done_all</span> Обновить
+                </button>
             @endif
 
             @if (in_array('multiselect', $actions))
-                <li>
-                    <button class="header__action-select-all">
-                        <span class="material-symbols-outlined">done_all</span> Отметить все
-                    </button>
-                </li>
+                <button class="header__action-select-all">
+                    <span class="material-symbols-outlined">done_all</span> Отметить все
+                </button>
 
-                <li>
-                    <button data-action="show-modal" data-modal-target=".modal--multiple-destroy">
-                        <span class="material-symbols-outlined">clear</span> Удалить отмеченные
-                    </button>
-                </li>
+                <button data-action="show-modal" data-modal-target=".modal--multiple-destroy">
+                    <span class="material-symbols-outlined">clear</span> Удалить отмеченные
+                </button>
             @endif
-        </ul>
+
+            @if (in_array('destroy', $actions))
+                <button data-action="show-modal" data-modal-target=".modal--single-destroy">
+                    <span class="material-symbols-outlined">done_all</span> Удалить
+                </button>
+            @endif
+        </div>
     </div> {{-- Body end --}}
 </header>

@@ -29,7 +29,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route($request->user()->isAdmin() ? 'dashboard' : 'home');
+        return redirect()->route($request->user()->isAdmin() ? 'quotes.dashboard.index' : 'home');
     }
 
     /**

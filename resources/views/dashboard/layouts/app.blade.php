@@ -19,6 +19,9 @@
     {{-- Simditor v2.3.28 --}}
     <link rel="stylesheet" href="{{ asset('plugins/simditor/simditor.css') }}">
 
+    {{-- JQuery DateTimePicker --}}
+    <link rel="stylesheet" href="{{ asset('plugins/date-time-picker/styles.min.css') }}">
+
     {{-- Normalize CSS --}}
     <link rel="stylesheet" href="{{ asset('plugins/normalize.css') }}">
 
@@ -40,6 +43,10 @@
 
     {{-- Selectize --}}
     <script src="{{ asset('plugins/selectize/selectize.min.js') }}"></script>
+
+    {{-- JQuery DateTimePicker --}}
+    {{-- https://www.jqueryscript.net/time-clock/Clean-jQuery-Date-Time-Picker-Plugin-datetimepicker.html --}}
+    <script src="{{ asset('plugins/date-time-picker/script.min.js') }}"></script>
 
     {{-- Simditor v2.3.28 --}}
     <script src="{{ asset('plugins/simditor/module.js') }}"></script>

@@ -4,8 +4,86 @@ let spinner = document.querySelector('.spinner');
 window.onload = function () {
     setupAccordionActiveCollapse()
     highlightNavbarLink();
+
+    // Initialize Selectizes
+    $('.selectize-singular').selectize({
+        //options
+    });
+
+    $('.selectize-singular--linked').selectize({
+        onChange(value) {
+            window.location = value;
+        }
+    });
+
+    $('.selectize-multiple').selectize({
+        //options
+    });
+
+    $('.date-time-picker').datetimepicker({
+        // mask: '9999/19/39 29:59',
+        format: 'Y-m-d H:i:s',
+        formatTime: 'H:i:s',
+        formatDate: 'Y-m-d',
+        value: getCurrentDateAndTime(),
+        lang: 'ru',
+    });
 };
 
+
+function getCurrentDateAndTime() {
+    let currentdate = new Date();
+
+    return currentdate.getFullYear() + '-'
+        + String(currentdate.getMonth() + 1).padStart(2, '0') + '-'
+        + String(currentdate.getDate()).padStart(2, '0') + ' '
+        + String(currentdate.getHours()).padStart(2, '0') + ':'
+        + String(currentdate.getMinutes()).padStart(2, '0') + ':'
+        + String(currentdate.getSeconds()).padStart(2, '0');
+}
+
+
+// ************ Simditor WYSIWYG ************
+Simditor.locale = 'ru-RU';
+let wysiwygs = [];
+let simditorTextareas = document.querySelectorAll('.wysiwyg-textarea');
+
+for (let i = 0; i < simditorTextareas.length; i++) {
+    wysiwygs.push(
+        new Simditor({
+            textarea: simditorTextareas[i],
+            toolbarFloatOffset: '60px',
+            imageButton: 'upload',
+            toolbar: ['title', 'bold', 'italic', 'underline', 'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'hr', '|', 'indent', 'outdent', 'alignment'] //image removed
+            // cleanPaste: true, //clear all styles after pasting,
+        })
+    );
+}
+
+// let imagedWysiwygs = [];
+// let simditorImagedTextareas = document.querySelectorAll('.simditor-wysiwyg--imaged');
+
+// for (let i = 0; i < simditorImagedTextareas.length; i++) {
+//     imagedWysiwygs.push(
+//         new Simditor({
+//             textarea: simditorImagedTextareas[i],
+//             toolbarFloatOffset: '60px',
+//             imageButton: 'upload',
+//             toolbar: ['title', 'bold', 'italic', 'underline', 'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'hr', '|', 'indent', 'outdent', 'alignment', 'image'],
+//             upload: {
+//                 url: '/upload-simditor-image',   // image upload url by server
+//                 params: { // additional parameters for request
+//                     folder: 'posts'
+//                 },
+//                 fileKey: 'image', // input name
+//                 connectionCount: 10,
+//                 leaveConfirm: 'Пожалуйста дождитесь окончания загрузки изображений на сервер! Вы уверены что хотите закрыть страницу?'
+//             },
+//             defaultImage: '/img/dashboard/default-image.png', // default image thumb while uploading
+//         })
+//     );
+// }
+// ************ /END Simditor WYSIWYG ************
 
 // debounce function
 function debounce(callback, timeoutDelay = 500) {

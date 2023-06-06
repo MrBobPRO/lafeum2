@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Quote;
 use App\Http\Requests\StoreQuoteRequest;
 use App\Http\Requests\UpdateQuoteRequest;
+use App\Models\Author;
 use App\Models\QuoteCategory;
 use App\Support\Helpers\Helper;
 use Illuminate\Http\Request;
@@ -89,7 +90,10 @@ class QuoteController extends Controller
      */
     public function create()
     {
-        //
+        $authors = $this->getAuthorsForDash();
+        $categories = $this->getCategoriesForDash();
+
+        return view('dashboard.quotes.create', compact('authors', 'categories'));
     }
 
     /**
@@ -97,7 +101,10 @@ class QuoteController extends Controller
      */
     public function store(StoreQuoteRequest $request)
     {
-        //
+        $quote = Quote::create($request->all());
+        $quote->categories()->attach($request->input('categories'));
+
+        return redirect()->route('quotes.dashboard.index');
     }
 
     /**
@@ -111,9 +118,13 @@ class QuoteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Quote $quote)
+    public function edit(Quote $item)
     {
-        //
+        $item->load(['categories', 'author']);
+        $authors = $this->getAuthorsForDash();
+        $categories = $this->getCategoriesForDash();
+
+        return view('dashboard.quotes.edit', compact('authors', 'categories', 'item'));
     }
 
     /**
@@ -130,5 +141,23 @@ class QuoteController extends Controller
     public function destroy(Request $request)
     {
         dd($request->input('id'));
+    }
+
+    private function getAuthorsForDash()
+    {
+        $authors = Author::orderBy('name', 'asc')
+            ->select('name', 'id')
+            ->get();
+
+        return $authors;
+    }
+
+    private function getCategoriesForDash()
+    {
+        $authors = QuoteCategory::orderBy('name', 'asc')
+            ->select('name', 'id')
+            ->get();
+
+        return $authors;
     }
 }
