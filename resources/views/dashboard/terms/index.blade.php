@@ -1,10 +1,10 @@
 @extends('dashboard.layouts.app', [
     'breadcrumbs' => [
-        'Цитаты',
-        'Корзина - ' . count($allItems) . ' элементов',
+        'Все термины - ' . count($allItems) . ' элементов'
     ],
 
     'actions' => [
+        'create',
         'multiselect',
         'multiple-destroy'
     ]
@@ -14,10 +14,9 @@
     @include('dashboard.searches.default')
 
     <div class="table-container">
-        @include('dashboard.tables.quotes')
+        @include('dashboard.tables.terms')
     </div>
 
     @include('dashboard.modals.single-destroy')
-    @include('dashboard.modals.single-restore')
     @include('dashboard.modals.multiple-destroy')
 @endsection

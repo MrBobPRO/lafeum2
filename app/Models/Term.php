@@ -19,13 +19,14 @@ class Term extends Model
     use Likeable;
 
     protected $guarded = ['id'];
+    public static $tag = 'terms';  // used only in dashboard
 
     public function categories()
     {
         return $this->belongsToMany(TermCategory::class, 'category_term', 'term_id', 'category_id');
     }
 
-    public function knowledge()
+    public function knowledges()
     {
         return $this->belongsToMany(Knowledge::class);
     }

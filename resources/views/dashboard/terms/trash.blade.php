@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app', [
     'breadcrumbs' => [
-        'Цитаты',
+        'Термины',
         'Корзина - ' . count($allItems) . ' элементов',
     ],
 
@@ -14,7 +14,7 @@
     @include('dashboard.searches.default')
 
     <div class="table-container">
-        @include('dashboard.tables.quotes')
+        @include('dashboard.tables.terms')
     </div>
 
     @include('dashboard.modals.single-destroy')

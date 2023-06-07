@@ -42,25 +42,24 @@ class QuoteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the specified resource.
      */
+    public function show(Quote $quote)
+    {
+        return view('quotes.show', compact('quote'));
+    }
+
+
+    // ******************** DASHBOARD ROUTES START ********************
+
     public function dashboardIndex(Request $request)
     {
         // order parameters
         $params = Helper::generatePageParams($request, 'publish_at', 'desc');
 
-        // search keyword maybe used
-        $params['keyword'] = $request->keyword;
-
         // used in search & counter
         $allItems = Quote::select('id')->get();
-        $items = Quote::where('quotes.body', 'LIKE', '%' . $params['keyword'] . '%')
-            ->join('authors', 'quotes.author_id', '=', 'authors.id')
-            ->select('quotes.id', 'quotes.body', 'quotes.notes', 'quotes.publish_at', 'authors.name as author')
-            ->orderBy($params['orderBy'], $params['orderType'])
-            ->with('categories')
-            ->paginate(30, ['*'], 'page', $params['currentPage'])
-            ->appends($request->except('page'));
+        $items = $this->getQuotesForDash($request, $params, $onlyTrashed = false);
 
         return view('dashboard.quotes.index', compact('params', 'items', 'allItems'));
     }
@@ -70,19 +69,9 @@ class QuoteController extends Controller
         // order parameters
         $params = Helper::generatePageParams($request, 'publish_at', 'desc');
 
-        // search keyword maybe used
-        $params['keyword'] = $request->keyword;
-
         // used in search & counter
         $allItems = Quote::onlyTrashed()->select('id')->get();
-        $items = Quote::onlyTrashed()
-            ->where('quotes.body', 'LIKE', '%' . $params['keyword'] . '%')
-            ->join('authors', 'quotes.author_id', '=', 'authors.id')
-            ->select('quotes.id', 'quotes.body', 'quotes.notes', 'quotes.publish_at', 'authors.name as author')
-            ->orderBy($params['orderBy'], $params['orderType'])
-            ->with('categories')
-            ->paginate(30, ['*'], 'page', $params['currentPage'])
-            ->appends($request->except('page'));
+        $items = $this->getQuotesForDash($request, $params, $onlyTrashed = true);
 
         return view('dashboard.quotes.trash', compact('params', 'items', 'allItems'));
     }
@@ -107,14 +96,6 @@ class QuoteController extends Controller
         $quote->categories()->attach($request->input('categories'));
 
         return redirect()->route('quotes.dashboard.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Quote $quote)
-    {
-        return view('quotes.show', compact('quote'));
     }
 
     /**
@@ -170,21 +151,40 @@ class QuoteController extends Controller
         return redirect()->back();
     }
 
+    private function getQuotesForDash($request, $params, $onlyTrashed = false)
+    {
+        $items = Quote::query();
+
+        if($onlyTrashed) {
+            $items = $items->onlyTrashed();
+        }
+
+        $items = $items->where('quotes.body', 'LIKE', '%' . $params['keyword'] . '%')
+        ->join('authors', 'quotes.author_id', '=', 'authors.id')
+        ->select('quotes.id', 'quotes.body', 'quotes.notes', 'quotes.publish_at', 'authors.name as author')
+        ->orderBy($params['orderBy'], $params['orderType'])
+        ->with('categories')
+        ->paginate(30, ['*'], 'page', $params['currentPage'])
+        ->appends($request->except('page'));
+
+        return $items;
+    }
+
     private function getAuthorsForDash()
     {
-        $authors = Author::orderBy('name', 'asc')
+        $items = Author::orderBy('name', 'asc')
             ->select('name', 'id')
             ->get();
 
-        return $authors;
+        return $items;
     }
 
     private function getCategoriesForDash()
     {
-        $authors = QuoteCategory::orderBy('name', 'asc')
+        $items = QuoteCategory::orderBy('name', 'asc')
             ->select('name', 'id')
             ->get();
 
-        return $authors;
+        return $items;
     }
 }

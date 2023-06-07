@@ -22,7 +22,7 @@
                 </div>
 
                 {{-- Termins --}}
-                <div class="accordion__item @if ($modelTag == 'termins' || $modelTag == 'knowledge') accordion__item--active accordion__item--highlight @endif">
+                <div class="accordion__item @if ($modelTag == 'terms' || $modelTag == 'knowledge') accordion__item--active accordion__item--highlight @endif">
                     <button class="accordion__button">
                         <span class="accordion__button-symbol material-symbols-outlined">notes</span>
                         <span class="accordion__button-text">Термины</span>

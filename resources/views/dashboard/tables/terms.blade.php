@@ -5,17 +5,20 @@
             {{-- Empty space for checkbox --}}
             <th width="20"></th>
 
-            <th>Цитата</th>
+            <th width="200">
+                @include('dashboard.table-components.thead-link', ['orderBy' => 'name', 'title' => 'Словарь'])
+            </th>
 
-            <th width="220">
-                @include('dashboard.table-components.thead-link', ['orderBy' => 'author', 'title' => 'Автор'])
+            <th>
+                @include('dashboard.table-components.thead-link', ['orderBy' => 'body', 'title' => 'Термин'])
+            </th>
+
+            <th width="200">
+                @include('dashboard.table-components.thead-link', ['orderBy' => 'type', 'title' => 'Тип'])
             </th>
 
             <th width="200">Категории</th>
-
-            <th width="220">
-                @include('dashboard.table-components.thead-link', ['orderBy' => 'notes', 'title' => 'Мысли автора'])
-            </th>
+            <th width="200">Область знаний</th>
 
             <th width="170">
                 @include('dashboard.table-components.thead-link', ['orderBy' => 'publish_at', 'title' => 'Опубликовано'])
@@ -30,10 +33,11 @@
         @foreach ($items as $item)
             <tr>
                 <td>@include('dashboard.table-components.checkbox')</td>
+                <td>{{ $item->name }}</td>
                 <td>
                     <div class="limited-three-lines">{!! $item->body !!}</div>
                 </td>
-                <td>{{ $item->author }}</td>
+                <td>{{ $item->type }}</td>
 
                 <td>
                     @foreach ($item->categories as $category)
@@ -42,8 +46,11 @@
                 </td>
 
                 <td>
-                    <div class="limited-three-lines">{!! $item->notes !!}</div>
+                    @foreach ($item->knowledges as $category)
+                        {{ $category->name }}<br>
+                    @endforeach
                 </td>
+
                 <td>{{ $item->publish_at }}</td>
 
                 <td class="table__actions">

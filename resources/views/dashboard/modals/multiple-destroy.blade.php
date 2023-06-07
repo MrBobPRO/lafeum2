@@ -22,7 +22,8 @@
                     Вы уверены что хотите удалить отмеченные
                     @if (strpos($routeName, '.dashboard.trash'))
                         <strong>безвозвратно</strong>
-                    @endif?
+                    @endif
+                    ?
                 </div>
 
                 <div class="modal__footer">

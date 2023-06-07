@@ -14,7 +14,7 @@
     @include('dashboard.searches.default')
 
     <div class="table-container">
-        @include('dashboard.tables.quotes', ['quotes' => $items])
+        @include('dashboard.tables.quotes')
     </div>
 
     @include('dashboard.modals.single-destroy')
