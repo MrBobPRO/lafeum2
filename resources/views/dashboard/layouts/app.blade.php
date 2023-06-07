@@ -33,7 +33,7 @@
     @include('dashboard.layouts.aside')
 
     <main class="main">
-        {{-- @include('dashboard.layouts.errors') --}}
+        @include('dashboard.layouts.errors')
         @include('dashboard.layouts.spinner')
         @yield('main')
     </main>

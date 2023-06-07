@@ -8,7 +8,7 @@
     <form class="form" id="create-form" action="{{ route($modelTag . '.store') }}" method="POST">
         @csrf
 
-        @include('dashboard.form.create.single-select', [
+        @include('dashboard.form.create-components.single-select', [
             'label' => 'Автор',
             'name' => 'author_id',
             'required' => true,
@@ -17,7 +17,7 @@
             'titleColumnName' => 'name',
         ])
 
-        @include('dashboard.form.create.multiple-select', [
+        @include('dashboard.form.create-components.multiple-select', [
             'label' => 'Категория',
             'name' => 'categories[]',
             'required' => true,
@@ -26,19 +26,19 @@
             'titleColumnName' => 'name',
         ])
 
-        @include('dashboard.form.create.wysiwyg-textarea', [
+        @include('dashboard.form.create-components.wysiwyg-textarea', [
             'label' => 'Текст цитаты',
             'name' => 'body',
             'required' => true,
         ])
 
-        @include('dashboard.form.create.wysiwyg-textarea', [
+        @include('dashboard.form.create-components.wysiwyg-textarea', [
             'label' => 'Мысли автора',
             'name' => 'notes',
             'required' => false,
         ])
 
-        @include('dashboard.form.create.input-date-time', [
+        @include('dashboard.form.create-components.date-time-input', [
             'label' => 'Дата публикации',
             'name' => 'publish_at',
             'required' => false,

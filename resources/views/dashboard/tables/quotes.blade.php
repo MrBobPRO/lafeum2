@@ -8,17 +8,17 @@
             <th>Цитата</th>
 
             <th width="220">
-                @include('dashboard.tables.thead-link', ['orderBy' => 'author', 'title' => 'Автор'])
+                @include('dashboard.table-components.thead-link', ['orderBy' => 'author', 'title' => 'Автор'])
             </th>
 
             <th width="200">Категории</th>
 
             <th width="220">
-                @include('dashboard.tables.thead-link', ['orderBy' => 'notes', 'title' => 'Мысли автора'])
+                @include('dashboard.table-components.thead-link', ['orderBy' => 'notes', 'title' => 'Мысли автора'])
             </th>
 
             <th width="170">
-                @include('dashboard.tables.thead-link', ['orderBy' => 'publish_at', 'title' => 'Опубликовано'])
+                @include('dashboard.table-components.thead-link', ['orderBy' => 'publish_at', 'title' => 'Опубликовано'])
             </th>
 
             <th width="140">Действие</th>
@@ -29,8 +29,10 @@
     <tbody>
         @foreach ($items as $item)
             <tr>
-                <td>@include('dashboard.tables.checkbox')</td>
-                <td><div class="limited-three-lines">{!! $item->body !!}</div></td>
+                <td>@include('dashboard.table-components.checkbox')</td>
+                <td>
+                    <div class="limited-three-lines">{!! $item->body !!}</div>
+                </td>
                 <td>{{ $item->author }}</td>
 
                 <td>
@@ -39,13 +41,20 @@
                     @endforeach
                 </td>
 
-                <td><div class="limited-three-lines">{!! $item->notes !!}</div></td>
+                <td>
+                    <div class="limited-three-lines">{!! $item->notes !!}</div>
+                </td>
                 <td>{{ $item->publish_at }}</td>
 
                 <td class="table__actions">
-                    @include('dashboard.tables.view-button', ['href' => route($modelTag . '.show', $item->id)])
-                    @include('dashboard.tables.edit-button')
-                    @include('dashboard.tables.destroy-button')
+                    @if ($routeName == $modelTag . '.dashboard.trash')
+                        @include('dashboard.table-components.restore-button')
+                        @include('dashboard.table-components.destroy-button')
+                    @else
+                        @include('dashboard.table-components.view-button', ['href' => route($modelTag . '.show', $item->id)])
+                        @include('dashboard.table-components.edit-button')
+                        @include('dashboard.table-components.destroy-button')
+                    @endif
                 </td>
             </tr>
         @endforeach

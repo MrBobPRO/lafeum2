@@ -17,7 +17,7 @@
 
                     <div class="accordion__collapse">
                         <a class="accordion__collapse-link" href="{{ route('quotes.dashboard.index') }}">Все цитаты</a>
-                        <a class="accordion__collapse-link" href="{{ route('quotes.trash') }}">Корзина</a>
+                        <a class="accordion__collapse-link" href="{{ route('quotes.dashboard.trash') }}">Корзина</a>
                     </div>
                 </div>
 
@@ -31,7 +31,7 @@
 
                     <div class="accordion__collapse">
                         <a class="accordion__collapse-link" href="{{ route('terms.dashboard.index') }}">Все термины</a>
-                        <a class="accordion__collapse-link" href="{{ route('terms.trash') }}">Корзина</a>
+                        <a class="accordion__collapse-link" href="{{ route('terms.dashboard.trash') }}">Корзина</a>
                         <a class="accordion__collapse-link" href="{{ route('knowledge.dashboard.index') }}">Область знаний</a>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
 
                     <div class="accordion__collapse">
                         <a class="accordion__collapse-link" href="{{ route('videos.dashboard.index') }}">Все видео</a>
-                        <a class="accordion__collapse-link" href="{{ route('videos.trash') }}">Корзина</a>
+                        <a class="accordion__collapse-link" href="{{ route('videos.dashboard.trash') }}">Корзина</a>
                     </div>
                 </div>
 
@@ -75,7 +75,7 @@
 
                     <div class="accordion__collapse">
                         <a class="accordion__collapse-link" href="{{ route('photos.dashboard.index') }}">Все фото</a>
-                        <a class="accordion__collapse-link" href="{{ route('photos.trash') }}">Корзина</a>
+                        <a class="accordion__collapse-link" href="{{ route('photos.dashboard.trash') }}">Корзина</a>
                     </div>
                 </div>
 
@@ -89,7 +89,7 @@
 
                     <div class="accordion__collapse">
                         <a class="accordion__collapse-link" href="{{ route('authors.dashboard.index') }}">Все авторы</a>
-                        <a class="accordion__collapse-link" href="{{ route('authors.trash') }}">Корзина</a>
+                        <a class="accordion__collapse-link" href="{{ route('authors.dashboard.trash') }}">Корзина</a>
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@
 
                     <div class="accordion__collapse">
                         <a class="accordion__collapse-link" href="{{ route('channels.dashboard.index') }}">Все каналы</a>
-                        <a class="accordion__collapse-link" href="{{ route('channels.trash') }}">Корзина</a>
+                        <a class="accordion__collapse-link" href="{{ route('channels.dashboard.trash') }}">Корзина</a>
                     </div>
                 </div>
             </div>

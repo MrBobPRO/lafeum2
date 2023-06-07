@@ -11,7 +11,7 @@ body {
 :root {
     --main-color: #0190CC;
     --secondary-color: #607293;
-    --success-color: #3cc997;
+    --success-color: #29a77a;
     --danger-color: #db1c30;
     --title-color: #303548;
     --text-color: #000000DE;
@@ -467,10 +467,7 @@ body::-webkit-scrollbar-thumb,
 
 /* ------------ Search ------------ */
 .search {
-    width: 100%;
-}
-
-.search__inner {
+    width: calc(100% - 56px);
     margin: 28px;
 }
 
@@ -554,12 +551,13 @@ body::-webkit-scrollbar-thumb,
 
 
 /* ------------ Main Table ------------ */
-.table-container__inner {
-    margin: 28px;
+.table-container {
+    width: 100%;
 }
 
 .table {
-    width: 100%;
+    width: calc(100% - 56px);
+    margin: 28px;
     background-color: white;
     border: 1px solid #0000001f;
     caption-side: bottom;
@@ -571,7 +569,8 @@ body::-webkit-scrollbar-thumb,
 }
 
 .table th {
-    padding: 14px 0;
+    padding-top: 14px;
+    padding-bottom: 14px;
     font-weight: 500;
     text-align: left;
 }
@@ -677,6 +676,14 @@ body::-webkit-scrollbar-thumb,
 
 .table__button--destroy:hover {
     box-shadow: 0 0 12px var(--danger-color);
+}
+
+.table__button--restore {
+    background-color: var(--success-color);
+}
+
+.table__button--restore:hover {
+    box-shadow: 0 0 12px var(--success-color);
 }
 
 /* ------------ /end Main Table ------------ */
@@ -875,6 +882,7 @@ body::-webkit-scrollbar-thumb,
     border-color: #0000001f;
     box-shadow: none;
 }
+
 /* ------------ /end Selectize ------------ */
 
 
@@ -883,15 +891,39 @@ body::-webkit-scrollbar-thumb,
     border-color: #0000001f;
 }
 
-.simditor .simditor-body, .editor-style {
+.simditor .simditor-body,
+.editor-style {
     font-size: 14px;
 }
+
 /* ------------ /end Simditor ------------ */
 
 
+/* ------------ Erros ------------ */
+.errors {
+    padding: 20px 32px;
+    font-size: 16px;
+    color: #4a1318;
+    background-color: #ffd9e6;
+    border-color: #ffd9e6;
+}
+
+.errors__title {
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.errors__list {
+    margin: 0;
+    padding-left: 20px;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+/* ------------ /end Errors ------------ */
+
+
 /* ------------ Form ------------ */
-
-
 .form {
     display: flex;
     flex-direction: column;

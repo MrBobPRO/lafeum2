@@ -65,24 +65,26 @@ class QuoteController extends Controller
         return view('dashboard.quotes.index', compact('params', 'items', 'allItems'));
     }
 
-    public function dashboardSearch(Request $request)
+    public function dashboardTrash(Request $request)
     {
         // order parameters
         $params = Helper::generatePageParams($request, 'publish_at', 'desc');
+
+        // search keyword maybe used
         $params['keyword'] = $request->keyword;
 
         // used in search & counter
-        $items = Quote::where('quotes.body', 'LIKE', '%' . $params['keyword'] . '%')
+        $allItems = Quote::onlyTrashed()->select('id')->get();
+        $items = Quote::onlyTrashed()
+            ->where('quotes.body', 'LIKE', '%' . $params['keyword'] . '%')
             ->join('authors', 'quotes.author_id', '=', 'authors.id')
             ->select('quotes.id', 'quotes.body', 'quotes.notes', 'quotes.publish_at', 'authors.name as author')
             ->orderBy($params['orderBy'], $params['orderType'])
             ->with('categories')
             ->paginate(30, ['*'], 'page', $params['currentPage'])
-            ->appends(['keyword' => $request->keyword]);
+            ->appends($request->except('page'));
 
-        $items->withPath(route('quotes.dashboard.index'));
-
-        return view('dashboard.tables.quotes', compact('params', 'items'));
+        return view('dashboard.quotes.trash', compact('params', 'items', 'allItems'));
     }
 
     /**
@@ -130,9 +132,13 @@ class QuoteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateQuoteRequest $request, Quote $quote)
+    public function update(UpdateQuoteRequest $request, Quote $item)
     {
-        //
+        $item = Quote::find($request->id);
+        $item->update($request->all());
+        $item->categories()->sync($request->input('categories'));
+
+        return redirect($request->input('previous_url'));
     }
 
     /**
@@ -140,7 +146,28 @@ class QuoteController extends Controller
      */
     public function destroy(Request $request)
     {
-        dd($request->input('id'));
+        // Permanent Delete
+        if ($request->has('permanently')) {
+            foreach ($request->input('id') as $id) {
+                Quote::withTrashed()->find($id)->forceDelete();
+            }
+
+            return redirect()->route('quotes.dashboard.trash');
+        }
+
+        // Trash
+        foreach ($request->input('id') as $id) {
+            Quote::find($id)->delete();
+        }
+
+        return redirect()->route('quotes.dashboard.index');
+    }
+
+    public function restore(Request $request)
+    {
+        Quote::onlyTrashed()->find($request->input('id'))->restore();
+
+        return redirect()->back();
     }
 
     private function getAuthorsForDash()

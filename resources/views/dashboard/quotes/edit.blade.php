@@ -7,8 +7,10 @@
 @section('main')
     <form class="form" id="edit-form" action="{{ route($modelTag . '.update') }}" method="POST">
         @csrf
+        @include('dashboard.form.edit-components.id-input')
+        @include('dashboard.form.edit-components.previous-url-input')
 
-        @include('dashboard.form.edit.single-select', [
+        @include('dashboard.form.edit-components.single-select', [
             'label' => 'Автор',
             'name' => 'author_id',
             'required' => true,
@@ -18,7 +20,7 @@
             'titleColumnName' => 'name',
         ])
 
-        @include('dashboard.form.edit.multiple-select', [
+        @include('dashboard.form.edit-components.multiple-select', [
             'label' => 'Категория',
             'name' => 'categories[]',
             'required' => true,
@@ -28,19 +30,19 @@
             'titleColumnName' => 'name',
         ])
 
-        @include('dashboard.form.edit.wysiwyg-textarea', [
+        @include('dashboard.form.edit-components.wysiwyg-textarea', [
             'label' => 'Текст цитаты',
             'name' => 'body',
             'required' => true,
         ])
 
-        @include('dashboard.form.edit.wysiwyg-textarea', [
+        @include('dashboard.form.edit-components.wysiwyg-textarea', [
             'label' => 'Мысли автора',
             'name' => 'notes',
             'required' => false,
         ])
 
-        @include('dashboard.form.edit.input-date-time', [
+        @include('dashboard.form.edit-components.date-time-input', [
             'label' => 'Дата публикации',
             'name' => 'publish_at',
             'required' => false,

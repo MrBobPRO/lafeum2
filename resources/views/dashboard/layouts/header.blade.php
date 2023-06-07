@@ -24,13 +24,19 @@
 
             @if (in_array('store', $actions))
                 <button type="submit" form="create-form">
-                    <span class="material-symbols-outlined">done_all</span> Добавить
+                    <span class="material-symbols-outlined">add</span> Сохранить
                 </button>
             @endif
 
             @if (in_array('update', $actions))
-                <button type="submit" form="update-form">
+                <button type="submit" form="edit-form">
                     <span class="material-symbols-outlined">done_all</span> Обновить
+                </button>
+            @endif
+
+            @if (in_array('destroy', $actions))
+                <button data-action="show-modal" data-modal-target=".modal--single-destroy">
+                    <span class="material-symbols-outlined">done_all</span> Удалить
                 </button>
             @endif
 
@@ -38,15 +44,11 @@
                 <button class="header__action-select-all">
                     <span class="material-symbols-outlined">done_all</span> Отметить все
                 </button>
-
-                <button data-action="show-modal" data-modal-target=".modal--multiple-destroy">
-                    <span class="material-symbols-outlined">clear</span> Удалить отмеченные
-                </button>
             @endif
 
-            @if (in_array('destroy', $actions))
-                <button data-action="show-modal" data-modal-target=".modal--single-destroy">
-                    <span class="material-symbols-outlined">done_all</span> Удалить
+            @if (in_array('multiple-destroy', $actions))
+                <button data-action="show-modal" data-modal-target=".modal--multiple-destroy">
+                    <span class="material-symbols-outlined">clear</span> Удалить отмеченные
                 </button>
             @endif
         </div>

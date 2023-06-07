@@ -20,7 +20,8 @@ window.onload = function () {
         //options
     });
 
-    $('.date-time-picker').datetimepicker({
+    // Set input value NOW for create pages
+    $('.date-time-picker[value=""]').datetimepicker({
         // mask: '9999/19/39 29:59',
         format: 'Y-m-d H:i:s',
         formatTime: 'H:i:s',
@@ -28,9 +29,18 @@ window.onload = function () {
         value: getCurrentDateAndTime(),
         lang: 'ru',
     });
+
+    $('.date-time-picker[value!=""]').datetimepicker({
+        // mask: '9999/19/39 29:59',
+        format: 'Y-m-d H:i:s',
+        formatTime: 'H:i:s',
+        formatDate: 'Y-m-d',
+        lang: 'ru',
+    });
 };
 
 
+// Used in JQuery Date Time plugin
 function getCurrentDateAndTime() {
     let currentdate = new Date();
 
@@ -197,11 +207,23 @@ document.querySelectorAll('[data-action="hide-modal"]').forEach((item) => {
     });
 });
 
-// Show modal on delete item click
+// Single Item Destroy Modal
 document.querySelectorAll('.table__button--destroy').forEach((item) => {
     item.addEventListener('click', (evt) => {
         let modal = document.querySelector('.modal--single-destroy');
         let input = modal.querySelector('[name="id[]"]');
+
+        // Change input value and show modal
+        input.value = evt.target.dataset.itemId;
+        modal.classList.add('modal--visible');
+    });
+});
+
+// Single Item Restore Modal
+document.querySelectorAll('.table__button--restore').forEach((item) => {
+    item.addEventListener('click', (evt) => {
+        let modal = document.querySelector('.modal--single-restore');
+        let input = modal.querySelector('[name="id"]');
 
         // Change input value and show modal
         input.value = evt.target.dataset.itemId;
@@ -220,29 +242,29 @@ document.querySelectorAll('[data-on-submit="show-spinner"]').forEach((item) => {
 
 
 // ************ SEARCH ************
-document.querySelectorAll('.search__form').forEach((form) => {
-    form.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-        spinner.classList.add('spinner--visible');
+// document.querySelectorAll('.search__form').forEach((form) => {
+//     form.addEventListener('submit', (evt) => {
+//         evt.preventDefault();
+//         spinner.classList.add('spinner--visible');
 
-        let action = evt.target.action;
-        let keyword = form.querySelector('.search__input').value;
-        let tableContainer = document.querySelector('.table-container__inner');
+//         let action = evt.target.action;
+//         let keyword = form.querySelector('.search__input').value;
+//         let tableContainer = document.querySelector('.table-container');
 
-        const xhttp = new XMLHttpRequest();
-        xhttp.onloadend = function () {
-            if (xhttp.status == 200) {
-                tableContainer.innerHTML = this.responseText;
-                spinner.classList.remove('spinner--visible');
-            } else {
-                spinner.classList.remove('spinner--visible');
-                alert('search error!');
-            }
-        }
+//         const xhttp = new XMLHttpRequest();
+//         xhttp.onloadend = function () {
+//             if (xhttp.status == 200) {
+//                 tableContainer.innerHTML = this.responseText;
+//                 spinner.classList.remove('spinner--visible');
+//             } else {
+//                 spinner.classList.remove('spinner--visible');
+//                 alert('search error!');
+//             }
+//         }
 
-        xhttp.open('GET', action + '?keyword=' + keyword, true);
-        xhttp.send();
-    });
-});
+//         xhttp.open('GET', action + '?keyword=' + keyword, true);
+//         xhttp.send();
+//     });
+// });
 
 // ************ /END SEARCH ************

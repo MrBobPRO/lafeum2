@@ -11,7 +11,7 @@ class UpdateQuoteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class UpdateQuoteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'publish_at' => 'date_format:Y-m-d H:i:s'
+        ];
+    }
+
+    public function messages() :array
+    {
+        return [
+            'publish_at.date_format' => 'Неверный формат даты публикации'
         ];
     }
 }

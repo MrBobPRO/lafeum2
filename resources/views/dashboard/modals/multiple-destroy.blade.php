@@ -6,6 +6,10 @@
             <form class="modal__form" id="multiple-destroy-form" action="{{ route($modelTag . '.destroy') }}" method="POST" data-on-submit="show-spinner">
                 @csrf
 
+                @if (strpos($routeName, '.dashboard.trash'))
+                    <input type="hidden" name="permanently" value="1">
+                @endif
+
                 <div class="modal__header">
                     <p class="modal__header-title">Удалить</p>
 
@@ -15,7 +19,10 @@
                 </div>
 
                 <div class="modal__body">
-                    Вы уверены что хотите удалить отмеченные?
+                    Вы уверены что хотите удалить отмеченные
+                    @if (strpos($routeName, '.dashboard.trash'))
+                        <strong>безвозвратно</strong>
+                    @endif?
                 </div>
 
                 <div class="modal__footer">

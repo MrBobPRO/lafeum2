@@ -17,8 +17,8 @@ Route::redirect('/dashboard', '/dashboard/quotes');
 Route::middleware('admin')->prefix('dashboard')->group(function () {
     Route::controller(QuoteController::class)->prefix('/quotes')->name('quotes.')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
+        Route::get('/trash', 'dashboardTrash')->name('dashboard.trash');
         Route::get('/create', 'create')->name('create');
-        Route::get('/trash', 'trash')->name('trash');
         Route::get('/edit/{item}', 'edit')->name('edit');
         Route::get('/search', 'dashboardSearch')->name('dashboard.search');
 
@@ -30,9 +30,9 @@ Route::middleware('admin')->prefix('dashboard')->group(function () {
 
     Route::controller(TermController::class)->prefix('/terms')->name('terms.')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
+        Route::get('/trash', 'dashboardTrash')->name('dashboard.trash');
         Route::get('/create', 'create')->name('create');
-        Route::get('/trash', 'trash')->name('trash');
-        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::get('/edit/{item}', 'edit')->name('edit');
 
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
@@ -43,7 +43,7 @@ Route::middleware('admin')->prefix('dashboard')->group(function () {
     Route::controller(KnowledgeController::class)->prefix('/knowledge')->name('knowledge.')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
         Route::get('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::get('/edit/{item}', 'edit')->name('edit');
 
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
@@ -52,9 +52,9 @@ Route::middleware('admin')->prefix('dashboard')->group(function () {
 
     Route::controller(VideoController::class)->prefix('/videos')->name('videos.')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
+        Route::get('/trash', 'dashboardTrash')->name('dashboard.trash');
         Route::get('/create', 'create')->name('create');
-        Route::get('/trash', 'trash')->name('trash');
-        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::get('/edit/{item}', 'edit')->name('edit');
 
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
@@ -65,7 +65,7 @@ Route::middleware('admin')->prefix('dashboard')->group(function () {
     Route::controller(CategoryController::class)->prefix('/categories')->name('categories.')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
         Route::get('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::get('/edit/{item}', 'edit')->name('edit');
 
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
@@ -74,9 +74,9 @@ Route::middleware('admin')->prefix('dashboard')->group(function () {
 
     Route::controller(PhotoController::class)->prefix('/photos')->name('photos.')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
+        Route::get('/trash', 'dashboardTrash')->name('dashboard.trash');
         Route::get('/create', 'create')->name('create');
-        Route::get('/trash', 'trash')->name('trash');
-        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::get('/edit/{item}', 'edit')->name('edit');
 
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
@@ -86,9 +86,9 @@ Route::middleware('admin')->prefix('dashboard')->group(function () {
 
     Route::controller(AuthorController::class)->prefix('/authors')->name('authors.')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
+        Route::get('/trash', 'dashboardTrash')->name('dashboard.trash');
         Route::get('/create', 'create')->name('create');
-        Route::get('/trash', 'trash')->name('trash');
-        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::get('/edit/{item}', 'edit')->name('edit');
 
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
@@ -98,9 +98,9 @@ Route::middleware('admin')->prefix('dashboard')->group(function () {
 
     Route::controller(ChannelController::class)->prefix('/channels')->name('channels.')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
+        Route::get('/trash', 'dashboardTrash')->name('dashboard.trash');
         Route::get('/create', 'create')->name('create');
-        Route::get('/trash', 'trash')->name('trash');
-        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::get('/edit/{item}', 'edit')->name('edit');
 
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
@@ -110,7 +110,7 @@ Route::middleware('admin')->prefix('dashboard')->group(function () {
 
     Route::controller(UserController::class)->prefix('/users')->name('users.')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
-        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::get('/edit/{item}', 'edit')->name('edit');
 
         Route::post('/update', 'update')->name('update');
         Route::post('/destroy', 'destroy')->name('destroy');
@@ -118,7 +118,7 @@ Route::middleware('admin')->prefix('dashboard')->group(function () {
 
     Route::controller(FeedbackController::class)->prefix('/feedbacks')->name('feedbacks.')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
-        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::get('/edit/{item}', 'edit')->name('edit');
 
         Route::post('/destroy', 'destroy')->name('destroy');
     });

@@ -29,4 +29,11 @@ class Quote extends Model
     {
         return $this->belongsToMany(QuoteCategory::class, 'category_quote', 'quote_id', 'category_id');
     }
+
+    protected static function booted(): void
+    {
+        static::forceDeleting(function ($quote) {
+            $quote->categories()->detach();
+        });
+    }
 }
