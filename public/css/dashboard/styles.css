@@ -994,12 +994,21 @@ body::-webkit-scrollbar-thumb,
     background-color: white;
     box-shadow: var(--theme-shadow);
     border-radius: var(--theme-border-radius);
+    font-weight: 300;
 }
 
 .nested-set li > ol {
     display: flex;
     flex-direction: column;
     gap: 6px;
+}
+
+.nested-set__item {
+    display: flex;
+    border: 1px solid #b7b7b7;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: grab;
 }
 
 .nested-set > li > .nested-set__item {
@@ -1009,24 +1018,21 @@ body::-webkit-scrollbar-thumb,
     background: #f7f7f7;
 }
 
-.nested-set__item {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #b7b7b7;
-    padding: 4px 8px;
-    border-radius: 4px;
-}
-
 .nested-set__item--collapsed + ol {
     display: none !important;
 }
 
 .nested-set__item .material-symbols-outlined {
-    font-size: 20px;
+    font-size: 18px;
     cursor: pointer;
 }
 
-.nested-set__item--collapsed .material-symbols-outlined {
+.nested-set__item--collapsed .nested-set__item-toggler {
     transform: rotate(180deg);
+}
+
+.nested-set__item-title {
+    margin-left: 8px;
+    margin-right: auto;
 }
 /* ------------ /end Nested Set ------------ */

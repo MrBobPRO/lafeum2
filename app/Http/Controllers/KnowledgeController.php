@@ -68,7 +68,6 @@ class KnowledgeController extends Controller
     public function editStructure(Request $request)
     {
         $items = Knowledge::get()->toTree();
-        // dd($items);
 
         return view('dashboard.knowledge.edit-structure', compact('items'));
     }

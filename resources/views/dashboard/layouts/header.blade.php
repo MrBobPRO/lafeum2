@@ -57,6 +57,12 @@
                     <span class="material-symbols-outlined">clear</span> Удалить отмеченные
                 </button>
             @endif
+
+            @if (in_array('update-structure', $actions))
+                <button data-action="update-nestedset">
+                    <span class="material-symbols-outlined">done_all</span> Обновить
+                </button>
+            @endif
         </div>
     </div> {{-- Body end --}}
 </header>

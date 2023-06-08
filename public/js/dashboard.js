@@ -48,13 +48,6 @@ window.onload = function () {
     });
 };
 
-document.querySelectorAll('.nested-set__item-toggler').forEach((item) => {
-    item.addEventListener('click', (evt) => {
-        evt.target.parentElement.classList.toggle('nested-set__item--collapsed');
-    });
-});
-
-
 // Used in JQuery Date Time plugin
 function getCurrentDateAndTime() {
     let currentdate = new Date();
@@ -283,3 +276,27 @@ document.querySelectorAll('[data-on-submit="show-spinner"]').forEach((item) => {
 // });
 
 // ************ /END SEARCH ************
+
+
+// ************ NESTED SET ************
+document.querySelectorAll('.nested-set__item-toggler').forEach((item) => {
+    item.addEventListener('click', (evt) => {
+        evt.target.parentElement.classList.toggle('nested-set__item--collapsed');
+    });
+});
+
+document.querySelectorAll('.nested-set__item-destroy-btn').forEach((item) => {
+    item.addEventListener('click', (evt) => {
+        evt.target.closest('li').remove();
+    });
+});
+
+let updateNestedBtn = document.querySelector('[data-action="update-nestedset"]');
+if (updateNestedBtn) {
+    updateNestedBtn.addEventListener('click', () => {
+        let hiered = $('.nested-set').nestedSortable('toHierarchy', { startDepthCount: 0 });
+        console.log(hiered);
+    });
+}
+
+// ************ /END NESTED SET ************
