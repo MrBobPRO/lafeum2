@@ -6,7 +6,7 @@
             <th width="20"></th>
 
             <th width="200">
-                @include('dashboard.table-components.thead-link', ['orderBy' => 'name', 'title' => 'Словарь'])
+                @include('dashboard.table-components.thead-link', ['orderBy' => 'name', 'title' => 'Заголовок'])
             </th>
 
             <th>
@@ -19,6 +19,8 @@
 
             <th width="200">Категории</th>
             <th width="200">Область знаний</th>
+
+            <th width="140">Отобр/словаре</th>
 
             <th width="170">
                 @include('dashboard.table-components.thead-link', ['orderBy' => 'publish_at', 'title' => 'Опубликовано'])
@@ -51,6 +53,7 @@
                     @endforeach
                 </td>
 
+                <td>{{ $item->show_in_vocabulary ? 'Да' : 'Нет' }}</td>
                 <td>{{ $item->publish_at }}</td>
 
                 <td class="table__actions">

@@ -8,10 +8,17 @@ use App\Http\Requests\UpdateQuoteRequest;
 use App\Models\Author;
 use App\Models\QuoteCategory;
 use App\Support\Helpers\Helper;
+use App\Support\Traits\Destroyable;
 use Illuminate\Http\Request;
 
 class QuoteController extends Controller
 {
+    use Destroyable;
+
+    // used in Destroyable Trait
+    public $model = Quote::class;
+    public $modelTag = 'quotes';
+
     /**
      * Display a listing of the resource.
      */
@@ -92,8 +99,8 @@ class QuoteController extends Controller
      */
     public function store(StoreQuoteRequest $request)
     {
-        $quote = Quote::create($request->all());
-        $quote->categories()->attach($request->input('categories'));
+        $item = Quote::create($request->all());
+        $item->categories()->attach($request->input('categories'));
 
         return redirect()->route('quotes.dashboard.index');
     }
@@ -115,40 +122,11 @@ class QuoteController extends Controller
      */
     public function update(UpdateQuoteRequest $request, Quote $item)
     {
-        $item = Quote::find($request->id);
+        $item = Quote::find($request->all());
         $item->update($request->all());
         $item->categories()->sync($request->input('categories'));
 
         return redirect($request->input('previous_url'));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request)
-    {
-        // Permanent Delete
-        if ($request->has('permanently')) {
-            foreach ($request->input('id') as $id) {
-                Quote::withTrashed()->find($id)->forceDelete();
-            }
-
-            return redirect()->route('quotes.dashboard.trash');
-        }
-
-        // Trash
-        foreach ($request->input('id') as $id) {
-            Quote::find($id)->delete();
-        }
-
-        return redirect()->route('quotes.dashboard.index');
-    }
-
-    public function restore(Request $request)
-    {
-        Quote::onlyTrashed()->find($request->input('id'))->restore();
-
-        return redirect()->back();
     }
 
     private function getQuotesForDash($request, $params, $onlyTrashed = false)

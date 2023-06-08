@@ -9,7 +9,7 @@ class StoreTermRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function true(): bool
     {
         return false;
     }
@@ -22,7 +22,14 @@ class StoreTermRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'publish_at' => 'date_format:Y-m-d H:i:s'
+        ];
+    }
+
+    public function messages() :array
+    {
+        return [
+            'publish_at.date_format' => 'Неверный формат даты публикации'
         ];
     }
 }

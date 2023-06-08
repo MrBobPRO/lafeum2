@@ -9,10 +9,17 @@ use App\Models\Knowledge;
 use App\Models\TermCategory;
 use App\Models\TermType;
 use App\Support\Helpers\Helper;
+use App\Support\Traits\Destroyable;
 use Illuminate\Http\Request;
 
 class TermController extends Controller
 {
+    use Destroyable;
+
+    // used in Destroyable Trait
+    public $model = Term::class;
+    public $modelTag = 'terms';
+
     /**
      * Display a listing of the resource.
      */
@@ -94,65 +101,40 @@ class TermController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreQuoteRequest $request)
+    public function store(StoreTermRequest $request)
     {
-        $quote = Quote::create($request->all());
-        $quote->categories()->attach($request->input('categories'));
+        $item = Term::create($request->all());
+        $item->categories()->attach($request->input('categories'));
+        $item->knowledges()->attach($request->input('knowledges'));
 
-        return redirect()->route('quotes.dashboard.index');
+        return redirect()->route('terms.dashboard.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Quote $item)
+    public function edit(Term $item)
     {
-        $item->load(['categories', 'author']);
-        $authors = $this->getAuthorsForDash();
+        $item->load(['categories', 'knowledges']);
+
+        $types = $this->getTypesForDash();
+        $knowledges = $this->getKnowledgesForDash();
         $categories = $this->getCategoriesForDash();
 
-        return view('dashboard.quotes.edit', compact('authors', 'categories', 'item'));
+        return view('dashboard.terms.edit', compact('item', 'types', 'knowledges', 'categories',));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateQuoteRequest $request, Quote $item)
+    public function update(UpdateTermRequest $request, Term $item)
     {
-        $item = Quote::find($request->id);
+        $item = Term::find($request->id);
         $item->update($request->all());
         $item->categories()->sync($request->input('categories'));
+        $item->knowledges()->sync($request->input('knowledges'));
 
         return redirect($request->input('previous_url'));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request)
-    {
-        // Permanent Delete
-        if ($request->has('permanently')) {
-            foreach ($request->input('id') as $id) {
-                Quote::withTrashed()->find($id)->forceDelete();
-            }
-
-            return redirect()->route('quotes.dashboard.trash');
-        }
-
-        // Trash
-        foreach ($request->input('id') as $id) {
-            Quote::find($id)->delete();
-        }
-
-        return redirect()->route('quotes.dashboard.index');
-    }
-
-    public function restore(Request $request)
-    {
-        Quote::onlyTrashed()->find($request->input('id'))->restore();
-
-        return redirect()->back();
     }
 
     private function getTermsForDash($request, $params, $onlyTrashed = false)
@@ -165,7 +147,7 @@ class TermController extends Controller
 
         $items = $items->where('terms.body', 'LIKE', '%' . $params['keyword'] . '%')
             ->join('term_types', 'terms.term_type_id', '=', 'term_types.id')
-            ->select('terms.id', 'terms.name', 'terms.body', 'terms.publish_at', 'term_types.name as type')
+            ->select('terms.id', 'terms.name', 'terms.body', 'terms.show_in_vocabulary', 'terms.publish_at', 'term_types.name as type')
             ->orderBy($params['orderBy'], $params['orderType'])
             ->with(['knowledges', 'categories'])
             ->paginate(30, ['*'], 'page', $params['currentPage'])

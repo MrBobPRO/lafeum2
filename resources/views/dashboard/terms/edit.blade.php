@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app', [
-    'breadcrumbs' => ['Цитаты', 'Редактировать', $item->id],
+    'breadcrumbs' => ['Термины', 'Редактировать', $item->id],
 
     'actions' => ['update', 'destroy'],
 ])
@@ -10,14 +10,21 @@
         @include('dashboard.form.edit-components.id-input')
         @include('dashboard.form.edit-components.previous-url-input')
 
-        @include('dashboard.form.edit-components.single-select', [
-            'label' => 'Автор',
-            'name' => 'author_id',
+        @include('dashboard.form.edit-components.text-input', [
+            'label' => 'Название (Словарь)',
+            'name' => 'name',
+            'required' => false,
+        ])
+
+        @include('dashboard.form.edit-components.wysiwyg-textarea', [
+            'label' => 'Термин',
+            'name' => 'body',
             'required' => true,
-            'options' => $authors,
-            'relationName' => 'author',
-            'valueColumnName' => 'id',
-            'titleColumnName' => 'name',
+        ])
+
+        @include('dashboard.form.edit-components.boolean-radios', [
+            'label' => 'Отображать в словаре ?',
+            'name' => 'show_in_vocabulary',
         ])
 
         @include('dashboard.form.edit-components.multiple-select', [
@@ -30,16 +37,24 @@
             'titleColumnName' => 'name',
         ])
 
-        @include('dashboard.form.edit-components.wysiwyg-textarea', [
-            'label' => 'Текст цитаты',
-            'name' => 'body',
+        @include('dashboard.form.edit-components.multiple-select', [
+            'label' => 'Область знаний',
+            'name' => 'knowledges[]',
             'required' => true,
+            'options' => $knowledges,
+            'relationName' => 'knowledges',
+            'valueColumnName' => 'id',
+            'titleColumnName' => 'name',
         ])
 
-        @include('dashboard.form.edit-components.wysiwyg-textarea', [
-            'label' => 'Мысли автора',
-            'name' => 'notes',
-            'required' => false,
+        @include('dashboard.form.edit-components.single-select', [
+            'label' => 'Тип',
+            'name' => 'term_type_id',
+            'required' => true,
+            'options' => $types,
+            'relationName' => 'termType',
+            'valueColumnName' => 'id',
+            'titleColumnName' => 'name',
         ])
 
         @include('dashboard.form.edit-components.date-time-input', [

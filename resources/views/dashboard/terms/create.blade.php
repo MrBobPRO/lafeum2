@@ -20,6 +20,11 @@
             'required' => true,
         ])
 
+        @include('dashboard.form.create-components.boolean-radios', [
+            'label' => 'Отображать в словаре ?',
+            'name' => 'show_in_vocabulary',
+        ])
+
         @include('dashboard.form.create-components.multiple-select', [
             'label' => 'Категория',
             'name' => 'categories[]',
