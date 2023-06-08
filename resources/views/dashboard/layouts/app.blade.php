@@ -44,6 +44,10 @@
     {{-- Selectize --}}
     <script src="{{ asset('plugins/selectize/selectize.min.js') }}"></script>
 
+    {{-- JQ Nested Set --}}
+    <script src="{{ asset('plugins/jquery/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('plugins/jq-nested/jq-nested-sortable.js') }}"></script>
+
     {{-- JQuery DateTimePicker --}}
     {{-- https://www.jqueryscript.net/time-clock/Clean-jQuery-Date-Time-Picker-Plugin-datetimepicker.html --}}
     <script src="{{ asset('plugins/date-time-picker/script.min.js') }}"></script>

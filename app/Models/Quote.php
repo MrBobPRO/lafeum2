@@ -32,8 +32,8 @@ class Quote extends Model
 
     protected static function booted(): void
     {
-        static::forceDeleting(function ($quote) {
-            $quote->categories()->detach();
+        static::forceDeleting(function ($item) {
+            $item->categories()->detach();
         });
     }
 }

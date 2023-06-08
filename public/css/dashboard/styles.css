@@ -978,3 +978,55 @@ body::-webkit-scrollbar-thumb,
     gap: 8px;
 }
 /* ------------ /end Form ------------ */
+
+
+/* ------------ Nested Set ------------ */
+.nested-set-container {
+    padding: 32px;
+}
+
+.nested-set {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 32px;
+    background-color: white;
+    box-shadow: var(--theme-shadow);
+    border-radius: var(--theme-border-radius);
+}
+
+.nested-set li > ol {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nested-set > li > .nested-set__item {
+    margin-bottom: 6px;
+    font-weight: 400;
+    color: black;
+    background: #f7f7f7;
+}
+
+.nested-set__item {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #b7b7b7;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.nested-set__item--collapsed + ol {
+    display: none !important;
+}
+
+.nested-set__item .material-symbols-outlined {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.nested-set__item--collapsed .material-symbols-outlined {
+    transform: rotate(180deg);
+}
+/* ------------ /end Nested Set ------------ */

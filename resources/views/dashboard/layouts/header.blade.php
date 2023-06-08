@@ -40,6 +40,12 @@
                 </button>
             @endif
 
+            @if (in_array('edit-structure', $actions))
+                <a href="{{ route($modelTag . '.edit-structure') }}">
+                    <span class="material-symbols-outlined">sort</span> Изменить структуру
+                </a>
+            @endif
+
             @if (in_array('multiselect', $actions))
                 <button class="header__action-select-all">
                     <span class="material-symbols-outlined">done_all</span> Отметить все

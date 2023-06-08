@@ -37,7 +37,22 @@ window.onload = function () {
         formatDate: 'Y-m-d',
         lang: 'ru',
     });
+
+    $('.nested-set').nestedSortable({
+        handle: 'div',
+        items: 'li',
+        toleranceElement: '> div',
+        isTree: true,
+        excludeRoot: true,
+        maxLevels: 2,
+    });
 };
+
+document.querySelectorAll('.nested-set__item-toggler').forEach((item) => {
+    item.addEventListener('click', (evt) => {
+        evt.target.parentElement.classList.toggle('nested-set__item--collapsed');
+    });
+});
 
 
 // Used in JQuery Date Time plugin

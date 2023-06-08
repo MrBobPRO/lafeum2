@@ -8,6 +8,7 @@
 
 namespace App\Support\Helpers;
 
+use App\Models\Knowledge;
 use App\Models\Quote;
 use App\Models\Term;
 use Illuminate\Support\Facades\Route;
@@ -314,15 +315,19 @@ class Helper
      */
     public static function getModelTag() :string
     {
-        $route = Route::currentRouteName();
+        $routeName = Route::currentRouteName();
         $modelTag = 'undefined';
 
-        if (strpos($route, 'quotes') !== false) {
+        if (strpos($routeName, 'quotes') !== false) {
             return Quote::$tag;
         }
 
-        if (strpos($route, 'terms') !== false) {
+        if (strpos($routeName, 'terms') !== false) {
             return Term::$tag;
+        }
+
+        if (strpos($routeName, 'knowledge') !== false) {
+            return Knowledge::$tag;
         }
 
         return $modelTag;

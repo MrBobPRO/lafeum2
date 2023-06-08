@@ -13,6 +13,7 @@ class Knowledge extends Model
 
     public $timestamps = false;
     protected $guarded = ['id'];
+    public static $tag = 'knowledge';
 
     public function terms()
     {

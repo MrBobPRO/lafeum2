@@ -37,9 +37,9 @@
 
     <button onclick="toArraySortable()">to Array</button>
 
-    <script src="{{ asset('js/jquery-3.6.4.min.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('js/jq-nested-sortable.js') }}"></script>
+    <script src="{{ asset('plugins/jquery/jquery-3.6.4.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('plugins/jq-nested/jq-nested-sortable.js') }}"></script>
 
     <script>
         $(document).ready(function(){

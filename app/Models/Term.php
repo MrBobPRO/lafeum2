@@ -60,4 +60,12 @@ class Term extends Model
         return View::make('components.subterms', compact('subterms'))->render();
     }
 
+    protected static function booted(): void
+    {
+        static::forceDeleting(function ($item) {
+            $item->categories()->detach();
+            $item->knowledges()->detach();
+        });
+    }
+
 }
