@@ -303,8 +303,24 @@ document.querySelectorAll('.nested__item-destroy-btn').forEach((item) => {
 let updateNestedBtn = document.querySelector('[data-action="update-nestedset"]');
 if (updateNestedBtn) {
     updateNestedBtn.addEventListener('click', () => {
-        let hiered = $('.nested').nestedSortable('toHierarchy', { startDepthCount: 0 });
-        console.log(hiered);
+        const params = {
+            itemsHierarchy: $('.nested').nestedSortable('toHierarchy', { startDepthCount: 0 }),
+            itemsArray: $('.nested').nestedSortable('toArray', { startDepthCount: 0 })
+        }
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onloadend = function () {
+            if (xhttp.status == 200) {
+                window.location.reload();
+            } else {
+                xhttp.abort();
+            }
+        }
+
+        xhttp.open('POST', '/dashboard/knowledge/update-nestedset', true);
+        xhttp.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        xhttp.setRequestHeader('Content-type', 'application/json');
+        xhttp.send(JSON.stringify(params));
     });
 }
 

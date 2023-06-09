@@ -67,9 +67,25 @@ class KnowledgeController extends Controller
 
     public function editNestedset(Request $request)
     {
-        $items = Knowledge::get()->toTree();
+        $items = Knowledge::defaultOrder()->get()->toTree();
 
         return view('dashboard.knowledge.edit-structure', compact('items'));
+    }
+
+    public function updateNestedset(Request $request)
+    {
+        // pluck all items id
+        $itemIDs = collect($request->itemsArray)->pluck('id');
+
+        // pluck all removed items id
+        $removedIDs = Knowledge::whereNotIn('id', $itemIDs)->pluck('id');
+
+        // Delte items explicitly (for correct working of model events)
+        foreach($removedIDs as $id) {
+            Knowledge::find($id)->delete();
+        }
+
+        Knowledge::rebuildTree($request->itemsHierarchy, true);
     }
 
     /**

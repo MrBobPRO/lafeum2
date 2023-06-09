@@ -19,4 +19,11 @@ class Knowledge extends Model
     {
         return $this->belongsToMany(Term::class);
     }
+
+    protected static function booted(): void
+    {
+        static::deleting(function ($item) {
+            $item->terms()->detach();
+        });
+    }
 }
