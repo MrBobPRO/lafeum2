@@ -5,7 +5,7 @@
     ],
 
     'actions' => [
-        'update-structure'
+        'update-nestedset'
     ]
 ])
 

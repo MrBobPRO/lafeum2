@@ -981,11 +981,11 @@ body::-webkit-scrollbar-thumb,
 
 
 /* ------------ Nested Set ------------ */
-.nested-set-container {
+.nested-container {
     padding: 32px;
 }
 
-.nested-set {
+.nested {
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -997,41 +997,58 @@ body::-webkit-scrollbar-thumb,
     font-weight: 300;
 }
 
-.nested-set li > ol {
+/* Root elements */
+.nested > .nested__item > .nested__item-body {
+    margin-bottom: 6px;
+    font-weight: 400;
+    color: black;
+}
+
+/* Direct Childs container */
+.nested .nested__item > ol {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.nested-set__item {
+/* Hide Collapsed items direct childs */
+.nested__item--collapsed > ol {
+    display: none !important;
+}
+
+/* Item body */
+.nested__item-body {
     display: flex;
     border: 1px solid #b7b7b7;
-    padding: 4px 8px;
+    padding: 6px 8px;
     border-radius: 4px;
     cursor: grab;
 }
 
-.nested-set > li > .nested-set__item {
-    margin-bottom: 6px;
-    font-weight: 400;
-    color: black;
-    background: #f7f7f7;
-}
-
-.nested-set__item--collapsed + ol {
-    display: none !important;
-}
-
-.nested-set__item .material-symbols-outlined {
+.nested__item-body .material-symbols-outlined {
     font-size: 18px;
     cursor: pointer;
 }
 
-.nested-set__item--collapsed .nested-set__item-toggler {
+.nested__item .material-symbols-outlined {
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.nested__item .material-symbols-outlined:hover {
+    background-color: #e1e1e1;
+}
+
+/* Items direct body toggler */
+.nested__item--collapsed > .nested__item-body .nested__item-toggler {
     transform: rotate(180deg);
 }
 
-.nested-set__item-title {
+.nested__item--leaf .nested__item-toggler {
+    display: none;
+}
+
+.nested__item-title {
     margin-left: 8px;
     margin-right: auto;
 }

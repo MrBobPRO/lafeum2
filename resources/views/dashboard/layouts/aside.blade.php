@@ -32,7 +32,7 @@
                     <div class="accordion__collapse">
                         <a class="accordion__collapse-link" href="{{ route('terms.dashboard.index') }}">Все термины</a>
                         <a class="accordion__collapse-link" href="{{ route('terms.dashboard.trash') }}">Корзина</a>
-                        <a class="accordion__collapse-link" href="{{ route('knowledge.dashboard.index') }}">Область знаний</a>
+                        <a class="accordion__collapse-link @if($routeName == 'knowledge.edit-nestedset') accordion__collapse-link--active @endif" href="{{ route('knowledge.dashboard.index') }}">Область знаний</a>
                     </div>
                 </div>
 

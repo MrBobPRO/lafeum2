@@ -40,8 +40,8 @@
                 </button>
             @endif
 
-            @if (in_array('edit-structure', $actions))
-                <a href="{{ route($modelTag . '.edit-structure') }}">
+            @if (in_array('edit-nestedset', $actions))
+                <a href="{{ route($modelTag . '.edit-nestedset') }}">
                     <span class="material-symbols-outlined">sort</span> Изменить структуру
                 </a>
             @endif
@@ -58,7 +58,7 @@
                 </button>
             @endif
 
-            @if (in_array('update-structure', $actions))
+            @if (in_array('update-nestedset', $actions))
                 <button data-action="update-nestedset">
                     <span class="material-symbols-outlined">done_all</span> Обновить
                 </button>

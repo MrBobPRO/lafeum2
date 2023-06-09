@@ -38,13 +38,20 @@ window.onload = function () {
         lang: 'ru',
     });
 
-    $('.nested-set').nestedSortable({
+    $('.nested').nestedSortable({
         handle: 'div',
         items: 'li',
         toleranceElement: '> div',
-        isTree: true,
         excludeRoot: true,
         maxLevels: 2,
+        isTree: true,
+        expandOnHover: 700,
+        startCollapsed: true,
+        branchClass: 'nested__item--parent',
+        leafClass: 'nested__item--leaf',
+        collapsedClass: 'nested__item--collapsed',
+        expandedClass: 'nested__item--expanded',
+        hoveringClass: 'nested__item--hover',
     });
 };
 
@@ -279,22 +286,24 @@ document.querySelectorAll('[data-on-submit="show-spinner"]').forEach((item) => {
 
 
 // ************ NESTED SET ************
-document.querySelectorAll('.nested-set__item-toggler').forEach((item) => {
+document.querySelectorAll('.nested__item-toggler').forEach((item) => {
     item.addEventListener('click', (evt) => {
-        evt.target.parentElement.classList.toggle('nested-set__item--collapsed');
+        let item = evt.target.closest('.nested__item');
+        item.classList.toggle('nested__item--collapsed');
+        item.classList.toggle('nested__item--expanded');
     });
 });
 
-document.querySelectorAll('.nested-set__item-destroy-btn').forEach((item) => {
+document.querySelectorAll('.nested__item-destroy-btn').forEach((item) => {
     item.addEventListener('click', (evt) => {
-        evt.target.closest('li').remove();
+        evt.target.closest('.nested__item').remove();
     });
 });
 
 let updateNestedBtn = document.querySelector('[data-action="update-nestedset"]');
 if (updateNestedBtn) {
     updateNestedBtn.addEventListener('click', () => {
-        let hiered = $('.nested-set').nestedSortable('toHierarchy', { startDepthCount: 0 });
+        let hiered = $('.nested').nestedSortable('toHierarchy', { startDepthCount: 0 });
         console.log(hiered);
     });
 }

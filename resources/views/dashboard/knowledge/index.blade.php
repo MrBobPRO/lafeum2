@@ -7,7 +7,7 @@
         'create',
         'multiselect',
         'multiple-destroy',
-        'edit-structure'
+        'edit-nestedset'
     ]
 ])
 

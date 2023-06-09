@@ -65,7 +65,7 @@ class KnowledgeController extends Controller
         return view('dashboard.knowledge.index', compact('params', 'items', 'allItems'));
     }
 
-    public function editStructure(Request $request)
+    public function editNestedset(Request $request)
     {
         $items = Knowledge::get()->toTree();
 

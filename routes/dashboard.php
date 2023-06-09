@@ -44,11 +44,11 @@ Route::middleware('admin')->prefix('dashboard')->group(function () {
         Route::get('/', 'dashboardIndex')->name('dashboard.index');
         Route::get('/create', 'create')->name('create');
         Route::get('/edit/{item}', 'edit')->name('edit');
-        Route::get('/edit-structure', 'editStructure')->name('edit-structure');
+        Route::get('/edit-nestedset', 'editNestedset')->name('edit-nestedset');
 
         Route::post('/store', 'store')->name('store');
         Route::post('/update', 'update')->name('update');
-        Route::post('/update-structure', 'updateStructure')->name('update-structure');
+        Route::post('/update-nestedset', 'updateNestedset')->name('update-nestedset');
         Route::post('/destroy', 'destroy')->name('destroy');
     });
 
